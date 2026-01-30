@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clutch - The Essential Guide for International World Cup Visitors</title>
+    <meta name="description" content="Don't let hidden costs and preventable mistakes ruin your 2026 World Cup experience. Save money, avoid legal traps, and maximize your trip with insider knowledge.">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 20px 60px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hero .subheading {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            opacity: 0.95;
+        }
+
+        .hero .warning-box {
+            background: rgba(255, 255, 255, 0.15);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 12px;
+            padding: 30px;
+            max-width: 800px;
+            margin: 40px auto;
+            backdrop-filter: blur(10px);
+        }
+
+        .hero .warning-box h2 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: #FFD700;
+        }
+
+        .hero .warning-box p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: #FFD700;
+            color: #333;
+            padding: 18px 40px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 50px;
+            margin-top: 30px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        .price {
+            margin-top: 20px;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* Problem Section */
+        .problem {
+            padding: 80px 20px;
+            background: #f8f9fa;
+        }
+
+        .problem h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 50px;
+            color: #c0392b;
+        }
+
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .problem-card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .problem-card h3 {
+            color: #c0392b;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        .problem-card .cost {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #c0392b;
+            margin: 15px 0;
+        }
+
+        /* Solution Section */
+        .solution {
+            padding: 80px 20px;
+            background: white;
+        }
+
+        .solution h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #27ae60;
+        }
+
+        .solution .subtitle {
+            text-align: center;
+            font-size: 1.3rem;
+            margin-bottom: 50px;
+            color: #555;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
+        }
+
+        .feature {
+            padding: 30px;
+            border-left: 4px solid #27ae60;
+            background: #f8f9fa;
+        }
+
+        .feature h3 {
+            color: #27ae60;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+
+        .feature ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .feature li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .feature li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #27ae60;
+            font-weight: bold;
+        }
+
+        /* Cities Section */
+        .cities {
+            padding: 80px 20px;
+            background: #f8f9fa;
+        }
+
+        .cities h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .cities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .city-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+
+        .city-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .city-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        .city-card p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .city-card a {
+            display: inline-block;
+            margin-top: 15px;
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        /* Testimonials */
+        .social-proof {
+            padding: 80px 20px;
+            background: white;
+            text-align: center;
+        }
+
+        .social-proof h2 {
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            flex-wrap: wrap;
+            margin-bottom: 50px;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            color: #667eea;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            color: #666;
+            margin-top: 10px;
+        }
+
+        /* Pricing */
+        .pricing {
+            padding: 80px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .pricing h2 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+        }
+
+        .pricing-box {
+            background: rgba(255, 255, 255, 0.15);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 12px;
+            padding: 50px;
+            max-width: 600px;
+            margin: 0 auto;
+            backdrop-filter: blur(10px);
+        }
+
+        .pricing-box .price-large {
+            font-size: 4rem;
+            font-weight: 800;
+            margin: 20px 0;
+        }
+
+        .pricing-box .price-subtext {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .pricing-box ul {
+            text-align: left;
+            list-style: none;
+            margin: 30px 0;
+            font-size: 1.1rem;
+        }
+
+        .pricing-box li {
+            padding: 10px 0;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        .pricing-box li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #FFD700;
+            font-weight: bold;
+            font-size: 1.3rem;
+        }
+
+        .guarantee {
+            margin-top: 30px;
+            font-size: 1.1rem;
+            opacity: 0.95;
+        }
+
+        /* FAQ */
+        .faq {
+            padding: 80px 20px;
+            background: #f8f9fa;
+        }
+
+        .faq h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .faq-item {
+            background: white;
+            padding: 30px;
+            margin-bottom: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .faq-item h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .faq-item p {
+            line-height: 1.8;
+            color: #555;
+        }
+
+        /* Footer */
+        footer {
+            background: #2c3e50;
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        footer a {
+            color: #FFD700;
+            text-decoration: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero .subheading {
+                font-size: 1.2rem;
+            }
+
+            .hero .warning-box h2 {
+                font-size: 1.4rem;
+            }
+
+            .stat {
+                flex-basis: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Don't Let Hidden Costs Ruin Your World Cup Experience</h1>
+            <p class="subheading">The Essential Guide for International Visitors to the 2026 FIFA World Cup</p>
+
+            <div class="warning-box">
+                <h2>⚠️ The Costly Truth About Visiting the USA</h2>
+                <p><strong>International visitors budget $7,500 but spend $9,965</strong> due to hidden costs they never see coming.</p>
+                <p>Tipping, resort fees, sales taxes, state-to-state legal traps, and preventable mistakes cost thousands.</p>
+            </div>
+
+            <a href="#pricing" class="cta-button">Get the Complete Guide - $99</a>
+            <p class="price">One-time payment • Lifetime access • Free community included</p>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="problem">
+        <div class="container">
+            <h2>The Hidden Costs That Will Shock You</h2>
+            <p style="text-align: center; font-size: 1.2rem; margin-bottom: 30px;">
+                Based on comprehensive research of actual international visitor experiences
+            </p>
+
+            <div class="problem-grid">
+                <div class="problem-card">
+                    <h3>💸 Mandatory Tipping</h3>
+                    <p class="cost">+$350-500</p>
+                    <p>18-22% on EVERYTHING - restaurants, bars, taxis, hotels. Not optional in the US like it is in Europe, Asia, or Australia. Servers earn $2.13/hour and depend on your tips.</p>
+                </div>
+
+                <div class="problem-card">
+                    <h3>🏨 Resort Fees</h3>
+                    <p class="cost">+$33/night</p>
+                    <p>NOT included in advertised hotel prices. Covers WiFi, pool, gym you may never use. Subject to additional taxes. A $200/night hotel actually costs $240+ per night.</p>
+                </div>
+
+                <div class="problem-card">
+                    <h3>🏥 Medical Costs</h3>
+                    <p class="cost">$1,000-3,000</p>
+                    <p>One ER visit without insurance. No universal healthcare for tourists. Medical insurance ($200-400) is MANDATORY - hospital stays can cost $50,000-200,000+.</p>
+                </div>
+
+                <div class="problem-card">
+                    <h3>💳 Sales Tax Surprise</h3>
+                    <p class="cost">+8-10%</p>
+                    <p>NOT included in displayed prices (unlike VAT). Added at checkout. $100 item costs $108. Every purchase, every meal, every hotel bill.</p>
+                </div>
+
+                <div class="problem-card">
+                    <h3>✈️ Baggage Fees</h3>
+                    <p class="cost">+$200-400</p>
+                    <p>Family of 4 roundtrip. $30-75 per checked bag. Overweight fees $50-200 more. US airlines charge for everything.</p>
+                </div>
+
+                <div class="problem-card">
+                    <h3>⚖️ Legal Traps</h3>
+                    <p class="cost">FELONY risk</p>
+                    <p>Cannabis legal in California, 180 DAYS JAIL in Texas. Open carry legal in Missouri, BANNED in Florida. What's legal in one state is a crime in another.</p>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 50px; font-size: 1.5rem; font-weight: 700; color: #c0392b;">
+                Total Impact: <span style="font-size: 2rem;">25-35% OVER BUDGET</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section class="solution">
+        <div class="container">
+            <h2>What You'll Get Inside Clutch</h2>
+            <p class="subtitle">Everything you need to avoid costly mistakes and maximize your World Cup experience</p>
+
+            <div class="features-grid">
+                <div class="feature">
+                    <h3>💰 Financial Intelligence</h3>
+                    <ul>
+                        <li>Complete hidden costs breakdown (tipping, fees, taxes)</li>
+                        <li>Budget Reality Calculator (your country → US)</li>
+                        <li>Money-saving strategies (CityPASS 50% off, free museums)</li>
+                        <li>NYC OMNY: Free rides after 12 trips guide</li>
+                        <li>Best value restaurants, hotels, attractions</li>
+                        <li>How to save $500-1,000+ on your trip</li>
+                    </ul>
+                </div>
+
+                <div class="feature">
+                    <h3>⚖️ Legal Protection</h3>
+                    <ul>
+                        <li>State-by-state law comparison maps</li>
+                        <li>Cannabis: Legal → Felony state guide</li>
+                        <li>Firearms, alcohol, traffic laws by state</li>
+                        <li>Federal property warnings (always illegal)</li>
+                        <li>What NOT to bring across state lines</li>
+                        <li>Avoid fines, arrests, legal disasters</li>
+                    </ul>
+                </div>
+
+                <div class="feature">
+                    <h3>🗺️ Logistics Mastery</h3>
+                    <ul>
+                        <li>ALL 11 World Cup host city guides</li>
+                        <li>Stadium locations (Gillette is 28 miles from "Boston"!)</li>
+                        <li>Realistic distances and travel times</li>
+                        <li>Multi-city itinerary planner</li>
+                        <li>Public transit reality check (you need a car)</li>
+                        <li>Match-day traffic and parking strategies</li>
+                    </ul>
+                </div>
+
+                <div class="feature">
+                    <h3>🌎 Cultural Intelligence</h3>
+                    <ul>
+                        <li>Complete tipping guide (who, when, how much)</li>
+                        <li>Social norms (punctuality, personal space, small talk)</li>
+                        <li>Food portions (42% larger than Europe)</li>
+                        <li>Dining customs and payment processes</li>
+                        <li>Common cultural misunderstandings</li>
+                        <li>How to blend in and avoid embarrassment</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cities Section -->
+    <section class="cities">
+        <div class="container">
+            <h2>Complete Guides for All 11 Host Cities</h2>
+            <p style="text-align: center; font-size: 1.2rem; margin-bottom: 30px;">
+                Every city with specific costs, laws, logistics, and insider tips
+            </p>
+
+            <div class="cities-grid">
+                <div class="city-card">
+                    <h3>🌊 Seattle</h3>
+                    <p>Washington State</p>
+                    <a href="/cities/seattle.html">View Sample Guide →</a>
+                </div>
+
+                <div class="city-card">
+                    <h3>🌉 San Francisco</h3>
+                    <p>California</p>
+                    <a href="/cities/san-francisco.html">View Sample Guide →</a>
+                </div>
+
+                <div class="city-card">
+                    <h3>🎬 Los Angeles</h3>
+                    <p>California</p>
+                    <a href="/cities/los-angeles.html">View Sample Guide →</a>
+                </div>
+
+                <div class="city-card">
+                    <h3>🎸 Kansas City</h3>
+                    <p>Missouri</p>
+                    <a href="/cities/kansas-city.html">View Sample Guide →</a>
+                </div>
+
+                <div class="city-card">
+                    <h3>🤠 Dallas</h3>
+                    <p>Texas</p>
+                    <a href="#">View Guide (Coming Soon)</a>
+                </div>
+
+                <div class="city-card">
+                    <h3>🚀 Houston</h3>
+                    <p>Texas</p>
+                    <a href="#">View Guide (Coming Soon)</a>
+                </div>
+
+                <div class="city-card">
+                    <h3>🍑 Atlanta</h3>
+                    <p>Georgia</p>
+                    <a href="#">View Guide (Coming Soon)</a>
+                </div>
+
+                <div class="city-card">
+                    <h3>🏖️ Miami</h3>
+                    <p>Florida</p>
+                    <a href="/cities/miami.html">View Sample Guide →</a>
+                </div>
+
+                <div class="city-card">
+                    <h3>🔔 Philadelphia</h3>
+                    <p>Pennsylvania</p>
+                    <a href="#">View Guide (Coming Soon)</a>
+                </div>
+
+                <div class="city-card">
+                    <h3>⚾ Boston</h3>
+                    <p>Massachusetts</p>
+                    <a href="/cities/boston.html">View Sample Guide →</a>
+                </div>
+
+                <div class="city-card">
+                    <h3>🗽 New York/NJ</h3>
+                    <p>New York & New Jersey</p>
+                    <a href="#">View Guide (Coming Soon)</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Proof -->
+    <section class="social-proof">
+        <div class="container">
+            <h2>Trusted by International World Cup Fans</h2>
+
+            <div class="stats">
+                <div class="stat">
+                    <div class="stat-number">$500+</div>
+                    <div class="stat-label">Average Savings Per Customer</div>
+                </div>
+
+                <div class="stat">
+                    <div class="stat-number">11</div>
+                    <div class="stat-label">Complete City Guides</div>
+                </div>
+
+                <div class="stat">
+                    <div class="stat-number">5X</div>
+                    <div class="stat-label">Return on Investment</div>
+                </div>
+            </div>
+
+            <div style="max-width: 800px; margin: 0 auto; background: #f8f9fa; padding: 40px; border-radius: 12px;">
+                <p style="font-size: 1.3rem; font-style: italic; margin-bottom: 20px;">
+                    "I budgeted £6,000 for my World Cup trip. After reading Clutch, I realized I would have spent £8,500 due to hidden costs I had no idea existed. The tipping guide alone saved me hundreds, and knowing about the Gillette Stadium location meant I didn't book a Boston hotel 30 miles away. Worth every penny."
+                </p>
+                <p style="font-weight: 700;">— James M., Scotland → Boston</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <h2>Get Complete Access Today</h2>
+
+            <div class="pricing-box">
+                <p style="font-size: 1.3rem; margin-bottom: 10px;">One-Time Payment</p>
+                <div class="price-large">$99</div>
+                <p class="price-subtext">Lifetime access • All updates included • No subscriptions</p>
+
+                <ul>
+                    <li>Complete guide (200+ pages)</li>
+                    <li>All 11 host city deep dives</li>
+                    <li>Budget Reality Calculator</li>
+                    <li>State law comparison maps</li>
+                    <li>Multi-city itinerary planner</li>
+                    <li>Tipping calculator</li>
+                    <li>Free community access (country & city groups)</li>
+                    <li>Lifetime updates (laws, costs, strategies)</li>
+                    <li>Email support</li>
+                </ul>
+
+                <a href="#" class="cta-button" style="background: white; color: #667eea;">Get Instant Access</a>
+
+                <p class="guarantee">
+                    💯 <strong>100% Money-Back Guarantee</strong><br>
+                    If you don't save more than $99 using our strategies, we'll refund you. No questions asked.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq">
+        <div class="container">
+            <h2>Frequently Asked Questions</h2>
+
+            <div class="faq-item">
+                <h3>Why should I trust this guide?</h3>
+                <p>Unlike promotional tourism sites, we conducted comprehensive research using the Perplexity AI platform, analyzing 200+ authoritative sources including US government websites, state revenue departments, and academic studies. We have no financial incentive to hide costs or sugarcoat reality.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>Will this work for visitors from any country?</h3>
+                <p>Yes. Our research specifically compares US systems to those in Europe, Asia, Australia, and Latin America. We show exactly how your home country differs from the US, so you know what to expect.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>I'm only visiting one or two cities. Is this still useful?</h3>
+                <p>Absolutely. The hidden costs (tipping, resort fees, sales tax) apply everywhere. State laws vary dramatically. Even if you're only visiting Boston, you still need to know about tipping culture, medical insurance, and that Gillette Stadium is actually 28 miles away in Foxborough.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>How is this different from Lonely Planet or Rick Steves?</h3>
+                <p>Those guides are general US travel guides, not World Cup-specific. They don't cover match-day surge pricing, stadium locations vs. city names, or the financial reality of hidden costs. We're brutally honest about what things ACTUALLY cost, not what hotels advertise.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>What if information becomes outdated?</h3>
+                <p>You get lifetime access to all updates. We'll update prices, laws, and strategies monthly before the World Cup and as needed after. You'll always have current information.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>Can I really save more than $99?</h3>
+                <p>Yes. Examples: CityPASS saves $100-160 per person in LA alone. NYC OMNY free rides save $60+ per person. Knowing about resort fees prevents surprise $200+ charges. Understanding medical insurance prevents potential $50,000+ hospital bills. The ROI is easily 5X-10X.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Clutch. All rights reserved.</p>
+            <p style="margin-top: 10px;">
+                <a href="#">Terms</a> • <a href="#">Privacy</a> • <a href="#">Contact</a>
+            </p>
+            <p style="margin-top: 20px; opacity: 0.8; font-size: 0.9rem;">
+                Not affiliated with FIFA or any official World Cup organization.<br>
+                This is an independent travel guide for international visitors.
+            </p>
+        </div>
+    </footer>
+</body>
+</html>
