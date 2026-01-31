@@ -5,6 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Clutch - Product Requirements Document</title>
     <style>
+        :root {
+            --primary-purple: #8B5CF6;
+            --secondary-purple: #9333EA;
+            --accent-blue: #3B82F6;
+            --dark-bg: #0F172A;
+            --card-bg: #1E293B;
+            --text-primary: #F8FAFC;
+            --text-secondary: #CBD5E1;
+            --border-color: #334155;
+            --success-green: #10B981;
+            --warning-yellow: #F59E0B;
+            --danger-red: #EF4444;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -12,232 +26,329 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'SF Pro Display', sans-serif;
             line-height: 1.7;
-            color: #2c3e50;
-            background: #f8f9fa;
+            color: var(--text-primary);
+            background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+            min-height: 100vh;
         }
 
         .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 60px 20px;
+            background: linear-gradient(135deg, var(--primary-purple) 0%, var(--secondary-purple) 50%, var(--accent-blue) 100%);
+            padding: 80px 20px;
             text-align: center;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 50%, rgba(139, 92, 246, 0.2) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(59, 130, 246, 0.2) 0%, transparent 50%);
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
         }
 
         .header h1 {
-            font-size: 3rem;
-            margin-bottom: 10px;
-            font-weight: 800;
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 900;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #FFFFFF 0%, #F1F5F9 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.02em;
         }
 
-        .header p {
-            font-size: 1.3rem;
+        .header-subtitle {
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
             opacity: 0.95;
+            font-weight: 500;
+            max-width: 700px;
+            margin: 0 auto;
         }
 
         .meta {
-            background: white;
-            padding: 20px;
-            margin: 20px auto;
-            max-width: 1000px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            max-width: 1200px;
+            margin: -40px auto 40px;
+            padding: 0 20px;
+            position: relative;
+            z-index: 10;
         }
 
         .meta-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 20px;
         }
 
-        .meta-item {
-            padding: 10px;
-            background: #f8f9fa;
-            border-radius: 6px;
+        .meta-card {
+            background: rgba(30, 41, 59, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-color);
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
         }
 
-        .meta-item strong {
-            display: block;
-            color: #667eea;
-            margin-bottom: 5px;
+        .meta-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 12px rgba(139, 92, 246, 0.2);
+        }
+
+        .meta-label {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .meta-value {
+            font-size: 1.3rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary-purple), var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, #F59E0B, #EF4444);
         }
 
         .container {
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 40px 20px;
+            padding: 60px 20px;
         }
 
-        .content {
-            background: white;
+        .content-section {
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-color);
             padding: 50px;
-            border-radius: 12px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        h1 {
-            color: #667eea;
-            font-size: 2.5rem;
-            margin: 50px 0 20px;
-            padding-bottom: 15px;
-            border-bottom: 3px solid #667eea;
+            border-radius: 24px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         h2 {
-            color: #764ba2;
-            font-size: 2rem;
-            margin: 40px 0 20px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #e0e0e0;
+            font-size: clamp(2rem, 4vw, 2.8rem);
+            font-weight: 800;
+            margin: 0 0 30px;
+            background: linear-gradient(135deg, var(--primary-purple), var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.02em;
         }
 
         h3 {
-            color: #555;
-            font-size: 1.5rem;
-            margin: 30px 0 15px;
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            font-weight: 700;
+            margin: 40px 0 20px;
+            color: var(--text-primary);
         }
 
         h4 {
-            color: #666;
-            font-size: 1.2rem;
-            margin: 25px 0 12px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin: 30px 0 15px;
+            color: var(--text-secondary);
         }
 
         p {
             margin: 15px 0;
             line-height: 1.8;
+            color: var(--text-secondary);
         }
 
         ul, ol {
-            margin: 15px 0 15px 30px;
+            margin: 20px 0 20px 30px;
             line-height: 1.9;
         }
 
         li {
-            margin: 8px 0;
+            margin: 10px 0;
+            color: var(--text-secondary);
+        }
+
+        strong {
+            color: var(--text-primary);
+            font-weight: 600;
         }
 
         .highlight-box {
-            background: #e8f4f8;
-            border-left: 4px solid #17a2b8;
-            padding: 20px;
-            margin: 25px 0;
-            border-radius: 6px;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(59, 130, 246, 0.1));
+            border-left: 4px solid var(--primary-purple);
+            padding: 25px;
+            margin: 30px 0;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
         }
 
         .success-box {
-            background: #d4edda;
-            border-left: 4px solid #28a745;
-            padding: 20px;
-            margin: 25px 0;
-            border-radius: 6px;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(5, 150, 105, 0.1));
+            border-left: 4px solid var(--success-green);
+            padding: 25px;
+            margin: 30px 0;
+            border-radius: 12px;
         }
 
         .warning-box {
-            background: #fff3cd;
-            border-left: 4px solid #ffc107;
-            padding: 20px;
-            margin: 25px 0;
-            border-radius: 6px;
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(217, 119, 6, 0.1));
+            border-left: 4px solid var(--warning-yellow);
+            padding: 25px;
+            margin: 30px 0;
+            border-radius: 12px;
+        }
+
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .bento-card {
+            background: rgba(30, 41, 59, 0.4);
+            border: 1px solid var(--border-color);
+            padding: 30px;
+            border-radius: 16px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .bento-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(139, 92, 246, 0.15);
+            border-color: var(--primary-purple);
+        }
+
+        .bento-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--text-primary);
+        }
+
+        .bento-description {
+            color: var(--text-secondary);
+            line-height: 1.7;
         }
 
         .metric-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 20px;
-            margin: 25px 0;
+            margin: 30px 0;
         }
 
         .metric-card {
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 8px;
-            border-left: 4px solid #667eea;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(59, 130, 246, 0.05));
+            border: 1px solid var(--border-color);
+            padding: 25px;
+            border-radius: 16px;
+            position: relative;
+            overflow: hidden;
         }
 
-        .metric-card h4 {
-            margin-top: 0;
-            color: #667eea;
+        .metric-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--primary-purple), var(--accent-blue));
         }
 
-        .competitive-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin: 25px 0;
+        .metric-label {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-secondary);
+            margin-bottom: 10px;
         }
 
-        .competitor-card {
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 8px;
+        .metric-value {
+            font-size: 2.2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary-purple), var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 8px;
         }
 
-        .competitor-card h4 {
-            margin-top: 0;
-        }
-
-        strong {
-            color: #2c3e50;
-            font-weight: 600;
-        }
-
-        .emoji {
-            margin-right: 5px;
+        .metric-description {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            margin: 20px 0;
-        }
-
-        th, td {
-            padding: 12px;
-            text-align: left;
-            border-bottom: 1px solid #e0e0e0;
+            margin: 30px 0;
+            background: rgba(30, 41, 59, 0.4);
+            border-radius: 12px;
+            overflow: hidden;
         }
 
         th {
-            background: #667eea;
+            background: linear-gradient(135deg, var(--primary-purple), var(--secondary-purple));
             color: white;
+            padding: 16px;
+            text-align: left;
             font-weight: 600;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        td {
+            padding: 16px;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-secondary);
+        }
+
+        tr:last-child td {
+            border-bottom: none;
         }
 
         tr:hover {
-            background: #f8f9fa;
-        }
-
-        .status-badge {
-            display: inline-block;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 600;
-        }
-
-        .status-complete {
-            background: #d4edda;
-            color: #155724;
-        }
-
-        .status-progress {
-            background: #fff3cd;
-            color: #856404;
+            background: rgba(139, 92, 246, 0.05);
         }
 
         .toc {
-            background: #f8f9fa;
-            padding: 25px;
-            border-radius: 8px;
-            margin: 30px 0;
+            background: rgba(30, 41, 59, 0.6);
+            border: 1px solid var(--border-color);
+            padding: 35px;
+            border-radius: 16px;
+            margin: 40px 0;
         }
 
         .toc h3 {
             margin-top: 0;
-            color: #667eea;
+            background: linear-gradient(135deg, var(--primary-purple), var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .toc ul {
@@ -245,27 +356,36 @@
             margin-left: 0;
         }
 
+        .toc li {
+            margin: 12px 0;
+        }
+
         .toc a {
-            color: #764ba2;
+            color: var(--text-secondary);
             text-decoration: none;
             transition: color 0.2s;
+            font-weight: 500;
         }
 
         .toc a:hover {
-            color: #667eea;
-            text-decoration: underline;
+            color: var(--primary-purple);
         }
 
         @media (max-width: 768px) {
-            .header h1 {
-                font-size: 2rem;
+            .header {
+                padding: 60px 20px;
             }
 
-            .content {
-                padding: 25px;
+            .content-section {
+                padding: 30px 20px;
             }
 
-            .metric-grid, .competitive-grid {
+            .meta {
+                margin: -30px auto 30px;
+            }
+
+            .bento-grid,
+            .metric-grid {
                 grid-template-columns: 1fr;
             }
         }
@@ -273,63 +393,92 @@
 </head>
 <body>
     <div class="header">
-        <h1>Clutch</h1>
-        <p>Product Requirements Document</p>
+        <div class="header-content">
+            <h1>Clutch</h1>
+            <p class="header-subtitle">Product Requirements Document</p>
+        </div>
+    </div>
+
+    <div class="meta">
+        <div class="meta-grid">
+            <div class="meta-card">
+                <div class="meta-label">Version</div>
+                <div class="meta-value">1.1</div>
+            </div>
+            <div class="meta-card">
+                <div class="meta-label">Last Updated</div>
+                <div class="meta-value">January 31, 2026</div>
+            </div>
+            <div class="meta-card">
+                <div class="meta-label">Status</div>
+                <span class="status-badge">Development</span>
+            </div>
+            <div class="meta-card">
+                <div class="meta-label">Owner</div>
+                <div class="meta-value">Crawford McMillan</div>
+            </div>
+        </div>
     </div>
 
     <div class="container">
-        <div class="meta">
-            <div class="meta-grid">
-                <div class="meta-item">
-                    <strong>Version</strong>
-                    1.0
+        <!-- Table of Contents -->
+        <div class="toc">
+            <h3>Contents</h3>
+            <ul>
+                <li><a href="#executive-summary">Executive Summary</a></li>
+                <li><a href="#problem-statement">Problem Statement</a></li>
+                <li><a href="#solution">Solution Overview</a></li>
+                <li><a href="#target-audience">Target Audience</a></li>
+                <li><a href="#features">Features & Functionality</a></li>
+                <li><a href="#affiliate-plan">Affiliate Integration Plan</a></li>
+                <li><a href="#success-metrics">Success Metrics</a></li>
+                <li><a href="#go-to-market">Go-to-Market Strategy</a></li>
+                <li><a href="#competitive-analysis">Competitive Analysis</a></li>
+            </ul>
+        </div>
+
+        <!-- Executive Summary -->
+        <div id="executive-summary" class="content-section">
+            <h2>Executive Summary</h2>
+
+            <p><strong>Clutch</strong> is a paid digital guide ($99) with free community access that provides <strong>financial self-defense</strong> for international visitors to the 2026 FIFA World Cup against American pricing systems designed to extract maximum dollars from uninformed tourists.</p>
+
+            <div class="highlight-box">
+                <h4>Core Value</h4>
+                <p><strong>Americans don't explain how their pricing system works because they can't imagine not knowing it.</strong></p>
+                <p>International visitors budget $7,500 but spend $9,965—<strong>$2,465 in preventable costs</strong>. Clutch is your defense against hidden fees, mandatory tipping, state-by-state legal traps, and surge pricing that Americans navigate unconsciously but tourists pay for unknowingly.</p>
+            </div>
+
+            <h3>Revenue Model: Multi-Revenue Business</h3>
+            <div class="bento-grid">
+                <div class="bento-card">
+                    <div class="bento-title">Guide Sales</div>
+                    <div class="bento-description">$99 per customer - One-time digital product purchase</div>
                 </div>
-                <div class="meta-item">
-                    <strong>Date</strong>
-                    January 30, 2026
+                <div class="bento-card">
+                    <div class="bento-title">Affiliate Commissions</div>
+                    <div class="bento-description">Travel insurance, eSIM, currency exchange, hotels, car rentals</div>
                 </div>
-                <div class="meta-item">
-                    <strong>Status</strong>
-                    <span class="status-badge status-progress">Development</span>
+                <div class="bento-card">
+                    <div class="bento-title">Customer LTV</div>
+                    <div class="bento-description"><strong>$166.75</strong> average (guide $99 + affiliates $67.75)</div>
                 </div>
-                <div class="meta-item">
-                    <strong>Owner</strong>
-                    Crawford McMillan
-                </div>
+            </div>
+
+            <div class="success-box">
+                <p><strong>Target Launch:</strong> March 2026</p>
+                <p><strong>Peak Sales Period:</strong> April-July 2026 (World Cup: June 11 - July 19, 2026)</p>
             </div>
         </div>
 
-        <div class="content">
-            <h1>Executive Summary</h1>
+        <!-- Problem Statement -->
+        <div id="problem-statement" class="content-section">
+            <h2>Problem Statement</h2>
 
-            <div class="highlight-box">
-                <p><strong>Clutch</strong> is a paid digital guide ($99) with free community access that helps international visitors to the 2026 FIFA World Cup avoid costly mistakes, navigate complex US systems, and save money through insider knowledge not available from official tourism sources.</p>
+            <div class="warning-box">
+                <h3>The Core Problem</h3>
+                <p><strong>Americans don't explain how their pricing system works because they can't imagine not knowing it.</strong></p>
             </div>
-
-            <p><strong>Core Value:</strong> Prevent the 25-35% budget overruns that international visitors typically experience due to hidden costs, cultural misunderstandings, and lack of practical US travel intelligence.</p>
-
-            <div class="metric-grid">
-                <div class="metric-card">
-                    <h4>Revenue Model</h4>
-                    One-time digital product sales ($99) + affiliate revenue + future advertising
-                </div>
-                <div class="metric-card">
-                    <h4>Target Launch</h4>
-                    March 2026
-                </div>
-                <div class="metric-card">
-                    <h4>Peak Sales Period</h4>
-                    April-July 2026
-                </div>
-                <div class="metric-card">
-                    <h4>World Cup Dates</h4>
-                    June 11 - July 19, 2026
-                </div>
-            </div>
-
-            <h1>Problem Statement</h1>
-
-            <h2>The Core Problem</h2>
 
             <p>International visitors to the 2026 World Cup arrive with expectations shaped by their home countries' systems:</p>
 
@@ -342,73 +491,55 @@
                 <li><strong>Different legal frameworks</strong> (cannabis, firearms, alcohol)</li>
             </ul>
 
-            <div class="warning-box">
-                <h3>Reality: The US operates fundamentally differently</h3>
-                <ol>
-                    <li><strong>Financial shock:</strong> 25-35% budget overruns from hidden costs</li>
-                    <li><strong>Legal risk:</strong> What's legal in one state is a felony in another</li>
-                    <li><strong>Logistical failure:</strong> Underestimated distances, car dependency</li>
-                    <li><strong>Cultural confusion:</strong> Tipping, personal space, punctuality expectations</li>
-                    <li><strong>Missed savings:</strong> Don't know about CityPASS, OMNY, free museums</li>
-                </ol>
+            <h3>The American Reality</h3>
+            <p>A pricing system designed to show lower advertised costs while extracting maximum dollars through hidden fees, mandatory tipping, and taxes added at checkout.</p>
+
+            <div class="metric-grid">
+                <div class="metric-card">
+                    <div class="metric-label">Financial Shock</div>
+                    <div class="metric-value">$2,465</div>
+                    <div class="metric-description">Average budget overrun from hidden costs</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Tipping Costs</div>
+                    <div class="metric-value">$350-500</div>
+                    <div class="metric-description">Mandatory 18-22% adds per family</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Resort Fees</div>
+                    <div class="metric-value">$33/night</div>
+                    <div class="metric-description">Average hidden hotel fee</div>
+                </div>
             </div>
 
-            <h2>Specific Pain Points</h2>
+            <h3>Specific Pain Points</h3>
 
-            <h3>Financial Surprises</h3>
+            <h4>Financial Surprises</h4>
             <ul>
-                <li>Tipping adds $350-500 per family (18-22% mandatory)</li>
-                <li>Resort fees average $33/night (not in advertised prices)</li>
-                <li>Sales tax 0-10% added at checkout (not displayed)</li>
+                <li>That "$200/night" Boston hotel? <strong>Actually $701</strong> after resort fee ($40), tax (14.75% = $87), and parking ($60)</li>
+                <li>Five nights in Boston = <strong>$3,685</strong> (Americans call this "normal." Visitors call it theft.)</li>
+                <li>Menu "$20 burger" + sales tax (6.25%) + mandatory tip (20%) = <strong>$25.25 actual cost</strong></li>
+                <li>14 days × 3 meals = <strong>$529 hidden</strong> on top of menu prices</li>
                 <li>Medical insurance required ($200-400) - ER visits cost $1,000-3,000+</li>
-                <li>Foreign transaction fees: 2-3% on all purchases</li>
-                <li><strong>Total impact: $7,500 budget becomes $9,965 (33% more)</strong></li>
             </ul>
 
-            <h3>Legal Traps</h3>
+            <h4>Legal Traps</h4>
             <ul>
-                <li>Cannabis: Legal in CA/WA/NY/MA, <strong>FELONY</strong> in TX/GA (180 days jail for &lt;2oz)</li>
+                <li>Cannabis: Legal in CA/WA/NY/MA, <strong>FELONY</strong> in TX/GA (180 days jail for <2oz)</li>
                 <li>Firearms: Open carry legal in TX/MO, <strong>banned</strong> in CA/FL/NY</li>
-                <li>Alcohol: Sales hours vary wildly, dry counties exist</li>
                 <li>Federal property: Cannabis always illegal (parks, federal buildings)</li>
             </ul>
 
-            <h3>Logistical Disasters</h3>
-            <ul>
-                <li>NYC to LA: 2,800 miles (41 hours driving) - visitors try in one week</li>
-                <li>Gillette Stadium: 28 miles from Boston, closer to Providence</li>
-                <li>No public transit outside 5-6 major cities - car rental necessary</li>
-                <li>Food portions 42% larger than European - one meal = 2-3 servings</li>
-            </ul>
+            <h4>Match Day Surge Pricing</h4>
+            <div class="warning-box">
+                <p>Kansas City normally $121/night. Argentina match day? <strong>$654/night—a 440% increase</strong></p>
+                <p>Boston hotels: $700+/night during World Cup. But stay in Providence (22 miles closer to "Boston's" stadium)? $400/night. <strong>Geographic arbitrage saves $1,500 for 5 nights.</strong></p>
+            </div>
 
-            <h3>Cultural Confusion</h3>
-            <ul>
-                <li>"On time" = 5-10 minutes early (lateness = disrespect)</li>
-                <li>Personal space: 2 feet minimum distance</li>
-                <li>"How are you?" = greeting, not real question</li>
-                <li>Bathroom stalls have huge gaps (privacy shock)</li>
-            </ul>
+            <h3>Who Has This Problem</h3>
+            <p><strong>Primary:</strong> International soccer fans attending 2026 World Cup (~500,000 international visitors across 11 US host cities)</p>
 
-            <h2>Who Has This Problem</h2>
-
-            <h3>Primary Audience</h3>
-            <p><strong>International soccer fans attending 2026 World Cup</strong></p>
-            <ul>
-                <li>~500,000 international visitors across 11 US host cities</li>
-                <li>High-intent travelers (already spending thousands on tickets/travel)</li>
-                <li>Multi-city itineraries (group stage matches)</li>
-                <li>Short timeframe (1-2 weeks typically)</li>
-            </ul>
-
-            <h3>Secondary Audience</h3>
-            <p><strong>All international visitors to the US</strong></p>
-            <ul>
-                <li>80 million annually</li>
-                <li>Same pain points apply universally</li>
-                <li>Evergreen market post-World Cup</li>
-            </ul>
-
-            <h3>Highest-Value Segments</h3>
+            <p><strong>Highest-Value Segments:</strong></p>
             <ol>
                 <li><strong>Western Europeans</strong> (Germany, UK, France, Spain) - Expect VAT refunds, comprehensive transit</li>
                 <li><strong>Nordic Countries</strong> - Tipping discouraged at home, maximum culture shock</li>
@@ -416,262 +547,344 @@
                 <li><strong>Australia/New Zealand</strong> - English-speaking, GST included in prices</li>
                 <li><strong>Latin America</strong> (Brazil, Argentina, Mexico) - Massive soccer fan base</li>
             </ol>
+        </div>
 
-            <h1>Solution Overview</h1>
+        <!-- Solution Overview -->
+        <div id="solution" class="content-section">
+            <h2>Solution Overview</h2>
 
-            <h2>Product Description</h2>
+            <h3>Clutch is Financial Self-Defense</h3>
 
-            <p><strong>The Complete World Cup Visitor's Guide</strong> provides:</p>
-
-            <ol>
-                <li><strong>Reality vs. Expectation Analysis</strong> - What visitors think vs. what actually happens</li>
-                <li><strong>Hidden Costs Breakdown</strong> - Complete financial transparency with calculators</li>
-                <li><strong>City-by-City Intelligence</strong> - All 11 host cities with specific guidance</li>
-                <li><strong>State Law Maps</strong> - Legal/illegal comparisons across host states</li>
-                <li><strong>Money-Saving Strategies</strong> - CityPASS, OMNY, timing, budget hotels, etc.</li>
-                <li><strong>Cultural Intelligence</strong> - Tipping guide, social norms, behavioral expectations</li>
-                <li><strong>Logistics Planning</strong> - Distances, transit, car rental, multi-city itineraries</li>
-                <li><strong>Budget Reality Calculator</strong> - Personalized based on home country</li>
-            </ol>
-
-            <h2>What Makes This Different</h2>
-
-            <div class="competitive-grid">
-                <div class="competitor-card">
-                    <h4>Existing Solutions</h4>
-                    <ul>
-                        <li>Official tourism sites: Promotional, hide negatives</li>
-                        <li>Lonely Planet/Rick Steves: General, not World Cup-specific</li>
-                        <li>Hotel booking sites: Financial incentive to hide costs</li>
-                        <li>Reddit/forums: Fragmented, unreliable, time-consuming</li>
-                    </ul>
+            <div class="bento-grid">
+                <div class="bento-card">
+                    <div class="bento-title">Exposes the Pricing Game</div>
+                    <div class="bento-description">Shows "$200/night" actually costs $701 with all fees included</div>
                 </div>
-
-                <div class="competitor-card" style="background: #d4edda;">
-                    <h4>Clutch Uniquely Provides</h4>
-                    <ul>
-                        <li>✅ Comprehensive research-backed intelligence</li>
-                        <li>✅ World Cup-specific logistics</li>
-                        <li>✅ Financial transparency (real costs)</li>
-                        <li>✅ Legal risk mitigation</li>
-                        <li>✅ One authoritative source</li>
-                        <li>✅ Pays for itself</li>
-                    </ul>
+                <div class="bento-card">
+                    <div class="bento-title">Quantifies Every Hidden Cost</div>
+                    <div class="bento-description">$2,465 in preventable spending broken down line by line</div>
+                </div>
+                <div class="bento-card">
+                    <div class="bento-title">Geographic Arbitrage</div>
+                    <div class="bento-description">Providence vs Boston saves $1,500 for 5 nights</div>
+                </div>
+                <div class="bento-card">
+                    <div class="bento-title">Legal Risk Mitigation</div>
+                    <div class="bento-description">Cannabis legal in MA = felony in TX with 180 days jail</div>
+                </div>
+                <div class="bento-card">
+                    <div class="bento-title">Match-Day Intelligence</div>
+                    <div class="bento-description">440% surge pricing alerts and alternative strategies</div>
+                </div>
+                <div class="bento-card">
+                    <div class="bento-title">Clear ROI</div>
+                    <div class="bento-description">$99 to save $2,465. Pays for itself 25x over.</div>
                 </div>
             </div>
 
-            <h1>Target Audience</h1>
+            <h3>Product Components</h3>
 
-            <h2>Primary Persona: "The International Soccer Fan"</h2>
-
-            <h3>Demographics</h3>
+            <h4>1. Digital Guide (PDF + Web Access)</h4>
             <ul>
-                <li>Age: 25-55</li>
-                <li>Income: Middle to upper-middle class (can afford World Cup tickets)</li>
-                <li>Location: International (Europe, Asia, Latin America, Australia)</li>
-                <li>Language: English-speaking or bilingual</li>
-                <li>Travel experience: Moderate to high (but first-time US visitors common)</li>
+                <li><strong>Reality Check:</strong> What you think vs. what's real</li>
+                <li><strong>Financial Intelligence:</strong> Complete hidden costs breakdown with calculators</li>
+                <li><strong>Legal Intelligence:</strong> State-by-state law comparison matrix</li>
+                <li><strong>City-by-City Guides:</strong> All 11 host cities with specific guidance</li>
+                <li><strong>Money-Saving Strategies:</strong> CityPASS, geographic arbitrage, timing</li>
+                <li><strong>Cultural Intelligence:</strong> Tipping guide, social norms, behavioral expectations</li>
             </ul>
 
-            <h3>Psychographics</h3>
+            <h4>2. Interactive Tools</h4>
             <ul>
-                <li>Passionate soccer fans (willing to travel internationally for matches)</li>
-                <li>Budget-conscious but values experiences</li>
-                <li>Researches trips extensively</li>
-                <li>Concerned about getting "ripped off"</li>
-                <li>Expects transparency and honesty</li>
-                <li>Values community and peer recommendations</li>
+                <li>Budget Reality Calculator</li>
+                <li>Multi-City Itinerary Planner</li>
+                <li>State Law Checker</li>
+                <li>Tipping Calculator</li>
             </ul>
+
+            <h4>3. Free Community Access</h4>
+            <p>School platform with country channels, city channels, topic channels, and match-specific coordination</p>
+        </div>
+
+        <!-- Target Audience -->
+        <div id="target-audience" class="content-section">
+            <h2>Target Audience</h2>
+
+            <h3>Primary Persona: "The International Soccer Fan"</h3>
+
+            <div class="bento-grid">
+                <div class="bento-card">
+                    <div class="bento-title">Demographics</div>
+                    <div class="bento-description">
+                        Age: 25-55<br>
+                        Income: Middle to upper-middle class<br>
+                        Location: Europe, Asia, Latin America, Australia<br>
+                        Language: English-speaking or bilingual
+                    </div>
+                </div>
+                <div class="bento-card">
+                    <div class="bento-title">Psychographics</div>
+                    <div class="bento-description">
+                        Passionate soccer fans willing to travel internationally<br>
+                        Budget-conscious but values experiences<br>
+                        Researches trips extensively<br>
+                        Concerned about getting "ripped off"
+                    </div>
+                </div>
+            </div>
 
             <h3>Pain Points</h3>
             <ul>
-                <li>"I don't know what I don't know about the US"</li>
-                <li>"Official sites only show the good stuff"</li>
-                <li>"I'm worried about hidden costs"</li>
-                <li>"What if I accidentally break a law?"</li>
-                <li>"How do I see multiple cities in 10 days?"</li>
-                <li>"Will my budget actually work?"</li>
+                <li>"Americans don't explain how their pricing system actually works"</li>
+                <li>"That '$200/night' hotel actually costs $701—how is this legal?"</li>
+                <li>"I budgeted $7,500 but I'm hearing it costs $10,000+"</li>
+                <li>"What if I accidentally commit a felony crossing state lines?"</li>
+                <li>"Every website hides the real costs until checkout"</li>
+                <li>"I can't tell what's a scam vs what's 'normal' in America"</li>
             </ul>
 
             <h3>Goals</h3>
             <ul>
+                <li>Defend against hidden fees, surge pricing, and mandatory tipping</li>
+                <li>Understand the real, all-in costs before booking anything</li>
+                <li>Avoid legal traps (cannabis, firearms, alcohol laws vary by state)</li>
+                <li>Save $2,000+ through geographic arbitrage and insider knowledge</li>
                 <li>Attend World Cup matches without financial disaster</li>
-                <li>Avoid costly mistakes and legal problems</li>
-                <li>Maximize experience within budget</li>
-                <li>Coordinate travel with other fans</li>
-                <li>Feel confident and prepared</li>
             </ul>
+        </div>
 
-            <h1>Features & Functionality</h1>
+        <!-- Features -->
+        <div id="features" class="content-section">
+            <h2>Features & Functionality</h2>
 
-            <h2>Core Product Components</h2>
-
-            <h3>1. Main Guidebook (Digital PDF/Web Access)</h3>
-
-            <h4>Section A: The Reality Check</h4>
-            <ul>
-                <li>What You Think vs. What's Real</li>
-                <li>The Hidden Costs That Will Double Your Budget</li>
-                <li>Why Hotel Tax Rebates Don't Exist (Managing Expectations)</li>
-                <li>Budget Reality Calculator (Your Country → US)</li>
-            </ul>
-
-            <h4>Section B: Financial Intelligence</h4>
-            <p><strong>Hidden Costs Deep Dive:</strong></p>
-            <ul>
-                <li>Tipping: Who, When, How Much (18-22% breakdown)</li>
-                <li>Resort Fees: What They Are, How to Identify</li>
-                <li>Sales Tax: State-by-state rates, why not displayed</li>
-                <li>Medical Insurance: Required coverage, costs</li>
-                <li>Foreign Transaction Fees: Credit cards to use/avoid</li>
-                <li>Baggage Fees: Airline-by-airline breakdown</li>
-                <li>Surge Pricing: Rideshare during matches</li>
-                <li>Parking: World Cup venue costs ($75-175/game)</li>
-            </ul>
-
-            <p><strong>Money-Saving Strategies:</strong></p>
-            <ul>
-                <li>CityPASS: 50% savings on attractions (city-by-city guide)</li>
-                <li>NYC OMNY: Free rides after 12 trips</li>
-                <li>Free Museums: Smithsonian, Bank of America program</li>
-                <li>Timing: Shoulder season savings (20-40%)</li>
-                <li>Budget Hotels: Chains under $70/night</li>
-                <li>Fast Food Value Menus: Full meals $3-9</li>
-                <li>Groupon/LivingSocial: 50-70% off experiences</li>
-            </ul>
-
-            <h4>Section C: Legal Intelligence</h4>
-            <p><strong>State Law Comparison Matrix:</strong></p>
-            <ul>
-                <li>Cannabis: Legal → Felony map</li>
-                <li>Firearms: Open carry by state</li>
-                <li>Alcohol: Sales hours, dry counties</li>
-                <li>Traffic: Speed limits, DUI thresholds</li>
-                <li>Federal Property: What's always illegal</li>
-            </ul>
-
-            <h4>Section D: Logistics Mastery</h4>
-            <ul>
-                <li>Actual miles between host cities</li>
-                <li>Driving times (realistic, with traffic)</li>
-                <li>Flight times and costs</li>
-                <li>Multi-city itinerary templates</li>
-                <li>Transportation reality by city</li>
-                <li>Stadium-specific intelligence</li>
-            </ul>
-
-            <h4>Section E: Cultural Intelligence</h4>
-            <ul>
-                <li>Comprehensive tipping guide</li>
-                <li>Social norms and expectations</li>
-                <li>Food & dining customs</li>
-                <li>Common cultural surprises</li>
-            </ul>
-
-            <h4>Section F: City-by-City Guides</h4>
-
-            <p><strong>All 11 US Host Cities:</strong></p>
-            <ol>
-                <li>Seattle, WA</li>
-                <li>San Francisco, CA</li>
-                <li>Los Angeles, CA</li>
-                <li>Kansas City, MO</li>
-                <li>Dallas, TX</li>
-                <li>Houston, TX</li>
-                <li>Atlanta, GA</li>
-                <li>Miami, FL</li>
-                <li>Philadelphia, PA</li>
-                <li>Boston, MA</li>
-                <li>New York/New Jersey</li>
-            </ol>
-
-            <p>Each city guide includes:</p>
-            <ul>
-                <li>Quick Facts (state laws, taxes, legal status)</li>
-                <li>Stadium Intelligence (location, parking, transit)</li>
-                <li>Hidden Costs Specific to City</li>
-                <li>Money-Saving Opportunities</li>
-                <li>What to Know (local laws, weather, safety)</li>
-                <li>Common Mistakes</li>
-            </ul>
-
-            <h3>2. Interactive Tools</h3>
-
-            <div class="metric-grid">
-                <div class="metric-card">
-                    <h4>Budget Reality Calculator</h4>
-                    Input home country, trip length, cities → Output expected vs. actual costs
+            <h3>Host Cities Covered (11 Total)</h3>
+            <div class="bento-grid">
+                <div class="bento-card">
+                    <div class="bento-title">West Coast</div>
+                    <div class="bento-description">Seattle, San Francisco, Los Angeles</div>
                 </div>
-                <div class="metric-card">
-                    <h4>Multi-City Itinerary Planner</h4>
-                    Match schedule + cities → Realistic travel times + warnings
+                <div class="bento-card">
+                    <div class="bento-title">Central</div>
+                    <div class="bento-description">Kansas City, Dallas, Houston</div>
                 </div>
-                <div class="metric-card">
-                    <h4>State Law Checker</h4>
-                    Activity input → Legal status by state + border crossing risks
+                <div class="bento-card">
+                    <div class="bento-title">South</div>
+                    <div class="bento-description">Atlanta, Miami</div>
                 </div>
-                <div class="metric-card">
-                    <h4>Tipping Calculator</h4>
-                    Bill amount + service type → Recommended tip + country comparison
+                <div class="bento-card">
+                    <div class="bento-title">Northeast</div>
+                    <div class="bento-description">Philadelphia, Boston, New York/New Jersey</div>
                 </div>
             </div>
 
-            <h3>3. Free Community Access</h3>
-
-            <p><strong>Platform:</strong> Skool</p>
-
-            <p><strong>Structure:</strong></p>
+            <h3>For Each City:</h3>
             <ul>
-                <li><strong>Country Channels:</strong> Scotland, Germany, Japan, Brazil, etc.</li>
-                <li><strong>City Channels:</strong> Boston, LA, Miami, etc.</li>
-                <li><strong>Topic Channels:</strong> Budget Tips, Legal Questions, Logistics, Cultural</li>
-                <li><strong>Match-Specific:</strong> Group stage scheduling, ticket exchanges</li>
+                <li><strong>Quick Facts:</strong> State laws, cannabis status, hotel tax, sales tax</li>
+                <li><strong>Stadium Intelligence:</strong> Actual location, parking costs, public transit, traffic recommendations</li>
+                <li><strong>Hidden Costs:</strong> Resort fees, parking, tipping norms, surge pricing patterns</li>
+                <li><strong>Money-Saving:</strong> CityPASS details, free museums, budget hotels, geographic arbitrage</li>
+                <li><strong>What to Know:</strong> Local laws, weather, safe neighborhoods, cultural quirks</li>
+                <li><strong>Common Mistakes:</strong> Distance underestimations, transit assumptions, budget surprises</li>
             </ul>
+        </div>
 
-            <p><strong>Purpose:</strong></p>
-            <ul>
-                <li>Peer-to-peer advice</li>
-                <li>Coordinate travel logistics</li>
-                <li>Share real-time experiences</li>
-                <li>Build social proof</li>
-                <li>Reduce support burden (members help each other)</li>
-            </ul>
+        <!-- Affiliate Integration Plan -->
+        <div id="affiliate-plan" class="content-section">
+            <h2>Affiliate Integration Plan</h2>
 
-            <h1>Success Metrics</h1>
+            <div class="highlight-box">
+                <h4>Strategic Rationale</h4>
+                <p>Increases customer lifetime value from $99 to $166.75 (+68%), allowing higher customer acquisition costs ($80-100 vs $30 guide-only), making paid advertising viable.</p>
+            </div>
 
-            <h2>Primary KPIs</h2>
+            <h3>Tier 1 Priorities (Highest Value)</h3>
 
-            <h3>Revenue Targets</h3>
             <table>
                 <thead>
                     <tr>
-                        <th>Scenario</th>
-                        <th>Sales</th>
-                        <th>Price</th>
-                        <th>Total Revenue</th>
+                        <th>Affiliate Type</th>
+                        <th>Commission</th>
+                        <th>Conv. Rate</th>
+                        <th>Revenue per 1,000 Buyers</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td><strong>Conservative</strong></td>
-                        <td>500</td>
-                        <td>$99</td>
-                        <td>$49,500</td>
+                        <td><strong>Travel Insurance</strong></td>
+                        <td>$30-50 per policy</td>
+                        <td>60%</td>
+                        <td>$24,000</td>
                     </tr>
                     <tr>
-                        <td><strong>Target</strong></td>
-                        <td>2,000</td>
-                        <td>$99</td>
-                        <td>$198,000</td>
+                        <td><strong>eSIM Data Plans</strong></td>
+                        <td>20-30% ($2-6 per plan)</td>
+                        <td>70%</td>
+                        <td>$2,800</td>
                     </tr>
                     <tr>
-                        <td><strong>Stretch</strong></td>
-                        <td>5,000</td>
-                        <td>$99</td>
-                        <td>$495,000</td>
+                        <td><strong>Currency Exchange</strong></td>
+                        <td>$25-40 per signup</td>
+                        <td>40%</td>
+                        <td>$12,000</td>
                     </tr>
                 </tbody>
             </table>
+
+            <h4>1. Travel Medical Insurance</h4>
+            <div class="bento-card">
+                <p><strong>Why It Fits:</strong> International visitors NEED this (US healthcare costs $1,000-3,000+ for ER visits). Already recommended in guide as genuine value-add.</p>
+                <p><strong>Partners:</strong> SafetyWing, World Nomads, Allianz Travel Insurance</p>
+                <p><strong>Implementation:</strong> Dedicated section "Medical Insurance: Don't Skip This" with cost comparison (uninsured ER visit $2,500 vs insurance $100-200)</p>
+            </div>
+
+            <h4>2. International eSIM Data Plans</h4>
+            <div class="bento-card">
+                <p><strong>Why It Fits:</strong> Essential for navigation, rideshare, communication. Cheaper than roaming ($5-20 vs $100+ roaming fees).</p>
+                <p><strong>Partners:</strong> Airalo, Holafly, Nomad</p>
+                <p><strong>Implementation:</strong> Section "Stay Connected Without $200 Roaming Fees" with cost comparison table</p>
+            </div>
+
+            <h4>3. Currency Exchange / Travel Money Cards</h4>
+            <div class="bento-card">
+                <p><strong>Why It Fits:</strong> Foreign transaction fees cost 2-3% on every purchase. Multi-currency cards save significant money.</p>
+                <p><strong>Partners:</strong> Wise (formerly TransferWise), Revolut, Charles Schwab</p>
+                <p><strong>Implementation:</strong> Section "Stop Losing 3% on Every Purchase" with fee comparison</p>
+            </div>
+
+            <h3>Tier 2 Priorities (Moderate Value)</h3>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Affiliate Type</th>
+                        <th>Commission</th>
+                        <th>Conv. Rate</th>
+                        <th>Revenue per 1,000 Buyers</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Hotel Bookings</strong></td>
+                        <td>4-25% of booking</td>
+                        <td>30%</td>
+                        <td>$15,000</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Car Rentals</strong></td>
+                        <td>5-8% of rental</td>
+                        <td>40%</td>
+                        <td>$12,000</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Total Revenue Projections</h3>
+
+            <div class="metric-grid">
+                <div class="metric-card">
+                    <div class="metric-label">Per 1,000 Guide Buyers</div>
+                    <div class="metric-value">$66,100</div>
+                    <div class="metric-description">Total affiliate commission revenue</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Avg Per Customer</div>
+                    <div class="metric-value">$66.10</div>
+                    <div class="metric-description">Average affiliate commission</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Combined LTV</div>
+                    <div class="metric-value">$166.75</div>
+                    <div class="metric-description">Guide $99 + Affiliates $67.75</div>
+                </div>
+            </div>
+
+            <h3>Implementation Strategy</h3>
+
+            <div class="bento-grid">
+                <div class="bento-card">
+                    <div class="bento-title">Phase 1: Launch</div>
+                    <div class="bento-description">Integrate Tier 1 affiliates only (insurance, eSIM, currency). Natural placement in existing guide sections.</div>
+                </div>
+                <div class="bento-card">
+                    <div class="bento-title">Phase 2: Optimization</div>
+                    <div class="bento-description">Add Tier 2 affiliates (hotels, car rentals). A/B test placement and messaging. Analyze conversion data.</div>
+                </div>
+                <div class="bento-card">
+                    <div class="bento-title">Phase 3: Expansion</div>
+                    <div class="bento-description">Add Tier 3 and experimental affiliates. Exclusive discounts negotiated with partners. Email campaigns to existing base.</div>
+                </div>
+            </div>
+
+            <h3>Quality Standards</h3>
+            <div class="success-box">
+                <p><strong>Partner Selection Criteria:</strong></p>
+                <ol>
+                    <li><strong>Genuine utility</strong> - Does this actually help international visitors?</li>
+                    <li><strong>Pricing transparency</strong> - Do they show real costs upfront?</li>
+                    <li><strong>International-friendly</strong> - Do they work for non-US customers?</li>
+                    <li><strong>Brand reputation</strong> - Are they established and trustworthy?</li>
+                    <li><strong>Fair commission</strong> - Is the payout worth the recommendation?</li>
+                </ol>
+            </div>
+
+            <div class="warning-box">
+                <p><strong>What We Won't Promote:</strong></p>
+                <ul>
+                    <li>❌ Products/services we haven't personally vetted</li>
+                    <li>❌ High-pressure upsells or scammy offers</li>
+                    <li>❌ Anything conflicting with "financial self-defense" positioning</li>
+                    <li>❌ Partners that hide fees or use deceptive pricing</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Success Metrics -->
+        <div id="success-metrics" class="content-section">
+            <h2>Success Metrics</h2>
+
+            <h3>Revenue (Multi-Revenue Model)</h3>
+
+            <h4>Guide Sales Only:</h4>
+            <div class="metric-grid">
+                <div class="metric-card">
+                    <div class="metric-label">Conservative</div>
+                    <div class="metric-value">$49,500</div>
+                    <div class="metric-description">500 sales × $99</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Target</div>
+                    <div class="metric-value">$198,000</div>
+                    <div class="metric-description">2,000 sales × $99</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Stretch</div>
+                    <div class="metric-value">$495,000</div>
+                    <div class="metric-description">5,000 sales × $99</div>
+                </div>
+            </div>
+
+            <h4>Guide + Affiliate Revenue:</h4>
+            <div class="metric-grid">
+                <div class="metric-card">
+                    <div class="metric-label">Conservative</div>
+                    <div class="metric-value">$83,375</div>
+                    <div class="metric-description">500 customers × $166.75 LTV (+68%)</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Target</div>
+                    <div class="metric-value">$333,500</div>
+                    <div class="metric-description">2,000 customers × $166.75 LTV (+68%)</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Stretch</div>
+                    <div class="metric-value">$833,750</div>
+                    <div class="metric-description">5,000 customers × $166.75 LTV (+68%)</div>
+                </div>
+            </div>
+
+            <div class="success-box">
+                <p><strong>Customer LTV = $166.75</strong> (guide $99 + average affiliate commissions $67.75)</p>
+            </div>
 
             <h3>Customer Acquisition</h3>
             <ul>
@@ -682,329 +895,131 @@
 
             <h3>Customer Satisfaction</h3>
             <ul>
-                <li>Product reviews: &gt;4.5/5 stars</li>
-                <li>Refund rate: &lt;5%</li>
+                <li>Product reviews: >4.5/5 stars</li>
+                <li>Refund rate: <5%</li>
                 <li>Testimonials: 50+ positive</li>
             </ul>
 
-            <h2>Secondary KPIs</h2>
+            <h3>Engagement</h3>
+            <ul>
+                <li>Community members: 5,000+</li>
+                <li>Newsletter subscribers: 10,000+</li>
+                <li>Page views: 100,000+</li>
+            </ul>
+        </div>
 
-            <div class="metric-grid">
-                <div class="metric-card">
-                    <h4>Engagement</h4>
-                    <ul>
-                        <li>Community members: 5,000+</li>
-                        <li>Newsletter subscribers: 10,000+</li>
-                        <li>Page views: 100,000+</li>
-                    </ul>
-                </div>
-                <div class="metric-card">
-                    <h4>Savings Delivered</h4>
-                    <ul>
-                        <li>Average savings: $500+</li>
-                        <li>ROI: 5X+ ($99 → $500 saved)</li>
-                    </ul>
-                </div>
-                <div class="metric-card">
-                    <h4>Content</h4>
-                    <ul>
-                        <li>City guides: 11 complete</li>
-                        <li>Blog posts: 20+</li>
-                        <li>Tools: 4 calculators</li>
-                    </ul>
-                </div>
+        <!-- Go-to-Market Strategy -->
+        <div id="go-to-market" class="content-section">
+            <h2>Go-to-Market Strategy</h2>
+
+            <h3>Phase 1: Pre-Launch (Feb-March 2026)</h3>
+            <div class="bento-card">
+                <p><strong>Objectives:</strong> Build core product, create landing page, start community, early adopter sales</p>
+                <p><strong>Tactics:</strong> Reddit outreach, Facebook World Cup groups, Twitter/X hashtags, early bird pricing ($79 vs $99)</p>
+                <p><strong>Content Marketing:</strong></p>
+                <ul>
+                    <li>"That '$200/night' Boston hotel? Actually $701." (viral angle)</li>
+                    <li>"Americans Don't Explain This Because They Can't Imagine Not Knowing It"</li>
+                    <li>"The Cannabis Legal→Felony Map: MA to TX = 180 Days Jail"</li>
+                    <li>"Why Your $7,500 Budget Will Actually Cost $9,965"</li>
+                    <li>"Geographic Arbitrage: Providence vs Boston Saves $1,500"</li>
+                </ul>
             </div>
 
-            <h1>Go-to-Market Strategy</h1>
-
-            <h2>Phase 1: Pre-Launch (Feb-March 2026)</h2>
-            <p><strong>Objectives:</strong> Build core product, create landing page, start community, early adopter sales</p>
-
-            <p><strong>Tactics:</strong></p>
-            <ul>
-                <li>Reddit outreach (r/worldcup, r/soccer)</li>
-                <li>Facebook World Cup groups</li>
-                <li>Twitter/X World Cup hashtags</li>
-                <li>Early bird pricing ($79 vs. $99)</li>
-            </ul>
-
-            <p><strong>Content Marketing:</strong></p>
-            <ul>
-                <li>"Boston's Stadium Isn't in Boston" viral post</li>
-                <li>"Why Hotel Tax Rebates Don't Exist" (SEO)</li>
-                <li>"The Cannabis Legal→Felony Map"</li>
-                <li>"Budget Reality: $7,500 → $10,000"</li>
-            </ul>
-
-            <h2>Phase 2: Launch (March-April 2026)</h2>
-            <p><strong>Objectives:</strong> Public launch, drive sales, build community, media coverage</p>
-
-            <p><strong>Tactics:</strong></p>
-            <ul>
-                <li>Product Hunt launch</li>
-                <li>Soccer blog outreach</li>
-                <li>Influencer partnerships</li>
-                <li>PR pitch to travel media</li>
-            </ul>
-
-            <p><strong>Promotions:</strong></p>
-            <ul>
-                <li>Launch discount (48 hours)</li>
-                <li>Refer-a-friend (10% commission)</li>
-                <li>Bundle deals (group purchases)</li>
-            </ul>
-
-            <h2>Phase 3: Growth (May-July 2026)</h2>
-            <p><strong>Objectives:</strong> Maximize sales, leverage urgency, community activation, real-time value</p>
-
-            <p><strong>Tactics:</strong></p>
-            <ul>
-                <li>Weekly newsletter (countdown)</li>
-                <li>User testimonials</li>
-                <li>Community highlights</li>
-                <li>Last-minute buyers (urgency)</li>
-                <li>Match-day surge pricing alerts</li>
-                <li>Traffic updates</li>
-                <li>Community meetups</li>
-            </ul>
-
-            <h2>Phase 4: Post-World Cup (Aug 2026+)</h2>
-            <p><strong>Objectives:</strong> Pivot to evergreen, sustain revenue, expand market</p>
-
-            <p><strong>Tactics:</strong></p>
-            <ul>
-                <li>Rebrand to general US visitor guide</li>
-                <li>Update for non-soccer travelers</li>
-                <li>SEO optimization</li>
-                <li>Affiliate partnerships</li>
-                <li>Corporate sales (companies sending employees)</li>
-            </ul>
-
-            <h1>Competitive Analysis</h1>
-
-            <div class="competitive-grid">
-                <div class="competitor-card">
-                    <h4>Lonely Planet USA</h4>
-                    <ul>
-                        <li>❌ Not World Cup-specific</li>
-                        <li>❌ General, not financial transparency</li>
-                        <li>✅ Comprehensive city coverage</li>
-                        <li>❌ Expensive ($25-40)</li>
-                    </ul>
-                </div>
-
-                <div class="competitor-card">
-                    <h4>Rick Steves</h4>
-                    <ul>
-                        <li>❌ Europe-focused, limited US</li>
-                        <li>❌ Not World Cup-specific</li>
-                        <li>❌ Doesn't cover hidden costs</li>
-                        <li>✅ Cultural insights</li>
-                    </ul>
-                </div>
-
-                <div class="competitor-card">
-                    <h4>Official Tourism Sites</h4>
-                    <ul>
-                        <li>❌ Promotional bias</li>
-                        <li>❌ Hide negative aspects</li>
-                        <li>❌ No financial transparency</li>
-                        <li>❌ No legal warnings</li>
-                    </ul>
-                </div>
-
-                <div class="competitor-card">
-                    <h4>Reddit/Forums</h4>
-                    <ul>
-                        <li>✅ Free, peer advice</li>
-                        <li>❌ Fragmented, unreliable</li>
-                        <li>❌ Time-consuming research</li>
-                        <li>❌ No comprehensive structure</li>
-                    </ul>
-                </div>
+            <h3>Phase 2: Launch (March-April 2026)</h3>
+            <div class="bento-card">
+                <p><strong>Objectives:</strong> Public launch, drive sales, build community, media coverage</p>
+                <p><strong>Tactics:</strong> Product Hunt launch, soccer blog outreach, influencer partnerships, PR pitch to travel media</p>
+                <p><strong>Promotions:</strong> Launch discount (48 hours), refer-a-friend (10% commission), bundle deals (group purchases)</p>
             </div>
 
-            <h2>Competitive Advantages</h2>
-
-            <div class="success-box">
-                <h3>Clutch Uniquely Offers:</h3>
-                <ol>
-                    <li><strong>Research-backed intelligence</strong> (not opinions)</li>
-                    <li><strong>World Cup-specific</strong> (logistics, timing, surge pricing)</li>
-                    <li><strong>Financial transparency</strong> (real costs, hidden fees)</li>
-                    <li><strong>Legal risk mitigation</strong> (state law maps)</li>
-                    <li><strong>ROI-positive</strong> (saves more than it costs)</li>
-                    <li><strong>One source</strong> (vs. scattered research)</li>
-                    <li><strong>Community included</strong> (free with purchase)</li>
-                </ol>
+            <h3>Phase 3: Growth (May-July 2026)</h3>
+            <div class="bento-card">
+                <p><strong>Objectives:</strong> Maximize sales, leverage urgency (countdown), community activation, real-time value</p>
+                <p><strong>Tactics:</strong> Weekly newsletter (countdown), user testimonials, community highlights, last-minute buyers (urgency)</p>
+                <p><strong>Real-Time Updates:</strong> Match-day surge pricing alerts, traffic updates, community meetups, success stories</p>
             </div>
 
-            <h1>Technical Requirements</h1>
+            <h3>Phase 4: Post-World Cup (Aug 2026+)</h3>
+            <div class="bento-card">
+                <p><strong>Objectives:</strong> Pivot to evergreen, sustain revenue, expand market</p>
+                <p><strong>Tactics:</strong> Rebrand to general US visitor guide, update for non-soccer travelers, SEO optimization, affiliate partnerships, corporate sales</p>
+            </div>
+        </div>
 
-            <h2>Platform & Delivery</h2>
+        <!-- Competitive Analysis -->
+        <div id="competitive-analysis" class="content-section">
+            <h2>Competitive Analysis</h2>
 
-            <h3>Primary Product</h3>
-            <ul>
-                <li><strong>Format:</strong> Digital PDF + web access</li>
-                <li><strong>Delivery:</strong> Gumroad or Stripe checkout</li>
-                <li><strong>Access:</strong> Immediate download + email delivery</li>
-                <li><strong>Updates:</strong> Lifetime access to updated versions</li>
-            </ul>
-
-            <h3>Website</h3>
-            <ul>
-                <li><strong>Hosting:</strong> GitHub Pages (free, fast)</li>
-                <li><strong>Domain:</strong> clutch2026.com or similar</li>
-                <li><strong>Stack:</strong> Static HTML/CSS/JS (simple, fast, cheap)</li>
-                <li><strong>Features:</strong> Landing page, city samples, payment integration, email capture</li>
-            </ul>
-
-            <h3>Community</h3>
-            <ul>
-                <li><strong>Platform:</strong> Skool</li>
-                <li><strong>Integration:</strong> Auto-add on purchase</li>
-                <li><strong>Moderation:</strong> VA support (5 hrs/week)</li>
-            </ul>
-
-            <h2>Payment & Analytics</h2>
-
-            <p><strong>Payment Processing:</strong></p>
-            <ul>
-                <li>Gumroad (recommended): Simple, 10% fee, handles VAT</li>
-                <li>Alternative: Stripe (more complex, 2.9% + 30¢)</li>
-            </ul>
-
-            <p><strong>Analytics:</strong></p>
-            <ul>
-                <li>Google Analytics (traffic, conversions)</li>
-                <li>Gumroad analytics (sales, geography)</li>
-                <li>Email open rates (newsletter performance)</li>
-            </ul>
-
-            <p><strong>Email:</strong></p>
-            <ul>
-                <li>ConvertKit or Beehiiv</li>
-                <li>Welcome sequence</li>
-                <li>Product updates</li>
-                <li>Affiliate promotions</li>
-            </ul>
-
-            <h1>Risk Mitigation</h1>
+            <h3>Direct Competitors</h3>
 
             <table>
                 <thead>
                     <tr>
-                        <th>Risk</th>
-                        <th>Mitigation Strategy</th>
+                        <th>Competitor</th>
+                        <th>Strengths</th>
+                        <th>Weaknesses</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>Low Demand</td>
-                        <td>Pre-launch validation, early adopters, refund guarantee</td>
+                        <td><strong>Lonely Planet USA</strong></td>
+                        <td>✅ Comprehensive city coverage</td>
+                        <td>❌ Not World Cup-specific<br>❌ General, not financial transparency<br>❌ Expensive ($25-40)</td>
                     </tr>
                     <tr>
-                        <td>Competition Emerges</td>
-                        <td>First-mover advantage, comprehensive research, community moat</td>
+                        <td><strong>Rick Steves</strong></td>
+                        <td>✅ Cultural insights</td>
+                        <td>❌ Europe-focused, limited US<br>❌ Not World Cup-specific<br>❌ Doesn't cover hidden costs</td>
                     </tr>
                     <tr>
-                        <td>Information Becomes Outdated</td>
-                        <td>Lifetime updates, monthly refresh, community contributions</td>
+                        <td><strong>Official Tourism Sites</strong></td>
+                        <td>—</td>
+                        <td>❌ Promotional bias<br>❌ Hide negative aspects<br>❌ No financial transparency<br>❌ No legal warnings</td>
                     </tr>
                     <tr>
-                        <td>Operational Burden</td>
-                        <td>VA support, automated systems, community self-moderation</td>
-                    </tr>
-                    <tr>
-                        <td>Negative Reviews</td>
-                        <td>Quality control, refund policy, responsive support</td>
+                        <td><strong>Reddit/Forums</strong></td>
+                        <td>✅ Free, peer advice</td>
+                        <td>❌ Fragmented, unreliable<br>❌ Time-consuming research<br>❌ No comprehensive structure</td>
                     </tr>
                 </tbody>
             </table>
 
-            <h1>Timeline & Milestones</h1>
+            <h3>Clutch Competitive Advantages</h3>
 
-            <h3>February 2026</h3>
-            <ul>
-                <li><span class="status-badge status-complete">✅ Complete</span> Research complete</li>
-                <li><span class="status-badge status-complete">✅ Complete</span> PRD finalized</li>
-                <li><span class="status-badge status-progress">🔄 In Progress</span> Landing page live</li>
-                <li><span class="status-badge status-progress">🔄 In Progress</span> Sample city pages (6 cities)</li>
-                <li><span class="status-badge status-progress">🔄 In Progress</span> Payment processing setup</li>
-                <li><span class="status-badge status-progress">🔄 In Progress</span> Community platform launch</li>
-            </ul>
-
-            <h3>March 2026</h3>
-            <ul>
-                <li>Complete all 11 city guides</li>
-                <li>Build interactive tools</li>
-                <li>Early adopter launch ($79)</li>
-                <li>First 100 sales</li>
-            </ul>
-
-            <h3>April 2026</h3>
-            <ul>
-                <li>Public launch ($99)</li>
-                <li>Product Hunt launch</li>
-                <li>Media outreach</li>
-                <li>500+ sales</li>
-            </ul>
-
-            <h3>May 2026</h3>
-            <ul>
-                <li>Community activation</li>
-                <li>Weekly newsletter starts</li>
-                <li>Influencer partnerships</li>
-                <li>1,000+ sales</li>
-            </ul>
-
-            <h3>June-July 2026</h3>
-            <ul>
-                <li>World Cup begins</li>
-                <li>Real-time updates</li>
-                <li>Peak sales period</li>
-                <li>2,000-5,000 sales</li>
-            </ul>
-
-            <h3>August 2026+</h3>
-            <ul>
-                <li>Pivot to evergreen</li>
-                <li>Rebrand for general visitors</li>
-                <li>Sustain revenue</li>
-                <li>Expand market</li>
-            </ul>
-
-            <h1>Open Questions</h1>
-
-            <ol>
-                <li><strong>Pricing validation:</strong> Is $99 the right price? Test $79 vs $99 vs $149?</li>
-                <li><strong>Platform selection:</strong> Gumroad (simple) vs Stripe (control)?</li>
-                <li><strong>Refund policy:</strong> 30-day guarantee or no refunds?</li>
-                <li><strong>Affiliate strategy:</strong> Which partners? Commission structure?</li>
-                <li><strong>Community moderation:</strong> In-house or VA? How many hours?</li>
-                <li><strong>Content updates:</strong> Monthly or as-needed? Who monitors changes?</li>
-                <li><strong>International payments:</strong> Currency conversion? Regional pricing?</li>
-            </ol>
-
-            <h1>Research Sources</h1>
-
-            <p><strong>Research Method:</strong> Perplexity Deep Research (January 30, 2026)</p>
-            <p><strong>Total Sources:</strong> 200+ citations across 5 research documents</p>
-
-            <p><strong>Research Documents:</strong></p>
-            <ul>
-                <li>hotel-tax-rebate-research.md</li>
-                <li>hidden-costs-research.md</li>
-                <li>money-saving-opportunities-research.md</li>
-                <li>state-law-differences-research.md</li>
-                <li>common-mistakes-surprises-research.md</li>
-            </ul>
+            <div class="bento-grid">
+                <div class="bento-card">
+                    <div class="bento-title">Research-Backed Intelligence</div>
+                    <div class="bento-description">Not opinions - 200+ citations across 5 research documents</div>
+                </div>
+                <div class="bento-card">
+                    <div class="bento-title">World Cup-Specific</div>
+                    <div class="bento-description">Match logistics, timing, surge pricing intelligence</div>
+                </div>
+                <div class="bento-card">
+                    <div class="bento-title">Financial Transparency</div>
+                    <div class="bento-description">Real costs, hidden fees exposed, not advertised prices</div>
+                </div>
+                <div class="bento-card">
+                    <div class="bento-title">Legal Risk Mitigation</div>
+                    <div class="bento-description">State law maps prevent felony charges</div>
+                </div>
+                <div class="bento-card">
+                    <div class="bento-title">ROI-Positive</div>
+                    <div class="bento-description">Saves more than it costs ($99 to save $2,465)</div>
+                </div>
+                <div class="bento-card">
+                    <div class="bento-title">One Authoritative Source</div>
+                    <div class="bento-description">No scattered research, one comprehensive guide</div>
+                </div>
+            </div>
         </div>
+
     </div>
 
-    <div style="background: #2c3e50; color: white; padding: 40px 20px; text-align: center; margin-top: 60px;">
-        <p>&copy; 2026 Clutch. Product Requirements Document - Confidential</p>
-        <p style="margin-top: 10px; opacity: 0.8; font-size: 0.9rem;">Last Updated: January 30, 2026</p>
+    <div style="background: rgba(30, 41, 59, 0.8); padding: 40px 20px; text-align: center; margin-top: 80px;">
+        <p style="color: var(--text-secondary);">&copy; 2026 Clutch. All rights reserved.</p>
     </div>
+
 </body>
 </html>
