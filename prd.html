@@ -4,19 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Clutch - Product Requirements Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-purple: #8B5CF6;
-            --secondary-purple: #9333EA;
-            --accent-blue: #3B82F6;
-            --dark-bg: #0F172A;
-            --card-bg: #1E293B;
-            --text-primary: #F8FAFC;
-            --text-secondary: #CBD5E1;
-            --border-color: #334155;
-            --success-green: #10B981;
-            --warning-yellow: #F59E0B;
-            --danger-red: #EF4444;
+            --forest: #01472e;
+            --sage: #ccd5ae;
+            --olive: #e9edc9;
+            --cream: #fefae0;
+            --moss: #a3b18a;
         }
 
         * {
@@ -26,897 +23,715 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'SF Pro Display', sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--cream);
+            color: var(--forest);
+            font-weight: 400;
             line-height: 1.7;
-            color: var(--text-primary);
-            background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
-            min-height: 100vh;
-        }
-
-        .header {
-            background: linear-gradient(135deg, var(--primary-purple) 0%, var(--secondary-purple) 50%, var(--accent-blue) 100%);
-            padding: 80px 20px;
-            text-align: center;
+            overflow-x: hidden;
             position: relative;
-            overflow: hidden;
         }
 
-        .header::before {
+        /* Noise Overlay */
+        body::before {
             content: '';
-            position: absolute;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.04;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        /* Fixed Navigation */
+        .nav {
+            position: fixed;
             top: 0;
             left: 0;
             right: 0;
-            bottom: 0;
-            background: radial-gradient(circle at 20% 50%, rgba(139, 92, 246, 0.2) 0%, transparent 50%),
-                        radial-gradient(circle at 80% 80%, rgba(59, 130, 246, 0.2) 0%, transparent 50%);
+            z-index: 1000;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        .header-content {
+        .nav-center {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            padding: 0.5rem 2rem;
+            border-radius: 50px;
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--forest);
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        .nav-link:hover {
+            opacity: 0.6;
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            color: var(--forest);
+        }
+
+        .logo::before {
+            content: '— ';
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            background: var(--sage);
+            display: flex;
+            align-items: center;
+            justify-content: center;
             position: relative;
-            z-index: 1;
+            overflow: hidden;
+            padding: 8rem 2rem 4rem;
         }
 
-        .header h1 {
-            font-size: clamp(2.5rem, 6vw, 4.5rem);
-            font-weight: 900;
-            margin-bottom: 15px;
-            background: linear-gradient(135deg, #FFFFFF 0%, #F1F5F9 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            letter-spacing: -0.02em;
-        }
-
-        .header-subtitle {
-            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
-            opacity: 0.95;
-            font-weight: 500;
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
-        .meta {
-            max-width: 1200px;
-            margin: -40px auto 40px;
-            padding: 0 20px;
+        .hero-content {
+            text-align: center;
             position: relative;
             z-index: 10;
         }
 
-        .meta-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-        }
-
-        .meta-card {
-            background: rgba(30, 41, 59, 0.8);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--border-color);
-            padding: 25px;
-            border-radius: 16px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .meta-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 12px rgba(139, 92, 246, 0.2);
-        }
-
-        .meta-label {
-            font-size: 0.85rem;
+        .hero-title {
+            font-family: 'Anton', sans-serif;
+            font-size: 23vw;
+            line-height: 0.75;
+            letter-spacing: -0.05em;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: var(--text-secondary);
-            margin-bottom: 8px;
-            font-weight: 600;
+            color: var(--forest);
+            margin-bottom: 3rem;
         }
 
-        .meta-value {
-            font-size: 1.3rem;
+        .hero-subtitle {
+            font-size: clamp(1rem, 2vw, 1.5rem);
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            color: var(--forest);
+            opacity: 0.8;
+        }
+
+        .hero-meta {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero-meta-item {
+            text-align: left;
+        }
+
+        .hero-meta-label {
+            font-size: 10px;
             font-weight: 700;
-            background: linear-gradient(135deg, var(--primary-purple), var(--accent-blue));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            color: var(--forest);
+            opacity: 0.6;
+            margin-bottom: 0.5rem;
         }
 
-        .status-badge {
-            display: inline-block;
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            background: linear-gradient(135deg, #F59E0B, #EF4444);
+        .hero-meta-value {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--forest);
+        }
+
+        /* Content Sections */
+        .section {
+            padding: 8rem 2rem 6rem;
+            position: relative;
+        }
+
+        .section-bg-olive {
+            background: var(--olive);
+            border-top-left-radius: 5rem;
+            border-top-right-radius: 5rem;
+            margin-top: -4rem;
+        }
+
+        .section-bg-cream {
+            background: var(--cream);
+            border-top-left-radius: 5rem;
+            border-top-right-radius: 5rem;
+            margin-top: -4rem;
+        }
+
+        .section-bg-sage {
+            background: var(--sage);
+            border-top-left-radius: 5rem;
+            border-top-right-radius: 5rem;
+            margin-top: -4rem;
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 60px 20px;
         }
 
-        .content-section {
-            background: rgba(30, 41, 59, 0.6);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--border-color);
-            padding: 50px;
-            border-radius: 24px;
-            margin-bottom: 40px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        .section-title {
+            font-family: 'Anton', sans-serif;
+            font-size: 15vw;
+            line-height: 0.85;
+            letter-spacing: -0.05em;
+            text-transform: uppercase;
+            color: var(--forest);
+            margin-bottom: 3rem;
+            opacity: 0;
+            transform: translateY(100px);
+            transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        h2 {
-            font-size: clamp(2rem, 4vw, 2.8rem);
-            font-weight: 800;
-            margin: 0 0 30px;
-            background: linear-gradient(135deg, var(--primary-purple), var(--accent-blue));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            letter-spacing: -0.02em;
+        .section-title.reveal {
+            opacity: 1;
+            transform: translateY(0);
         }
 
-        h3 {
-            font-size: clamp(1.5rem, 3vw, 2rem);
-            font-weight: 700;
-            margin: 40px 0 20px;
-            color: var(--text-primary);
+        .section-content {
+            max-width: 1000px;
         }
 
-        h4 {
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin: 30px 0 15px;
-            color: var(--text-secondary);
-        }
-
-        p {
-            margin: 15px 0;
+        .section-text {
+            font-size: 1.1rem;
             line-height: 1.8;
-            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateY(100px);
+            transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+            transition-delay: 0.2s;
         }
 
+        .section-text.reveal {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Cards */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+            margin-top: 4rem;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 2.5rem;
+            padding: 3rem;
+            box-shadow: 0 20px 40px rgba(1, 71, 46, 0.1);
+            opacity: 0;
+            transform: translateY(100px);
+            transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .card.reveal {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .card:nth-child(2) {
+            transition-delay: 0.1s;
+        }
+
+        .card:nth-child(3) {
+            transition-delay: 0.2s;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--forest);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .card-text {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: var(--forest);
+            opacity: 0.8;
+        }
+
+        /* List Styling */
         ul, ol {
-            margin: 20px 0 20px 30px;
-            line-height: 1.9;
+            margin-left: 1.5rem;
+            margin-bottom: 1.5rem;
         }
 
         li {
-            margin: 10px 0;
-            color: var(--text-secondary);
-        }
-
-        strong {
-            color: var(--text-primary);
-            font-weight: 600;
-        }
-
-        .highlight-box {
-            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(59, 130, 246, 0.1));
-            border-left: 4px solid var(--primary-purple);
-            padding: 25px;
-            margin: 30px 0;
-            border-radius: 12px;
-            backdrop-filter: blur(10px);
-        }
-
-        .success-box {
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(5, 150, 105, 0.1));
-            border-left: 4px solid var(--success-green);
-            padding: 25px;
-            margin: 30px 0;
-            border-radius: 12px;
-        }
-
-        .warning-box {
-            background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(217, 119, 6, 0.1));
-            border-left: 4px solid var(--warning-yellow);
-            padding: 25px;
-            margin: 30px 0;
-            border-radius: 12px;
-        }
-
-        .bento-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 20px;
-            margin: 30px 0;
-        }
-
-        .bento-card {
-            background: rgba(30, 41, 59, 0.4);
-            border: 1px solid var(--border-color);
-            padding: 30px;
-            border-radius: 16px;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .bento-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 24px rgba(139, 92, 246, 0.15);
-            border-color: var(--primary-purple);
-        }
-
-        .bento-title {
-            font-size: 1.4rem;
-            font-weight: 700;
-            margin-bottom: 15px;
-            color: var(--text-primary);
-        }
-
-        .bento-description {
-            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
             line-height: 1.7;
         }
 
-        .metric-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-            margin: 30px 0;
+        strong {
+            font-weight: 700;
+            color: var(--forest);
         }
 
-        .metric-card {
-            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(59, 130, 246, 0.05));
-            border: 1px solid var(--border-color);
-            padding: 25px;
-            border-radius: 16px;
+        /* Value Props */
+        .value-list {
+            list-style: none;
+            margin: 2rem 0;
+        }
+
+        .value-list li {
+            padding-left: 2rem;
             position: relative;
-            overflow: hidden;
+            margin-bottom: 1rem;
         }
 
-        .metric-card::before {
-            content: '';
+        .value-list li::before {
+            content: '✅';
             position: absolute;
-            top: 0;
             left: 0;
-            width: 4px;
-            height: 100%;
-            background: linear-gradient(180deg, var(--primary-purple), var(--accent-blue));
         }
 
-        .metric-label {
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: var(--text-secondary);
-            margin-bottom: 10px;
-        }
-
-        .metric-value {
-            font-size: 2.2rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--primary-purple), var(--accent-blue));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 8px;
-        }
-
-        .metric-description {
-            font-size: 0.95rem;
-            color: var(--text-secondary);
+        /* Revenue Table */
+        .revenue-table {
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 2.5rem;
+            padding: 2rem;
+            margin: 2rem 0;
+            overflow-x: auto;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            margin: 30px 0;
-            background: rgba(30, 41, 59, 0.4);
-            border-radius: 12px;
-            overflow: hidden;
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(1, 71, 46, 0.1);
         }
 
         th {
-            background: linear-gradient(135deg, var(--primary-purple), var(--secondary-purple));
-            color: white;
-            padding: 16px;
-            text-align: left;
-            font-weight: 600;
-            font-size: 0.95rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 11px;
+            letter-spacing: 0.2em;
+            color: var(--forest);
+        }
+
+        td {
+            color: var(--forest);
+        }
+
+        /* CTA Button */
+        .cta-button {
+            display: inline-block;
+            background: var(--forest);
+            color: var(--cream);
+            padding: 1.5rem 3rem;
+            border-radius: 50px;
+            text-transform: uppercase;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.3em;
+            text-decoration: none;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 10px 30px rgba(1, 71, 46, 0.2);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 40px rgba(1, 71, 46, 0.3);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--forest);
+            color: var(--sage);
+            padding: 6rem 2rem 3rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            margin-bottom: 4rem;
+        }
+
+        .newsletter {
+            max-width: 500px;
+        }
+
+        .newsletter-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
             text-transform: uppercase;
             letter-spacing: 0.05em;
         }
 
-        td {
-            padding: 16px;
-            border-bottom: 1px solid var(--border-color);
-            color: var(--text-secondary);
+        .newsletter-input {
+            width: 100%;
+            background: transparent;
+            border: none;
+            border-bottom: 2px solid var(--sage);
+            padding: 1rem 0;
+            font-size: 1.2rem;
+            color: var(--sage);
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            font-weight: 700;
+            outline: none;
+            transition: border-color 0.3s;
         }
 
-        tr:last-child td {
-            border-bottom: none;
+        .newsletter-input::placeholder {
+            color: var(--sage);
+            opacity: 0.5;
         }
 
-        tr:hover {
-            background: rgba(139, 92, 246, 0.05);
+        .newsletter-input:focus {
+            border-color: var(--cream);
         }
 
-        .toc {
-            background: rgba(30, 41, 59, 0.6);
-            border: 1px solid var(--border-color);
-            padding: 35px;
-            border-radius: 16px;
-            margin: 40px 0;
+        .footer-links {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
         }
 
-        .toc h3 {
-            margin-top: 0;
-            background: linear-gradient(135deg, var(--primary-purple), var(--accent-blue));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        .footer-link-group h4 {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            margin-bottom: 1rem;
+            opacity: 0.7;
         }
 
-        .toc ul {
-            list-style: none;
-            margin-left: 0;
-        }
-
-        .toc li {
-            margin: 12px 0;
-        }
-
-        .toc a {
-            color: var(--text-secondary);
+        .footer-link-group a {
+            display: block;
+            color: var(--sage);
             text-decoration: none;
-            transition: color 0.2s;
-            font-weight: 500;
+            margin-bottom: 0.5rem;
+            transition: opacity 0.3s;
         }
 
-        .toc a:hover {
-            color: var(--primary-purple);
+        .footer-link-group a:hover {
+            opacity: 0.7;
         }
 
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(204, 213, 174, 0.2);
+            text-align: center;
+            opacity: 0.5;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+        }
+
+        /* Responsive */
         @media (max-width: 768px) {
-            .header {
-                padding: 60px 20px;
+            .hero-title {
+                font-size: 18vw;
             }
 
-            .content-section {
-                padding: 30px 20px;
+            .section-title {
+                font-size: 12vw;
             }
 
-            .meta {
-                margin: -30px auto 30px;
+            .nav-center {
+                position: relative;
+                left: 0;
+                transform: none;
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
             }
 
-            .bento-grid,
-            .metric-grid {
+            .footer-content {
                 grid-template-columns: 1fr;
+            }
+
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Floating Animation */
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(5deg);
             }
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <div class="header-content">
-            <h1>Clutch</h1>
-            <p class="header-subtitle">Product Requirements Document</p>
+    <!-- Fixed Navigation -->
+    <nav class="nav">
+        <div class="logo">CLUTCH</div>
+        <div class="nav-center">
+            <a href="../index.html" class="nav-link">HOME</a>
+            <a href="#executive" class="nav-link">OVERVIEW</a>
+            <a href="#problem" class="nav-link">PROBLEM</a>
+            <a href="#solution" class="nav-link">SOLUTION</a>
         </div>
-    </div>
+        <div></div>
+    </nav>
 
-    <div class="meta">
-        <div class="meta-grid">
-            <div class="meta-card">
-                <div class="meta-label">Version</div>
-                <div class="meta-value">1.1</div>
-            </div>
-            <div class="meta-card">
-                <div class="meta-label">Last Updated</div>
-                <div class="meta-value">January 31, 2026</div>
-            </div>
-            <div class="meta-card">
-                <div class="meta-label">Status</div>
-                <span class="status-badge">Development</span>
-            </div>
-            <div class="meta-card">
-                <div class="meta-label">Owner</div>
-                <div class="meta-value">Crawford McMillan</div>
-            </div>
-        </div>
-    </div>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">PRD</h1>
+            <p class="hero-subtitle">
+                Financial self-defense for international visitors to the 2026 FIFA World Cup against American pricing systems designed to extract maximum dollars from uninformed tourists.
+            </p>
 
-    <div class="container">
-        <!-- Table of Contents -->
-        <div class="toc">
-            <h3>Contents</h3>
-            <ul>
-                <li><a href="#executive-summary">Executive Summary</a></li>
-                <li><a href="#problem-statement">Problem Statement</a></li>
-                <li><a href="#solution">Solution Overview</a></li>
-                <li><a href="#target-audience">Target Audience</a></li>
-                <li><a href="#features">Features & Functionality</a></li>
-                <li><a href="#affiliate-plan">Affiliate Integration Plan</a></li>
-                <li><a href="#success-metrics">Success Metrics</a></li>
-                <li><a href="#go-to-market">Go-to-Market Strategy</a></li>
-                <li><a href="#competitive-analysis">Competitive Analysis</a></li>
-            </ul>
-        </div>
-
-        <!-- Executive Summary -->
-        <div id="executive-summary" class="content-section">
-            <h2>Executive Summary</h2>
-
-            <p><strong>Clutch</strong> is a paid digital guide ($99) with free community access that provides <strong>financial self-defense</strong> for international visitors to the 2026 FIFA World Cup against American pricing systems designed to extract maximum dollars from uninformed tourists.</p>
-
-            <div class="highlight-box">
-                <h4>Core Value</h4>
-                <p><strong>Americans don't explain how their pricing system works because they can't imagine not knowing it.</strong></p>
-                <p>International visitors budget $7,500 but spend $9,965—<strong>$2,465 in preventable costs</strong>. Clutch is your defense against hidden fees, mandatory tipping, state-by-state legal traps, and surge pricing that Americans navigate unconsciously but tourists pay for unknowingly.</p>
-            </div>
-
-            <h3>Revenue Model: Multi-Revenue Business</h3>
-            <div class="bento-grid">
-                <div class="bento-card">
-                    <div class="bento-title">Guide Sales</div>
-                    <div class="bento-description">$99 per customer - One-time digital product purchase</div>
+            <div class="hero-meta">
+                <div class="hero-meta-item">
+                    <div class="hero-meta-label">DATE</div>
+                    <div class="hero-meta-value">January 30, 2026</div>
                 </div>
-                <div class="bento-card">
-                    <div class="bento-title">Affiliate Commissions</div>
-                    <div class="bento-description">Travel insurance, eSIM, currency exchange, hotels, car rentals</div>
+                <div class="hero-meta-item">
+                    <div class="hero-meta-label">STATUS</div>
+                    <div class="hero-meta-value">Development</div>
                 </div>
-                <div class="bento-card">
-                    <div class="bento-title">Customer LTV</div>
-                    <div class="bento-description"><strong>$166.75</strong> average (guide $99 + affiliates $67.75)</div>
+                <div class="hero-meta-item">
+                    <div class="hero-meta-label">OWNER</div>
+                    <div class="hero-meta-value">Crawford McMillan</div>
                 </div>
-            </div>
-
-            <div class="success-box">
-                <p><strong>Target Launch:</strong> March 2026</p>
-                <p><strong>Peak Sales Period:</strong> April-July 2026 (World Cup: June 11 - July 19, 2026)</p>
+                <div class="hero-meta-item">
+                    <div class="hero-meta-label">TARGET LAUNCH</div>
+                    <div class="hero-meta-value">March 2026</div>
+                </div>
             </div>
         </div>
+    </section>
 
-        <!-- Problem Statement -->
-        <div id="problem-statement" class="content-section">
-            <h2>Problem Statement</h2>
+    <!-- Executive Summary -->
+    <section id="executive" class="section section-bg-olive">
+        <div class="container">
+            <h2 class="section-title">EXECUTIVE SUMMARY</h2>
+            <div class="section-content">
+                <p class="section-text">
+                    <strong>Clutch</strong> is a paid digital guide ($99) with free community access that provides financial self-defense for international visitors to the 2026 FIFA World Cup.
+                </p>
+                <p class="section-text">
+                    <strong>Core Value:</strong> Americans don't explain how their pricing system works because they can't imagine not knowing it. International visitors budget $7,500 but spend $9,965—$2,465 in preventable costs.
+                </p>
 
-            <div class="warning-box">
-                <h3>The Core Problem</h3>
-                <p><strong>Americans don't explain how their pricing system works because they can't imagine not knowing it.</strong></p>
-            </div>
-
-            <p>International visitors to the 2026 World Cup arrive with expectations shaped by their home countries' systems:</p>
-
-            <ul>
-                <li><strong>VAT refunds</strong> (Europe, Australia, Canada)</li>
-                <li><strong>Comprehensive public transit</strong> (Europe, Asia)</li>
-                <li><strong>Included pricing</strong> (VAT systems show final prices)</li>
-                <li><strong>Universal healthcare</strong> coverage</li>
-                <li><strong>Minimal/optional tipping</strong> (5-10% vs 18-22% mandatory)</li>
-                <li><strong>Different legal frameworks</strong> (cannabis, firearms, alcohol)</li>
-            </ul>
-
-            <h3>The American Reality</h3>
-            <p>A pricing system designed to show lower advertised costs while extracting maximum dollars through hidden fees, mandatory tipping, and taxes added at checkout.</p>
-
-            <div class="metric-grid">
-                <div class="metric-card">
-                    <div class="metric-label">Financial Shock</div>
-                    <div class="metric-value">$2,465</div>
-                    <div class="metric-description">Average budget overrun from hidden costs</div>
-                </div>
-                <div class="metric-card">
-                    <div class="metric-label">Tipping Costs</div>
-                    <div class="metric-value">$350-500</div>
-                    <div class="metric-description">Mandatory 18-22% adds per family</div>
-                </div>
-                <div class="metric-card">
-                    <div class="metric-label">Resort Fees</div>
-                    <div class="metric-value">$33/night</div>
-                    <div class="metric-description">Average hidden hotel fee</div>
-                </div>
-            </div>
-
-            <h3>Specific Pain Points</h3>
-
-            <h4>Financial Surprises</h4>
-            <ul>
-                <li>That "$200/night" Boston hotel? <strong>Actually $701</strong> after resort fee ($40), tax (14.75% = $87), and parking ($60)</li>
-                <li>Five nights in Boston = <strong>$3,685</strong> (Americans call this "normal." Visitors call it theft.)</li>
-                <li>Menu "$20 burger" + sales tax (6.25%) + mandatory tip (20%) = <strong>$25.25 actual cost</strong></li>
-                <li>14 days × 3 meals = <strong>$529 hidden</strong> on top of menu prices</li>
-                <li>Medical insurance required ($200-400) - ER visits cost $1,000-3,000+</li>
-            </ul>
-
-            <h4>Legal Traps</h4>
-            <ul>
-                <li>Cannabis: Legal in CA/WA/NY/MA, <strong>FELONY</strong> in TX/GA (180 days jail for <2oz)</li>
-                <li>Firearms: Open carry legal in TX/MO, <strong>banned</strong> in CA/FL/NY</li>
-                <li>Federal property: Cannabis always illegal (parks, federal buildings)</li>
-            </ul>
-
-            <h4>Match Day Surge Pricing</h4>
-            <div class="warning-box">
-                <p>Kansas City normally $121/night. Argentina match day? <strong>$654/night—a 440% increase</strong></p>
-                <p>Boston hotels: $700+/night during World Cup. But stay in Providence (22 miles closer to "Boston's" stadium)? $400/night. <strong>Geographic arbitrage saves $1,500 for 5 nights.</strong></p>
-            </div>
-
-            <h3>Who Has This Problem</h3>
-            <p><strong>Primary:</strong> International soccer fans attending 2026 World Cup (~500,000 international visitors across 11 US host cities)</p>
-
-            <p><strong>Highest-Value Segments:</strong></p>
-            <ol>
-                <li><strong>Western Europeans</strong> (Germany, UK, France, Spain) - Expect VAT refunds, comprehensive transit</li>
-                <li><strong>Nordic Countries</strong> - Tipping discouraged at home, maximum culture shock</li>
-                <li><strong>Japan/South Korea/Singapore</strong> - Exceptional transit at home, different cultural norms</li>
-                <li><strong>Australia/New Zealand</strong> - English-speaking, GST included in prices</li>
-                <li><strong>Latin America</strong> (Brazil, Argentina, Mexico) - Massive soccer fan base</li>
-            </ol>
-        </div>
-
-        <!-- Solution Overview -->
-        <div id="solution" class="content-section">
-            <h2>Solution Overview</h2>
-
-            <h3>Clutch is Financial Self-Defense</h3>
-
-            <div class="bento-grid">
-                <div class="bento-card">
-                    <div class="bento-title">Exposes the Pricing Game</div>
-                    <div class="bento-description">Shows "$200/night" actually costs $701 with all fees included</div>
-                </div>
-                <div class="bento-card">
-                    <div class="bento-title">Quantifies Every Hidden Cost</div>
-                    <div class="bento-description">$2,465 in preventable spending broken down line by line</div>
-                </div>
-                <div class="bento-card">
-                    <div class="bento-title">Geographic Arbitrage</div>
-                    <div class="bento-description">Providence vs Boston saves $1,500 for 5 nights</div>
-                </div>
-                <div class="bento-card">
-                    <div class="bento-title">Legal Risk Mitigation</div>
-                    <div class="bento-description">Cannabis legal in MA = felony in TX with 180 days jail</div>
-                </div>
-                <div class="bento-card">
-                    <div class="bento-title">Match-Day Intelligence</div>
-                    <div class="bento-description">440% surge pricing alerts and alternative strategies</div>
-                </div>
-                <div class="bento-card">
-                    <div class="bento-title">Clear ROI</div>
-                    <div class="bento-description">$99 to save $2,465. Pays for itself 25x over.</div>
-                </div>
-            </div>
-
-            <h3>Product Components</h3>
-
-            <h4>1. Digital Guide (PDF + Web Access)</h4>
-            <ul>
-                <li><strong>Reality Check:</strong> What you think vs. what's real</li>
-                <li><strong>Financial Intelligence:</strong> Complete hidden costs breakdown with calculators</li>
-                <li><strong>Legal Intelligence:</strong> State-by-state law comparison matrix</li>
-                <li><strong>City-by-City Guides:</strong> All 11 host cities with specific guidance</li>
-                <li><strong>Money-Saving Strategies:</strong> CityPASS, geographic arbitrage, timing</li>
-                <li><strong>Cultural Intelligence:</strong> Tipping guide, social norms, behavioral expectations</li>
-            </ul>
-
-            <h4>2. Interactive Tools</h4>
-            <ul>
-                <li>Budget Reality Calculator</li>
-                <li>Multi-City Itinerary Planner</li>
-                <li>State Law Checker</li>
-                <li>Tipping Calculator</li>
-            </ul>
-
-            <h4>3. Free Community Access</h4>
-            <p>School platform with country channels, city channels, topic channels, and match-specific coordination</p>
-        </div>
-
-        <!-- Target Audience -->
-        <div id="target-audience" class="content-section">
-            <h2>Target Audience</h2>
-
-            <h3>Primary Persona: "The International Soccer Fan"</h3>
-
-            <div class="bento-grid">
-                <div class="bento-card">
-                    <div class="bento-title">Demographics</div>
-                    <div class="bento-description">
-                        Age: 25-55<br>
-                        Income: Middle to upper-middle class<br>
-                        Location: Europe, Asia, Latin America, Australia<br>
-                        Language: English-speaking or bilingual
+                <div class="card-grid">
+                    <div class="card">
+                        <h3 class="card-title">Revenue Model</h3>
+                        <p class="card-text">Multi-revenue business model</p>
+                        <ul>
+                            <li>Guide sales: $99 per customer</li>
+                            <li>Affiliate commissions: Travel insurance, eSIM, currency exchange, hotels, car rentals</li>
+                            <li>Customer LTV: $166.75 (guide $99 + affiliates $67.75 average)</li>
+                        </ul>
                     </div>
-                </div>
-                <div class="bento-card">
-                    <div class="bento-title">Psychographics</div>
-                    <div class="bento-description">
-                        Passionate soccer fans willing to travel internationally<br>
-                        Budget-conscious but values experiences<br>
-                        Researches trips extensively<br>
-                        Concerned about getting "ripped off"
+
+                    <div class="card">
+                        <h3 class="card-title">Timeline</h3>
+                        <p class="card-text">Critical launch windows</p>
+                        <ul>
+                            <li><strong>Target Launch:</strong> March 2026</li>
+                            <li><strong>Peak Sales:</strong> April-July 2026</li>
+                            <li><strong>World Cup:</strong> June 11 - July 19, 2026</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h3 class="card-title">Market Opportunity</h3>
+                        <p class="card-text">First-mover advantage in World Cup financial intelligence</p>
+                        <ul>
+                            <li>3.5M+ international visitors expected</li>
+                            <li>Average $2,465 in hidden costs per visitor</li>
+                            <li>Zero comprehensive guides exist</li>
+                        </ul>
                     </div>
                 </div>
             </div>
-
-            <h3>Pain Points</h3>
-            <ul>
-                <li>"Americans don't explain how their pricing system actually works"</li>
-                <li>"That '$200/night' hotel actually costs $701—how is this legal?"</li>
-                <li>"I budgeted $7,500 but I'm hearing it costs $10,000+"</li>
-                <li>"What if I accidentally commit a felony crossing state lines?"</li>
-                <li>"Every website hides the real costs until checkout"</li>
-                <li>"I can't tell what's a scam vs what's 'normal' in America"</li>
-            </ul>
-
-            <h3>Goals</h3>
-            <ul>
-                <li>Defend against hidden fees, surge pricing, and mandatory tipping</li>
-                <li>Understand the real, all-in costs before booking anything</li>
-                <li>Avoid legal traps (cannabis, firearms, alcohol laws vary by state)</li>
-                <li>Save $2,000+ through geographic arbitrage and insider knowledge</li>
-                <li>Attend World Cup matches without financial disaster</li>
-            </ul>
         </div>
+    </section>
 
-        <!-- Features -->
-        <div id="features" class="content-section">
-            <h2>Features & Functionality</h2>
+    <!-- Problem Statement -->
+    <section id="problem" class="section section-bg-cream">
+        <div class="container">
+            <h2 class="section-title">THE PROBLEM</h2>
+            <div class="section-content">
+                <p class="section-text">
+                    <strong>Americans don't explain how their pricing system works because they can't imagine not knowing it.</strong>
+                </p>
 
-            <h3>Host Cities Covered (11 Total)</h3>
-            <div class="bento-grid">
-                <div class="bento-card">
-                    <div class="bento-title">West Coast</div>
-                    <div class="bento-description">Seattle, San Francisco, Los Angeles</div>
-                </div>
-                <div class="bento-card">
-                    <div class="bento-title">Central</div>
-                    <div class="bento-description">Kansas City, Dallas, Houston</div>
-                </div>
-                <div class="bento-card">
-                    <div class="bento-title">South</div>
-                    <div class="bento-description">Atlanta, Miami</div>
-                </div>
-                <div class="bento-card">
-                    <div class="bento-title">Northeast</div>
-                    <div class="bento-description">Philadelphia, Boston, New York/New Jersey</div>
+                <p class="section-text">
+                    International visitors to the 2026 World Cup arrive with expectations shaped by their home countries' systems: VAT refunds, comprehensive public transit, included pricing, universal healthcare, minimal/optional tipping, and different legal frameworks.
+                </p>
+
+                <p class="section-text">
+                    <strong>The American Reality:</strong> A pricing system designed to show lower advertised costs while extracting maximum dollars through hidden fees, mandatory tipping, and taxes added at checkout.
+                </p>
+
+                <div class="card-grid">
+                    <div class="card">
+                        <h3 class="card-title">Financial Shock</h3>
+                        <p class="card-text">25-35% budget overruns from hidden costs. Hotels advertised at "$200/night" actually cost $701 after resort fees, taxes, and parking.</p>
+                    </div>
+
+                    <div class="card">
+                        <h3 class="card-title">Legal Risk</h3>
+                        <p class="card-text">What's legal in one state is a felony in another. Cannabis legal in Massachusetts = 180 days jail in Texas.</p>
+                    </div>
+
+                    <div class="card">
+                        <h3 class="card-title">Logistical Failure</h3>
+                        <p class="card-text">Underestimated distances and car dependency. "Boston's" stadium is 28 miles away in Foxborough.</p>
+                    </div>
                 </div>
             </div>
-
-            <h3>For Each City:</h3>
-            <ul>
-                <li><strong>Quick Facts:</strong> State laws, cannabis status, hotel tax, sales tax</li>
-                <li><strong>Stadium Intelligence:</strong> Actual location, parking costs, public transit, traffic recommendations</li>
-                <li><strong>Hidden Costs:</strong> Resort fees, parking, tipping norms, surge pricing patterns</li>
-                <li><strong>Money-Saving:</strong> CityPASS details, free museums, budget hotels, geographic arbitrage</li>
-                <li><strong>What to Know:</strong> Local laws, weather, safe neighborhoods, cultural quirks</li>
-                <li><strong>Common Mistakes:</strong> Distance underestimations, transit assumptions, budget surprises</li>
-            </ul>
         </div>
+    </section>
 
-        <!-- Affiliate Integration Plan -->
-        <div id="affiliate-plan" class="content-section">
-            <h2>Affiliate Integration Plan</h2>
+    <!-- Solution -->
+    <section id="solution" class="section section-bg-sage">
+        <div class="container">
+            <h2 class="section-title">THE SOLUTION</h2>
+            <div class="section-content">
+                <p class="section-text">
+                    <strong>Clutch is Financial Self-Defense.</strong> We expose the pricing game, quantify every hidden cost, and provide geographic arbitrage strategies that save $1,000-2,500.
+                </p>
 
-            <div class="highlight-box">
-                <h4>Strategic Rationale</h4>
-                <p>Increases customer lifetime value from $99 to $166.75 (+68%), allowing higher customer acquisition costs ($80-100 vs $30 guide-only), making paid advertising viable.</p>
-            </div>
-
-            <h3>Tier 1 Priorities (Highest Value)</h3>
-
-            <table>
-                <thead>
-                    <tr>
-                        <th>Affiliate Type</th>
-                        <th>Commission</th>
-                        <th>Conv. Rate</th>
-                        <th>Revenue per 1,000 Buyers</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>Travel Insurance</strong></td>
-                        <td>$30-50 per policy</td>
-                        <td>60%</td>
-                        <td>$24,000</td>
-                    </tr>
-                    <tr>
-                        <td><strong>eSIM Data Plans</strong></td>
-                        <td>20-30% ($2-6 per plan)</td>
-                        <td>70%</td>
-                        <td>$2,800</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Currency Exchange</strong></td>
-                        <td>$25-40 per signup</td>
-                        <td>40%</td>
-                        <td>$12,000</td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <h4>1. Travel Medical Insurance</h4>
-            <div class="bento-card">
-                <p><strong>Why It Fits:</strong> International visitors NEED this (US healthcare costs $1,000-3,000+ for ER visits). Already recommended in guide as genuine value-add.</p>
-                <p><strong>Partners:</strong> SafetyWing, World Nomads, Allianz Travel Insurance</p>
-                <p><strong>Implementation:</strong> Dedicated section "Medical Insurance: Don't Skip This" with cost comparison (uninsured ER visit $2,500 vs insurance $100-200)</p>
-            </div>
-
-            <h4>2. International eSIM Data Plans</h4>
-            <div class="bento-card">
-                <p><strong>Why It Fits:</strong> Essential for navigation, rideshare, communication. Cheaper than roaming ($5-20 vs $100+ roaming fees).</p>
-                <p><strong>Partners:</strong> Airalo, Holafly, Nomad</p>
-                <p><strong>Implementation:</strong> Section "Stay Connected Without $200 Roaming Fees" with cost comparison table</p>
-            </div>
-
-            <h4>3. Currency Exchange / Travel Money Cards</h4>
-            <div class="bento-card">
-                <p><strong>Why It Fits:</strong> Foreign transaction fees cost 2-3% on every purchase. Multi-currency cards save significant money.</p>
-                <p><strong>Partners:</strong> Wise (formerly TransferWise), Revolut, Charles Schwab</p>
-                <p><strong>Implementation:</strong> Section "Stop Losing 3% on Every Purchase" with fee comparison</p>
-            </div>
-
-            <h3>Tier 2 Priorities (Moderate Value)</h3>
-
-            <table>
-                <thead>
-                    <tr>
-                        <th>Affiliate Type</th>
-                        <th>Commission</th>
-                        <th>Conv. Rate</th>
-                        <th>Revenue per 1,000 Buyers</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>Hotel Bookings</strong></td>
-                        <td>4-25% of booking</td>
-                        <td>30%</td>
-                        <td>$15,000</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Car Rentals</strong></td>
-                        <td>5-8% of rental</td>
-                        <td>40%</td>
-                        <td>$12,000</td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <h3>Total Revenue Projections</h3>
-
-            <div class="metric-grid">
-                <div class="metric-card">
-                    <div class="metric-label">Per 1,000 Guide Buyers</div>
-                    <div class="metric-value">$66,100</div>
-                    <div class="metric-description">Total affiliate commission revenue</div>
-                </div>
-                <div class="metric-card">
-                    <div class="metric-label">Avg Per Customer</div>
-                    <div class="metric-value">$66.10</div>
-                    <div class="metric-description">Average affiliate commission</div>
-                </div>
-                <div class="metric-card">
-                    <div class="metric-label">Combined LTV</div>
-                    <div class="metric-value">$166.75</div>
-                    <div class="metric-description">Guide $99 + Affiliates $67.75</div>
-                </div>
-            </div>
-
-            <h3>Implementation Strategy</h3>
-
-            <div class="bento-grid">
-                <div class="bento-card">
-                    <div class="bento-title">Phase 1: Launch</div>
-                    <div class="bento-description">Integrate Tier 1 affiliates only (insurance, eSIM, currency). Natural placement in existing guide sections.</div>
-                </div>
-                <div class="bento-card">
-                    <div class="bento-title">Phase 2: Optimization</div>
-                    <div class="bento-description">Add Tier 2 affiliates (hotels, car rentals). A/B test placement and messaging. Analyze conversion data.</div>
-                </div>
-                <div class="bento-card">
-                    <div class="bento-title">Phase 3: Expansion</div>
-                    <div class="bento-description">Add Tier 3 and experimental affiliates. Exclusive discounts negotiated with partners. Email campaigns to existing base.</div>
-                </div>
-            </div>
-
-            <h3>Quality Standards</h3>
-            <div class="success-box">
-                <p><strong>Partner Selection Criteria:</strong></p>
-                <ol>
-                    <li><strong>Genuine utility</strong> - Does this actually help international visitors?</li>
-                    <li><strong>Pricing transparency</strong> - Do they show real costs upfront?</li>
-                    <li><strong>International-friendly</strong> - Do they work for non-US customers?</li>
-                    <li><strong>Brand reputation</strong> - Are they established and trustworthy?</li>
-                    <li><strong>Fair commission</strong> - Is the payout worth the recommendation?</li>
-                </ol>
-            </div>
-
-            <div class="warning-box">
-                <p><strong>What We Won't Promote:</strong></p>
-                <ul>
-                    <li>❌ Products/services we haven't personally vetted</li>
-                    <li>❌ High-pressure upsells or scammy offers</li>
-                    <li>❌ Anything conflicting with "financial self-defense" positioning</li>
-                    <li>❌ Partners that hide fees or use deceptive pricing</li>
+                <ul class="value-list">
+                    <li><strong>Exposes the pricing game</strong> (shows "$200/night" actually costs $701)</li>
+                    <li><strong>Quantifies every hidden cost</strong> ($2,465 in preventable spending)</li>
+                    <li><strong>Geographic arbitrage strategies</strong> (Providence vs Boston saves $1,500)</li>
+                    <li><strong>Legal risk mitigation</strong> (cannabis legal in MA = felony in TX)</li>
+                    <li><strong>World Cup-specific intelligence</strong> (match-day 440% surge pricing)</li>
+                    <li><strong>ROI: $99 to save $2,465</strong> (pays for itself 25x over)</li>
                 </ul>
+
+                <div class="revenue-table">
+                    <h3 class="card-title" style="margin-bottom: 2rem;">Revenue Projections</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Scenario</th>
+                                <th>Customers</th>
+                                <th>Guide Only</th>
+                                <th>Guide + Affiliates</th>
+                                <th>Lift</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Conservative</strong></td>
+                                <td>500</td>
+                                <td>$49,500</td>
+                                <td>$83,375</td>
+                                <td>+68%</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Target</strong></td>
+                                <td>2,000</td>
+                                <td>$198,000</td>
+                                <td>$333,500</td>
+                                <td>+68%</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Stretch</strong></td>
+                                <td>5,000</td>
+                                <td>$495,000</td>
+                                <td>$833,750</td>
+                                <td>+68%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p style="margin-top: 1rem; opacity: 0.7;">Note: Customer LTV = $166.75 (guide $99 + average affiliate commissions $67.75)</p>
+                </div>
+
+                <div style="text-align: center; margin-top: 4rem;">
+                    <a href="../index.html#pricing" class="cta-button">VIEW COMPLETE GUIDE - $99</a>
+                </div>
             </div>
         </div>
+    </section>
 
-        <!-- Success Metrics -->
-        <div id="success-metrics" class="content-section">
-            <h2>Success Metrics</h2>
+    <!-- Target Audience -->
+    <section class="section section-bg-olive">
+        <div class="container">
+            <h2 class="section-title">TARGET AUDIENCE</h2>
+            <div class="section-content">
+                <div class="card-grid">
+                    <div class="card">
+                        <h3 class="card-title">Primary: International Soccer Fans</h3>
+                        <p class="card-text"><strong>Demographics:</strong></p>
+                        <ul>
+                            <li>Ages 25-55, mid-high income ($50K-150K USD)</li>
+                            <li>From Europe, South America, Asia, Australia</li>
+                            <li>Budget-conscious but values experiences</li>
+                        </ul>
+                        <p class="card-text" style="margin-top: 1rem;"><strong>Pain Points:</strong></p>
+                        <ul>
+                            <li>"That '$200/night' hotel actually costs $701—how is this legal?"</li>
+                            <li>"What if I accidentally commit a felony crossing state lines?"</li>
+                            <li>"I can't tell what's a scam vs what's 'normal' in America"</li>
+                        </ul>
+                    </div>
 
-            <h3>Revenue (Multi-Revenue Model)</h3>
-
-            <h4>Guide Sales Only:</h4>
-            <div class="metric-grid">
-                <div class="metric-card">
-                    <div class="metric-label">Conservative</div>
-                    <div class="metric-value">$49,500</div>
-                    <div class="metric-description">500 sales × $99</div>
-                </div>
-                <div class="metric-card">
-                    <div class="metric-label">Target</div>
-                    <div class="metric-value">$198,000</div>
-                    <div class="metric-description">2,000 sales × $99</div>
-                </div>
-                <div class="metric-card">
-                    <div class="metric-label">Stretch</div>
-                    <div class="metric-value">$495,000</div>
-                    <div class="metric-description">5,000 sales × $99</div>
-                </div>
-            </div>
-
-            <h4>Guide + Affiliate Revenue:</h4>
-            <div class="metric-grid">
-                <div class="metric-card">
-                    <div class="metric-label">Conservative</div>
-                    <div class="metric-value">$83,375</div>
-                    <div class="metric-description">500 customers × $166.75 LTV (+68%)</div>
-                </div>
-                <div class="metric-card">
-                    <div class="metric-label">Target</div>
-                    <div class="metric-value">$333,500</div>
-                    <div class="metric-description">2,000 customers × $166.75 LTV (+68%)</div>
-                </div>
-                <div class="metric-card">
-                    <div class="metric-label">Stretch</div>
-                    <div class="metric-value">$833,750</div>
-                    <div class="metric-description">5,000 customers × $166.75 LTV (+68%)</div>
+                    <div class="card">
+                        <h3 class="card-title">Secondary: General International Visitors</h3>
+                        <p class="card-text">Post-World Cup pivot to year-round relevance</p>
+                        <ul>
+                            <li>Business travelers</li>
+                            <li>Tourists</li>
+                            <li>Students</li>
+                            <li>Family visitors</li>
+                        </ul>
+                        <p class="card-text" style="margin-top: 1rem;">
+                            Same pain points, different context. The pricing system doesn't change after the World Cup.
+                        </p>
+                    </div>
                 </div>
             </div>
-
-            <div class="success-box">
-                <p><strong>Customer LTV = $166.75</strong> (guide $99 + average affiliate commissions $67.75)</p>
-            </div>
-
-            <h3>Customer Acquisition</h3>
-            <ul>
-                <li>Landing page conversion: 3-5%</li>
-                <li>Email-to-purchase: 10-15%</li>
-                <li>Community referrals: 20% of sales</li>
-            </ul>
-
-            <h3>Customer Satisfaction</h3>
-            <ul>
-                <li>Product reviews: >4.5/5 stars</li>
-                <li>Refund rate: <5%</li>
-                <li>Testimonials: 50+ positive</li>
-            </ul>
-
-            <h3>Engagement</h3>
-            <ul>
-                <li>Community members: 5,000+</li>
-                <li>Newsletter subscribers: 10,000+</li>
-                <li>Page views: 100,000+</li>
-            </ul>
         </div>
+    </section>
 
-        <!-- Go-to-Market Strategy -->
-        <div id="go-to-market" class="content-section">
-            <h2>Go-to-Market Strategy</h2>
-
-            <h3>Phase 1: Pre-Launch (Feb-March 2026)</h3>
-            <div class="bento-card">
-                <p><strong>Objectives:</strong> Build core product, create landing page, start community, early adopter sales</p>
-                <p><strong>Tactics:</strong> Reddit outreach, Facebook World Cup groups, Twitter/X hashtags, early bird pricing ($79 vs $99)</p>
-                <p><strong>Content Marketing:</strong></p>
+    <!-- Go-to-Market -->
+    <section class="section section-bg-cream">
+        <div class="container">
+            <h2 class="section-title">GO-TO-MARKET</h2>
+            <div class="section-content">
+                <p class="section-text">
+                    <strong>Content Marketing:</strong> Viral hooks that expose the pricing game
+                </p>
                 <ul>
                     <li>"That '$200/night' Boston hotel? Actually $701." (viral angle)</li>
                     <li>"Americans Don't Explain This Because They Can't Imagine Not Knowing It"</li>
@@ -924,102 +739,75 @@
                     <li>"Why Your $7,500 Budget Will Actually Cost $9,965"</li>
                     <li>"Geographic Arbitrage: Providence vs Boston Saves $1,500"</li>
                 </ul>
-            </div>
 
-            <h3>Phase 2: Launch (March-April 2026)</h3>
-            <div class="bento-card">
-                <p><strong>Objectives:</strong> Public launch, drive sales, build community, media coverage</p>
-                <p><strong>Tactics:</strong> Product Hunt launch, soccer blog outreach, influencer partnerships, PR pitch to travel media</p>
-                <p><strong>Promotions:</strong> Launch discount (48 hours), refer-a-friend (10% commission), bundle deals (group purchases)</p>
-            </div>
+                <p class="section-text" style="margin-top: 2rem;">
+                    <strong>Community Building:</strong> Reddit outreach (r/worldcup, r/soccer), Facebook World Cup groups, Twitter/X hashtags
+                </p>
 
-            <h3>Phase 3: Growth (May-July 2026)</h3>
-            <div class="bento-card">
-                <p><strong>Objectives:</strong> Maximize sales, leverage urgency (countdown), community activation, real-time value</p>
-                <p><strong>Tactics:</strong> Weekly newsletter (countdown), user testimonials, community highlights, last-minute buyers (urgency)</p>
-                <p><strong>Real-Time Updates:</strong> Match-day surge pricing alerts, traffic updates, community meetups, success stories</p>
-            </div>
-
-            <h3>Phase 4: Post-World Cup (Aug 2026+)</h3>
-            <div class="bento-card">
-                <p><strong>Objectives:</strong> Pivot to evergreen, sustain revenue, expand market</p>
-                <p><strong>Tactics:</strong> Rebrand to general US visitor guide, update for non-soccer travelers, SEO optimization, affiliate partnerships, corporate sales</p>
+                <p class="section-text">
+                    <strong>Early Bird Pricing:</strong> $79 vs. $99 to drive pre-launch momentum
+                </p>
             </div>
         </div>
+    </section>
 
-        <!-- Competitive Analysis -->
-        <div id="competitive-analysis" class="content-section">
-            <h2>Competitive Analysis</h2>
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="newsletter">
+                <h3 class="newsletter-title">Stay Updated</h3>
+                <p style="margin-bottom: 2rem; opacity: 0.8;">Get launch updates and early access pricing.</p>
+                <input type="email" class="newsletter-input" placeholder="YOUR EMAIL">
+            </div>
 
-            <h3>Direct Competitors</h3>
-
-            <table>
-                <thead>
-                    <tr>
-                        <th>Competitor</th>
-                        <th>Strengths</th>
-                        <th>Weaknesses</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>Lonely Planet USA</strong></td>
-                        <td>✅ Comprehensive city coverage</td>
-                        <td>❌ Not World Cup-specific<br>❌ General, not financial transparency<br>❌ Expensive ($25-40)</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Rick Steves</strong></td>
-                        <td>✅ Cultural insights</td>
-                        <td>❌ Europe-focused, limited US<br>❌ Not World Cup-specific<br>❌ Doesn't cover hidden costs</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Official Tourism Sites</strong></td>
-                        <td>—</td>
-                        <td>❌ Promotional bias<br>❌ Hide negative aspects<br>❌ No financial transparency<br>❌ No legal warnings</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Reddit/Forums</strong></td>
-                        <td>✅ Free, peer advice</td>
-                        <td>❌ Fragmented, unreliable<br>❌ Time-consuming research<br>❌ No comprehensive structure</td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <h3>Clutch Competitive Advantages</h3>
-
-            <div class="bento-grid">
-                <div class="bento-card">
-                    <div class="bento-title">Research-Backed Intelligence</div>
-                    <div class="bento-description">Not opinions - 200+ citations across 5 research documents</div>
+            <div class="footer-links">
+                <div class="footer-link-group">
+                    <h4>Product</h4>
+                    <a href="../index.html">Home</a>
+                    <a href="../index.html#pricing">Pricing</a>
+                    <a href="../index.html#cities">Cities</a>
                 </div>
-                <div class="bento-card">
-                    <div class="bento-title">World Cup-Specific</div>
-                    <div class="bento-description">Match logistics, timing, surge pricing intelligence</div>
-                </div>
-                <div class="bento-card">
-                    <div class="bento-title">Financial Transparency</div>
-                    <div class="bento-description">Real costs, hidden fees exposed, not advertised prices</div>
-                </div>
-                <div class="bento-card">
-                    <div class="bento-title">Legal Risk Mitigation</div>
-                    <div class="bento-description">State law maps prevent felony charges</div>
-                </div>
-                <div class="bento-card">
-                    <div class="bento-title">ROI-Positive</div>
-                    <div class="bento-description">Saves more than it costs ($99 to save $2,465)</div>
-                </div>
-                <div class="bento-card">
-                    <div class="bento-title">One Authoritative Source</div>
-                    <div class="bento-description">No scattered research, one comprehensive guide</div>
+                <div class="footer-link-group">
+                    <h4>Company</h4>
+                    <a href="#">About</a>
+                    <a href="#">Contact</a>
+                    <a href="#">Privacy</a>
                 </div>
             </div>
         </div>
 
-    </div>
+        <div class="footer-bottom">
+            © 2026 Clutch. All rights reserved. Financial self-defense for international visitors.
+        </div>
+    </footer>
 
-    <div style="background: rgba(30, 41, 59, 0.8); padding: 40px 20px; text-align: center; margin-top: 80px;">
-        <p style="color: var(--text-secondary);">&copy; 2026 Clutch. All rights reserved.</p>
-    </div>
+    <script>
+        // Scroll-triggered reveal animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
 
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('reveal');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all animatable elements
+        document.querySelectorAll('.section-title, .section-text, .card').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Newsletter form (placeholder)
+        document.querySelector('.newsletter-input').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                alert('Newsletter signup coming soon!');
+                e.target.value = '';
+            }
+        });
+    </script>
 </body>
 </html>
