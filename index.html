@@ -3,1153 +3,852 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clutch - The Essential Guide for International World Cup Visitors</title>
-    <meta name="description" content="Don't let hidden costs and preventable mistakes ruin your 2026 World Cup experience. Save money, avoid legal traps, and maximize your trip with insider knowledge.">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <title>Clutch - Financial Self-Defense for 2026 World Cup Visitors</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
+        /* Geist Mono fallback - using system monospace with similar styling */
+        @font-face {
+            font-family: 'Geist Mono';
+            src: local('SF Mono'), local('Monaco'), local('Consolas');
+            font-weight: 400 600;
+        }
+
+        :root {
+            --black: #050505;
+            --neon-lime: #BFFF00;
+            --white: #FFFFFF;
+            --white-40: rgba(255, 255, 255, 0.4);
+            --white-10: rgba(255, 255, 255, 0.1);
+            --white-05: rgba(255, 255, 255, 0.05);
+            --white-08: rgba(255, 255, 255, 0.08);
+            --neon-glow: rgba(191, 255, 0, 0.3);
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        :root {
-            --primary: #0066FF;
-            --primary-dark: #0052CC;
-            --accent: #00D4AA;
-            --dark: #0A0F1C;
-            --dark-elevated: #151B2B;
-            --gray-50: #F8F9FA;
-            --gray-100: #E9ECEF;
-            --gray-400: #9CA3AF;
-            --gray-600: #6B7280;
-            --gray-900: #111827;
-            --border: rgba(255, 255, 255, 0.08);
-            --glow: rgba(0, 102, 255, 0.4);
-        }
-
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            line-height: 1.6;
-            color: var(--gray-900);
-            background: #ffffff;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
+            background: var(--black);
+            color: var(--white);
+            font-weight: 300;
+            line-height: 1.7;
+            overflow-x: hidden;
+            position: relative;
         }
 
-        /* Navigation */
-        nav {
+        /* Noise Overlay */
+        body::before {
+            content: '';
             position: fixed;
             top: 0;
             left: 0;
-            right: 0;
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: saturate(180%) blur(20px);
-            -webkit-backdrop-filter: saturate(180%) blur(20px);
-            z-index: 1000;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.03;
+            pointer-events: none;
+            z-index: 9999;
         }
 
-        .nav-inner {
-            max-width: 1400px;
+        /* Refraction Glow */
+        .refraction-glow {
+            position: fixed;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(191, 255, 0, 0.15) 0%, transparent 70%);
+            filter: blur(80px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .glow-1 {
+            top: -200px;
+            left: -200px;
+        }
+
+        .glow-2 {
+            bottom: -300px;
+            right: -300px;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1600px;
             margin: 0 auto;
-            padding: 16px 40px;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header */
+        header {
+            padding: 2rem 0;
+            border-bottom: 1px solid var(--white-10);
+        }
+
+        .header-content {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 0 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
         .logo {
-            font-size: 18px;
-            font-weight: 900;
-            letter-spacing: -0.5px;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 800;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+            color: var(--neon-lime);
         }
 
-        .nav-links {
+        nav {
             display: flex;
+            gap: 3rem;
             align-items: center;
-            gap: 32px;
         }
 
-        .nav-links a {
-            color: var(--gray-600);
-            text-decoration: none;
-            font-size: 14px;
+        .nav-link {
+            font-family: 'Geist Mono', monospace;
+            font-size: 10px;
             font-weight: 500;
-            transition: color 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            color: var(--white-40);
+            text-decoration: none;
+            transition: color 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .nav-links a:hover {
-            color: var(--gray-900);
+        .nav-link:hover {
+            color: var(--neon-lime);
         }
 
-        .nav-cta {
-            background: var(--primary);
-            color: white;
-            padding: 10px 20px;
-            border-radius: 8px;
-            font-weight: 600;
-            transition: all 0.2s;
-        }
-
-        .nav-cta:hover {
-            background: var(--primary-dark);
-            transform: translateY(-1px);
-            color: white !important;
-        }
-
-        /* Hero */
-        .hero {
+        /* Laser Button */
+        .laser-btn {
             position: relative;
-            padding: 160px 40px 120px;
-            background: linear-gradient(180deg, var(--gray-50) 0%, #ffffff 100%);
+            background: var(--neon-lime);
+            color: var(--black);
+            padding: 0.875rem 2rem;
+            border-radius: 9999px;
+            font-family: 'Geist Mono', monospace;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 0 20px var(--neon-glow);
             overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .hero::before {
+        .laser-btn::before {
             content: '';
             position: absolute;
             top: -50%;
-            right: -30%;
-            width: 1200px;
-            height: 1200px;
-            background: radial-gradient(circle, rgba(0, 212, 170, 0.08) 0%, transparent 70%);
-            border-radius: 50%;
+            left: -100%;
+            width: 50%;
+            height: 200%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transform: skewX(-25deg);
+            transition: left 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .hero-content {
-            max-width: 1400px;
-            margin: 0 auto;
+        .laser-btn:hover::before {
+            left: 200%;
+        }
+
+        .laser-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 30px var(--neon-glow);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 6rem 0;
             position: relative;
-            z-index: 1;
         }
 
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: linear-gradient(135deg, rgba(0, 102, 255, 0.1) 0%, rgba(0, 212, 170, 0.1) 100%);
-            border: 1px solid rgba(0, 102, 255, 0.2);
-            padding: 8px 16px;
-            border-radius: 100px;
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--primary);
-            margin-bottom: 32px;
+        .hero-3d-glass {
+            perspective: 1000px;
+            margin-bottom: 4rem;
         }
 
-        .hero-badge::before {
-            content: '⚽';
-            font-size: 16px;
+        .glass-card {
+            background: radial-gradient(circle at top left, var(--white-05), transparent);
+            border: 1px solid var(--white-08);
+            border-radius: 2rem;
+            padding: 4rem;
+            backdrop-filter: blur(12px);
+            transform: rotateX(2deg);
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .hero h1 {
-            font-size: clamp(48px, 6vw, 72px);
-            font-weight: 900;
-            line-height: 1.1;
-            letter-spacing: -1.5px;
-            margin-bottom: 24px;
-            max-width: 900px;
-            background: linear-gradient(135deg, var(--dark) 0%, var(--gray-600) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        .glass-card:hover {
+            transform: rotateX(0deg);
+        }
+
+        .hero-meta {
+            font-family: 'Geist Mono', monospace;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5em;
+            color: var(--white-40);
+            margin-bottom: 2rem;
+        }
+
+        .hero-headline {
+            border: 12px solid var(--white);
+            padding: 3rem;
+            margin-bottom: 3rem;
+            border-radius: 0;
+        }
+
+        .hero-headline h1 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 800;
+            font-size: clamp(2.6rem, 10vw, 7rem);
+            line-height: 0.95;
+            letter-spacing: -0.05em;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
         }
 
         .hero-subtitle {
-            font-size: 20px;
-            line-height: 1.7;
-            color: var(--gray-600);
-            max-width: 650px;
-            margin-bottom: 40px;
+            font-size: 1.25rem;
+            line-height: 1.6;
+            color: var(--white-40);
+            font-weight: 300;
+            max-width: 800px;
         }
 
-        .hero-cta-group {
+        .hero-meta-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            padding: 2rem;
+            background: var(--white-05);
+            border-radius: 1rem;
+        }
+
+        .meta-item {
             display: flex;
-            gap: 16px;
-            align-items: center;
-            flex-wrap: wrap;
+            flex-direction: column;
+            gap: 0.5rem;
         }
 
-        .btn-primary {
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            background: var(--primary);
-            color: white;
-            padding: 16px 32px;
-            font-size: 16px;
-            font-weight: 600;
-            text-decoration: none;
-            border-radius: 12px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 4px 20px rgba(0, 102, 255, 0.3);
-        }
-
-        .btn-primary:hover {
-            background: var(--primary-dark);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(0, 102, 255, 0.4);
-        }
-
-        .btn-secondary {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            color: var(--gray-600);
-            font-size: 16px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-
-        .btn-secondary:hover {
-            color: var(--gray-900);
-        }
-
-        .hero-stats {
-            margin-top: 80px;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 48px;
-            max-width: 900px;
-        }
-
-        .stat {
-            border-left: 3px solid var(--primary);
-            padding-left: 20px;
-        }
-
-        .stat-value {
-            font-size: 48px;
-            font-weight: 900;
-            letter-spacing: -1px;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 4px;
-        }
-
-        .stat-label {
-            font-size: 14px;
-            color: var(--gray-600);
-            font-weight: 500;
-        }
-
-        /* Problem Section */
-        .problem {
-            padding: 120px 40px;
-            background: white;
-        }
-
-        .section-header {
-            max-width: 1400px;
-            margin: 0 auto 80px;
-        }
-
-        .section-eyebrow {
-            display: inline-block;
-            font-size: 12px;
-            font-weight: 700;
+        .meta-label {
+            font-family: 'Geist Mono', monospace;
+            font-size: 10px;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
-            color: var(--primary);
-            margin-bottom: 16px;
+            letter-spacing: 0.3em;
+            color: var(--white-40);
         }
 
-        .section-title {
-            font-size: clamp(36px, 4.5vw, 56px);
-            font-weight: 900;
-            line-height: 1.15;
-            letter-spacing: -1px;
-            margin-bottom: 20px;
-            color: var(--dark);
+        .meta-value {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 800;
+            font-size: 2.5rem;
+            letter-spacing: -0.02em;
+            color: var(--neon-lime);
         }
 
-        .section-description {
-            font-size: 18px;
-            line-height: 1.7;
-            color: var(--gray-600);
-            max-width: 700px;
+        /* Countdown Timer */
+        .countdown {
+            font-variant-numeric: tabular-nums;
+            display: flex;
+            gap: 2rem;
         }
 
+        .countdown-unit {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .countdown-value {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 800;
+            font-size: 3rem;
+            color: var(--neon-lime);
+            line-height: 1;
+        }
+
+        .countdown-label {
+            font-family: 'Geist Mono', monospace;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--white-40);
+            margin-top: 0.5rem;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1rem;
+            margin-top: 3rem;
+        }
+
+        /* Bento Grid */
         .bento-grid {
-            max-width: 1400px;
-            margin: 0 auto;
             display: grid;
-            grid-template-columns: repeat(12, 1fr);
-            gap: 24px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin: 6rem 0;
         }
 
-        .bento-item {
-            background: linear-gradient(135deg, var(--gray-50) 0%, #ffffff 100%);
-            border: 1px solid var(--gray-100);
-            border-radius: 24px;
-            padding: 40px;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
+        .bento-card {
+            background: radial-gradient(circle at top left, var(--white-05), transparent);
+            border: 1px solid var(--white-05);
+            border-radius: 2rem;
+            padding: 3rem;
+            min-height: 450px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .bento-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 100%);
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.3s ease;
-        }
-
-        .bento-item:hover::before {
-            transform: scaleX(1);
-        }
-
-        .bento-item:hover {
+        .bento-card:hover {
+            border-color: rgba(191, 255, 0, 0.3);
+            background: radial-gradient(circle at top left, rgba(191, 255, 0, 0.05), transparent);
             transform: translateY(-4px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
-            border-color: var(--primary);
         }
 
-        .bento-large {
-            grid-column: span 6;
+        .bento-card.large {
+            grid-column: span 2;
         }
 
-        .bento-medium {
-            grid-column: span 4;
-        }
-
-        .bento-small {
-            grid-column: span 3;
-        }
-
-        .bento-icon {
-            font-size: 40px;
-            margin-bottom: 20px;
-            display: block;
+        .bento-index {
+            font-family: 'Geist Mono', monospace;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5em;
+            color: var(--white-40);
+            margin-bottom: 2rem;
         }
 
         .bento-title {
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 12px;
-            color: var(--dark);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 800;
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+            margin-bottom: 1rem;
+            line-height: 1;
         }
 
-        .bento-cost {
-            font-size: 36px;
-            font-weight: 900;
-            letter-spacing: -1px;
-            color: #EF4444;
-            margin-bottom: 12px;
+        .bento-value {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 800;
+            font-size: 4rem;
+            color: var(--neon-lime);
+            margin: 1rem 0;
+            line-height: 1;
         }
 
         .bento-description {
-            font-size: 14px;
+            color: var(--white-40);
+            font-size: 1.1rem;
             line-height: 1.6;
-            color: var(--gray-600);
         }
 
-        /* Features Section */
-        .features {
-            padding: 120px 40px;
-            background: var(--dark);
-            color: white;
-            position: relative;
-            overflow: hidden;
+        /* Section Headers */
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
         }
 
-        .features::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background:
-                radial-gradient(circle at 20% 50%, rgba(0, 102, 255, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(0, 212, 170, 0.1) 0%, transparent 50%);
-        }
-
-        .features-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 1;
-        }
-
-        .features .section-eyebrow {
-            color: var(--accent);
-        }
-
-        .features .section-title {
-            color: white;
-        }
-
-        .features .section-description {
-            color: rgba(255, 255, 255, 0.7);
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 32px;
-            margin-top: 80px;
-        }
-
-        .feature-card {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 48px;
-            backdrop-filter: blur(20px);
-            transition: all 0.3s ease;
-        }
-
-        .feature-card:hover {
-            background: rgba(255, 255, 255, 0.08);
-            border-color: rgba(0, 102, 255, 0.3);
-            transform: translateY(-4px);
-        }
-
-        .feature-number {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 48px;
-            height: 48px;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
-            border-radius: 12px;
-            font-size: 20px;
-            font-weight: 900;
-            margin-bottom: 24px;
-        }
-
-        .feature-title {
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 12px;
-            color: white;
-        }
-
-        .feature-description {
-            font-size: 15px;
-            line-height: 1.7;
-            color: rgba(255, 255, 255, 0.7);
-            margin-bottom: 24px;
-        }
-
-        .feature-list {
-            list-style: none;
-            padding: 0;
-        }
-
-        .feature-list li {
-            font-size: 14px;
-            color: rgba(255, 255, 255, 0.6);
-            padding: 10px 0;
-            padding-left: 28px;
-            position: relative;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .feature-list li:last-child {
-            border-bottom: none;
-        }
-
-        .feature-list li::before {
-            content: "✓";
-            position: absolute;
-            left: 0;
-            color: var(--accent);
-            font-weight: 700;
-            font-size: 16px;
-        }
-
-        /* Cities Section */
-        .cities {
-            padding: 120px 40px;
-            background: white;
-        }
-
-        .cities-container {
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .cities-scroll {
-            display: flex;
-            gap: 24px;
-            overflow-x: auto;
-            scrollbar-width: none;
-            -ms-overflow-style: none;
-            padding-bottom: 24px;
-            margin-top: 60px;
-        }
-
-        .cities-scroll::-webkit-scrollbar {
-            display: none;
-        }
-
-        .city-card {
-            flex: 0 0 300px;
-            background: linear-gradient(135deg, var(--gray-50) 0%, #ffffff 100%);
-            border: 1px solid var(--gray-100);
-            border-radius: 20px;
-            padding: 32px;
-            text-decoration: none;
-            color: inherit;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .city-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 100%);
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.3s ease;
-        }
-
-        .city-card:hover::before {
-            transform: scaleX(1);
-        }
-
-        .city-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            border-color: var(--primary);
-        }
-
-        .city-icon {
-            font-size: 48px;
-            margin-bottom: 20px;
-            display: block;
-        }
-
-        .city-name {
-            font-size: 20px;
-            font-weight: 700;
-            margin-bottom: 8px;
-            color: var(--dark);
-        }
-
-        .city-state {
-            font-size: 13px;
-            color: var(--gray-600);
-            margin-bottom: 20px;
-        }
-
-        .city-badge {
-            display: inline-block;
-            font-size: 11px;
-            font-weight: 700;
+        .section-meta {
+            font-family: 'Geist Mono', monospace;
+            font-size: 10px;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
-            padding: 6px 12px;
-            background: var(--primary);
-            color: white;
-            border-radius: 6px;
+            letter-spacing: 0.5em;
+            color: var(--white-40);
+            margin-bottom: 1rem;
         }
 
-        .city-badge.soon {
-            background: var(--gray-100);
-            color: var(--gray-600);
+        .section-title {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 800;
+            font-size: clamp(2rem, 6vw, 4.5rem);
+            text-transform: uppercase;
+            letter-spacing: -0.03em;
+            line-height: 1;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-description {
+            font-size: 1.25rem;
+            color: var(--white-40);
+            max-width: 700px;
+            margin: 0 auto;
         }
 
         /* Pricing Section */
         .pricing {
-            padding: 120px 40px;
-            background: linear-gradient(135deg, var(--dark) 0%, var(--dark-elevated) 100%);
-            color: white;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .pricing::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, var(--glow) 0%, transparent 70%);
-            border-radius: 50%;
-        }
-
-        .pricing-container {
-            max-width: 900px;
-            margin: 0 auto;
-            text-align: center;
-            position: relative;
-            z-index: 1;
-        }
-
-        .pricing .section-eyebrow {
-            color: var(--accent);
-        }
-
-        .pricing .section-title {
-            color: white;
-            margin-bottom: 60px;
+            padding: 6rem 0;
         }
 
         .pricing-card {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--border);
-            border-radius: 32px;
-            padding: 64px;
-            backdrop-filter: blur(20px);
+            background: radial-gradient(circle at center, var(--white-05), transparent);
+            border: 1px solid var(--white-10);
+            border-radius: 2rem;
+            padding: 4rem;
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+            backdrop-filter: blur(12px);
         }
 
         .price-amount {
-            font-size: 80px;
-            font-weight: 900;
-            letter-spacing: -3px;
-            background: linear-gradient(135deg, #ffffff 0%, var(--accent) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 16px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 800;
+            font-size: 8rem;
+            color: var(--neon-lime);
             line-height: 1;
+            margin-bottom: 1rem;
         }
 
         .price-period {
-            font-size: 16px;
-            color: rgba(255, 255, 255, 0.6);
-            margin-bottom: 48px;
+            font-family: 'Geist Mono', monospace;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            color: var(--white-40);
+            margin-bottom: 3rem;
         }
 
         .price-features {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin: 3rem 0;
             text-align: left;
-            margin-bottom: 48px;
         }
 
         .price-feature {
-            font-size: 14px;
-            color: rgba(255, 255, 255, 0.9);
-            padding-left: 28px;
-            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 1.1rem;
         }
 
         .price-feature::before {
-            content: "✓";
-            position: absolute;
-            left: 0;
-            color: var(--accent);
-            font-weight: 700;
-            font-size: 16px;
-        }
-
-        .price-cta {
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            background: white;
-            color: var(--dark);
-            padding: 20px 48px;
-            font-size: 18px;
-            font-weight: 700;
-            text-decoration: none;
-            border-radius: 12px;
-            transition: all 0.3s ease;
-            box-shadow: 0 8px 30px rgba(255, 255, 255, 0.2);
-        }
-
-        .price-cta:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 40px rgba(255, 255, 255, 0.3);
+            content: '✓';
+            color: var(--neon-lime);
+            font-size: 1.5rem;
         }
 
         .price-guarantee {
-            margin-top: 32px;
-            font-size: 13px;
-            color: rgba(255, 255, 255, 0.5);
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--white-10);
+            font-size: 0.9rem;
+            color: var(--white-40);
+        }
+
+        /* Form Pill */
+        .form-pill {
+            background: var(--white-05);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--white-08);
+            border-radius: 9999px;
+            padding: 0.5rem;
+            display: flex;
+            gap: 0.5rem;
+            max-width: 500px;
+            margin: 2rem auto;
+        }
+
+        .form-pill input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            color: var(--white);
+            font-family: 'Geist Mono', monospace;
+            font-size: 12px;
+            outline: none;
+        }
+
+        .form-pill input::placeholder {
+            color: var(--white-40);
+        }
+
+        .form-pill .laser-btn {
+            margin: 0;
+        }
+
+        /* Avatar Stack */
+        .avatar-stack {
+            display: flex;
+            justify-content: center;
+            margin: 2rem 0;
+        }
+
+        .avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: 2px solid var(--neon-lime);
+            margin-left: -12px;
+            box-shadow: 0 0 10px var(--neon-glow);
+        }
+
+        .avatar:first-child {
+            margin-left: 0;
+        }
+
+        /* Mobile Bottom Nav */
+        .mobile-nav {
+            display: none;
+            position: fixed;
+            bottom: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--white-10);
+            border-radius: 9999px;
+            padding: 0.75rem 1.5rem;
+            gap: 2rem;
+            z-index: 100;
+        }
+
+        .mobile-nav a {
+            color: var(--white-40);
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: color 0.3s;
+            min-width: 48px;
+            min-height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mobile-nav a:hover {
+            color: var(--neon-lime);
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .bento-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .bento-card.large {
+                grid-column: span 1;
+            }
+
+            .hero-meta-row {
+                grid-template-columns: 1fr;
+            }
+
+            nav {
+                display: none;
+            }
+
+            .mobile-nav {
+                display: flex;
+            }
+
+            .hero-headline {
+                border-width: 6px;
+                padding: 2rem;
+            }
+
+            .countdown {
+                gap: 1rem;
+            }
+
+            .countdown-value {
+                font-size: 2rem;
+            }
+
+            .price-amount {
+                font-size: 5rem;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .hero-cta {
+                flex-direction: column;
+            }
+
+            .laser-btn {
+                text-align: center;
+            }
         }
 
         /* Footer */
         footer {
-            padding: 80px 40px 40px;
-            background: var(--dark);
-            color: rgba(255, 255, 255, 0.6);
-            border-top: 1px solid var(--border);
+            padding: 4rem 0 2rem;
+            border-top: 1px solid var(--white-10);
+            margin-top: 8rem;
         }
 
-        .footer-container {
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .footer-grid {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr;
-            gap: 60px;
-            margin-bottom: 60px;
-        }
-
-        .footer-brand {
-            font-size: 20px;
-            font-weight: 900;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 16px;
-        }
-
-        .footer-tagline {
-            font-size: 14px;
-            line-height: 1.6;
-            color: rgba(255, 255, 255, 0.5);
-            max-width: 300px;
-        }
-
-        .footer-section h4 {
-            font-size: 12px;
-            font-weight: 700;
+        .footer-content {
+            text-align: center;
+            font-family: 'Geist Mono', monospace;
+            font-size: 10px;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 16px;
-            color: white;
-        }
-
-        .footer-section a {
-            display: block;
-            font-size: 14px;
-            color: rgba(255, 255, 255, 0.6);
-            text-decoration: none;
-            margin-bottom: 12px;
-            transition: color 0.2s;
-        }
-
-        .footer-section a:hover {
-            color: white;
-        }
-
-        .footer-bottom {
-            padding-top: 40px;
-            border-top: 1px solid var(--border);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 13px;
-        }
-
-        .footer-legal {
-            display: flex;
-            gap: 24px;
-        }
-
-        .footer-legal a {
-            color: rgba(255, 255, 255, 0.4);
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-
-        .footer-legal a:hover {
-            color: rgba(255, 255, 255, 0.8);
-        }
-
-        /* Responsive */
-        @media (max-width: 1024px) {
-            .bento-large,
-            .bento-medium,
-            .bento-small {
-                grid-column: span 12;
-            }
-
-            .features-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .footer-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .nav-inner {
-                padding: 16px 24px;
-            }
-
-            .nav-links {
-                gap: 16px;
-            }
-
-            .hero,
-            .problem,
-            .features,
-            .cities,
-            .pricing {
-                padding: 80px 24px;
-            }
-
-            .hero h1 {
-                font-size: 40px;
-            }
-
-            .price-features {
-                grid-template-columns: 1fr;
-            }
-
-            .footer-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .pricing-card {
-                padding: 40px 24px;
-            }
-
-            .price-amount {
-                font-size: 56px;
-            }
+            letter-spacing: 0.3em;
+            color: var(--white-40);
         }
     </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav>
-        <div class="nav-inner">
+    <!-- Refraction Glows -->
+    <div class="refraction-glow glow-1"></div>
+    <div class="refraction-glow glow-2"></div>
+
+    <!-- Header -->
+    <header>
+        <div class="header-content">
             <div class="logo">CLUTCH</div>
-            <div class="nav-links">
-                <a href="#problem">Problem</a>
-                <a href="#solution">Solution</a>
-                <a href="#cities">Cities</a>
-                <a href="#pricing" class="nav-cta">Get Started</a>
-            </div>
+            <nav>
+                <a href="#problem" class="nav-link">REALITY CHECK</a>
+                <a href="#solution" class="nav-link">DEFENSE</a>
+                <a href="#pricing" class="nav-link">ACCESS</a>
+                <a href="#pricing" class="laser-btn">GET GUIDE</a>
+            </nav>
         </div>
-    </nav>
+    </header>
 
     <!-- Hero -->
     <section class="hero">
-        <div class="hero-content">
-            <div class="hero-badge">2026 FIFA World Cup USA</div>
-            <h1>That "$200/night" Boston hotel? Actually $701.</h1>
-            <p class="hero-subtitle">International visitors budget $7,500 but spend $9,965—$2,465 in preventable costs. Americans assume you know about resort fees, hotel taxes, tipping rules, and state-by-state laws. You don't. And it's costing you thousands.</p>
+        <div class="container">
+            <div class="hero-3d-glass">
+                <div class="glass-card">
+                    <div class="hero-meta">2026 FIFA WORLD CUP // USA</div>
 
-            <div class="hero-cta-group">
-                <a href="#pricing" class="btn-primary">
-                    Get the Complete Guide
-                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                        <path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </a>
-                <a href="#problem" class="btn-secondary">
-                    See what you're missing
-                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                        <path d="M8 3V13M8 13L3 8M8 13L13 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </a>
-            </div>
+                    <div class="hero-headline">
+                        <h1>THAT "$200/NIGHT" BOSTON HOTEL? ACTUALLY $701.</h1>
+                        <p class="hero-subtitle">International visitors budget $7,500 but spend $9,965—$2,465 in preventable costs. Americans assume you know about resort fees, hotel taxes, tipping rules, and state-by-state laws. You don't. And it's costing you thousands.</p>
+                    </div>
 
-            <div class="hero-stats">
-                <div class="stat">
-                    <div class="stat-value">$2,465</div>
-                    <div class="stat-label">Average preventable costs</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-value">11</div>
-                    <div class="stat-label">US cities covered</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-value">50+</div>
-                    <div class="stat-label">State laws explained</div>
+                    <div class="hero-meta-row">
+                        <div class="meta-item">
+                            <div class="meta-label">HIDDEN COSTS</div>
+                            <div class="meta-value">$2,465</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-label">KICKOFF IN</div>
+                            <div class="countdown" id="countdown">
+                                <div class="countdown-unit">
+                                    <div class="countdown-value" id="days">000</div>
+                                    <div class="countdown-label">DAYS</div>
+                                </div>
+                                <div class="countdown-unit">
+                                    <div class="countdown-value" id="hours">00</div>
+                                    <div class="countdown-label">HRS</div>
+                                </div>
+                                <div class="countdown-unit">
+                                    <div class="countdown-value" id="minutes">00</div>
+                                    <div class="countdown-label">MIN</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="hero-cta">
+                        <a href="#pricing" class="laser-btn">GET FINANCIAL SELF-DEFENSE</a>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Problem Section -->
-    <section class="problem" id="problem">
-        <div class="section-header">
-            <span class="section-eyebrow">The Hidden Costs</span>
-            <h2 class="section-title">Americans don't explain this because they can't imagine not knowing it</h2>
-            <p class="section-description">Tax is never included in prices. Tipping is mandatory. Legal in California = felony in Texas. Stadiums 28 miles from "Boston." Here's what you're actually paying.</p>
-        </div>
-
-        <div class="bento-grid">
-            <div class="bento-item bento-large">
-                <span class="bento-icon">🏨</span>
-                <h3 class="bento-title">Hotel Reality Check</h3>
-                <div class="bento-cost">+68%</div>
-                <p class="bento-description">Advertised: "$550/night." Hidden resort fee: +$40. Tax (14.75%): +$87. Parking: +$60. Actual cost: $737/night. Five nights in Boston = $3,685. Americans call this "normal." You call it theft.</p>
-            </div>
-
-            <div class="bento-item bento-medium">
-                <span class="bento-icon">🚗</span>
-                <h3 class="bento-title">Transportation</h3>
-                <div class="bento-cost">$3,200</div>
-                <p class="bento-description">2-week rental + insurance + gas + $60/night parking. Many stadiums are 45+ miles from city centers.</p>
-            </div>
-
-            <div class="bento-item bento-medium">
-                <span class="bento-icon">🍔</span>
-                <h3 class="bento-title">Food & Tipping</h3>
-                <div class="bento-cost">+32%</div>
-                <p class="bento-description">Menu: "$20 burger." Sales tax (6.25%): +$1.25. Mandatory tip (20%): +$4. You pay: $25.25. Every single meal. 14 days × 3 meals = $529 hidden on top of menu prices.</p>
-            </div>
-
-            <div class="bento-item bento-medium">
-                <span class="bento-icon">⚖️</span>
-                <h3 class="bento-title">Legal Traps</h3>
-                <div class="bento-cost">$1,000+</div>
-                <p class="bento-description">Cannabis legal in Seattle, banned in Kansas City. Your vape is legal in LA, illegal in San Francisco. Right turn on red allowed... except at 90% of Boston intersections. Wrong guess = arrest.</p>
-            </div>
-
-            <div class="bento-item bento-large">
-                <span class="bento-icon">🎫</span>
-                <h3 class="bento-title">Match Day Surge Pricing</h3>
-                <div class="bento-cost">+296%</div>
-                <p class="bento-description">Kansas City normally $121/night. Argentina match day? $654/night—a 440% increase. Boston hotels: $700+/night during World Cup. But stay in Providence (22 miles closer to "Boston's" stadium)? $400/night. Geographic arbitrage saves $1,500 for 5 nights.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Features Section -->
-    <section class="features" id="solution">
-        <div class="features-container">
+    <!-- Problem Section - Bento Grid -->
+    <section id="problem">
+        <div class="container">
             <div class="section-header">
-                <span class="section-eyebrow">The Solution</span>
-                <h2 class="section-title">The guide Americans wish they could sell you</h2>
+                <div class="section-meta">THE HIDDEN COSTS</div>
+                <h2 class="section-title">AMERICANS DON'T EXPLAIN THIS BECAUSE THEY CAN'T IMAGINE NOT KNOWING IT</h2>
+                <p class="section-description">Tax is never included in prices. Tipping is mandatory. Legal in California = felony in Texas. Stadiums 28 miles from "Boston." Here's what you're actually paying.</p>
+            </div>
+
+            <div class="bento-grid">
+                <div class="bento-card large">
+                    <div>
+                        <div class="bento-index">01 / HOTEL REALITY</div>
+                        <h3 class="bento-title">HOTEL REALITY CHECK</h3>
+                        <div class="bento-value">+68%</div>
+                    </div>
+                    <p class="bento-description">Advertised: "$550/night." Hidden resort fee: +$40. Tax (14.75%): +$87. Parking: +$60. Actual cost: $737/night. Five nights in Boston = $3,685. Americans call this "normal." You call it theft.</p>
+                </div>
+
+                <div class="bento-card">
+                    <div>
+                        <div class="bento-index">02 / TRANSPORT</div>
+                        <h3 class="bento-title">TRANSPORTATION</h3>
+                        <div class="bento-value">$3,200</div>
+                    </div>
+                    <p class="bento-description">2-week rental + insurance + gas + $60/night parking. Many stadiums are 45+ miles from city centers.</p>
+                </div>
+
+                <div class="bento-card">
+                    <div>
+                        <div class="bento-index">03 / FOOD</div>
+                        <h3 class="bento-title">FOOD & TIPPING</h3>
+                        <div class="bento-value">+32%</div>
+                    </div>
+                    <p class="bento-description">Menu: "$20 burger." Sales tax (6.25%): +$1.25. Mandatory tip (20%): +$4. You pay: $25.25. Every meal. 14 days × 3 meals = $529 hidden.</p>
+                </div>
+
+                <div class="bento-card">
+                    <div>
+                        <div class="bento-index">04 / LEGAL</div>
+                        <h3 class="bento-title">LEGAL TRAPS</h3>
+                        <div class="bento-value">$1,000+</div>
+                    </div>
+                    <p class="bento-description">Cannabis legal in Seattle, banned in Kansas City. Your vape is legal in LA, illegal in San Francisco. Wrong guess = arrest.</p>
+                </div>
+
+                <div class="bento-card large">
+                    <div>
+                        <div class="bento-index">05 / SURGE</div>
+                        <h3 class="bento-title">MATCH DAY SURGE PRICING</h3>
+                        <div class="bento-value">+440%</div>
+                    </div>
+                    <p class="bento-description">Kansas City normally $121/night. Argentina match day? $654/night—a 440% increase. Boston hotels: $700+/night during World Cup. But stay in Providence (22 miles closer to "Boston's" stadium)? $400/night. Geographic arbitrage saves $1,500 for 5 nights.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section id="solution">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-meta">THE SOLUTION</div>
+                <h2 class="section-title">THE GUIDE AMERICANS WISH THEY COULD SELL YOU</h2>
                 <p class="section-description">FIFA won't tell you this. Tour packages charge $8,000 for hand-holding. We're showing you the real hotel receipts, actual tax rates, and geographic loopholes that save $1,000-2,500 per trip.</p>
             </div>
 
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-number">01</div>
-                    <h3 class="feature-title">What You'll Actually Pay</h3>
-                    <p class="feature-description">Not "$200/night"—$337. Not "$20 burger"—$25.25. We show you hotel receipts, tax breakdowns, and the real all-in costs for every city.</p>
-                    <ul class="feature-list">
-                        <li>Hotel rates + resort fees + taxes + parking (World Cup pricing)</li>
-                        <li>Restaurant costs after tax + mandatory tips</li>
-                        <li>Transportation: rental cars, Uber surge, public transit</li>
-                        <li>Match-day pricing premiums by city</li>
-                    </ul>
+            <div class="bento-grid">
+                <div class="bento-card">
+                    <div>
+                        <div class="bento-index">01 / COSTS</div>
+                        <h3 class="bento-title">WHAT YOU'LL ACTUALLY PAY</h3>
+                    </div>
+                    <p class="bento-description">Not "$200/night"—$337. Not "$20 burger"—$25.25. We show you hotel receipts, tax breakdowns, and the real all-in costs for every city.</p>
                 </div>
 
-                <div class="feature-card">
-                    <div class="feature-number">02</div>
-                    <h3 class="feature-title">Don't Get Arrested</h3>
-                    <p class="feature-description">Cannabis legal in California, felony in Kansas. Your vape? Legal in Seattle, banned in SF. We map every state law that changes city to city.</p>
-                    <ul class="feature-list">
-                        <li>Cannabis laws (legal/medical/banned by state)</li>
-                        <li>Vaping/smoking restrictions</li>
-                        <li>Alcohol purchase times and locations</li>
-                        <li>Firearm laws for tourists</li>
-                    </ul>
+                <div class="bento-card">
+                    <div>
+                        <div class="bento-index">02 / LEGAL</div>
+                        <h3 class="bento-title">DON'T GET ARRESTED</h3>
+                    </div>
+                    <p class="bento-description">Cannabis legal in California, felony in Kansas. Your vape? Legal in Seattle, banned in SF. We map every state law that changes city to city.</p>
                 </div>
 
-                <div class="feature-card">
-                    <div class="feature-number">03</div>
-                    <h3 class="feature-title">Where the Stadium Actually Is</h3>
-                    <p class="feature-description">"Boston" matches are 28 miles away in Foxborough. "San Francisco" is 45 miles to Santa Clara. We tell you the real distances, transport costs, and which hotels are actually close.</p>
-                    <ul class="feature-list">
-                        <li>All matches by date, team, and venue</li>
-                        <li>Actual stadium locations (not marketing lies)</li>
-                        <li>Transportation from hotels to stadiums</li>
-                        <li>Best neighborhoods near each venue</li>
-                    </ul>
+                <div class="bento-card">
+                    <div>
+                        <div class="bento-index">03 / LOCATION</div>
+                        <h3 class="bento-title">WHERE THE STADIUM ACTUALLY IS</h3>
+                    </div>
+                    <p class="bento-description">"Boston" matches are 28 miles away in Foxborough. "San Francisco" is 45 miles to Santa Clara. We tell you the real distances, transport costs, and which hotels are actually close.</p>
                 </div>
 
-                <div class="feature-card">
-                    <div class="feature-number">04</div>
-                    <h3 class="feature-title">Geographic Arbitrage</h3>
-                    <p class="feature-description">Stay in San Jose, not SF ($250 vs $500/night = $1,250 saved). Providence, not Boston (22 miles closer, $300 cheaper). These strategies save $1,000-2,500 without sacrificing anything.</p>
-                    <ul class="feature-list">
-                        <li>San Jose vs SF: $1,250 saved for 5 nights, closer to stadium</li>
-                        <li>Providence vs Boston: $1,500 saved, 22 miles closer</li>
-                        <li>Fort Lauderdale vs South Beach: $2,000 saved</li>
-                        <li>Which cities require cars vs public transit (saves $400+)</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Cities Section -->
-    <section class="cities" id="cities">
-        <div class="cities-container">
-            <div class="section-header">
-                <span class="section-eyebrow">City Guides</span>
-                <h2 class="section-title">All 11 US host cities</h2>
-                <p class="section-description">Comprehensive guides with match schedules, real costs, local laws, and insider tips.</p>
-            </div>
-
-            <div class="cities-scroll">
-                <a href="cities/seattle.html" class="city-card">
-                    <span class="city-icon">🌊</span>
-                    <div class="city-name">Seattle</div>
-                    <div class="city-state">Washington</div>
-                    <span class="city-badge">View Sample</span>
-                </a>
-
-                <a href="cities/san-francisco.html" class="city-card">
-                    <span class="city-icon">🌉</span>
-                    <div class="city-name">San Francisco</div>
-                    <div class="city-state">California</div>
-                    <span class="city-badge">View Sample</span>
-                </a>
-
-                <a href="cities/los-angeles.html" class="city-card">
-                    <span class="city-icon">🎬</span>
-                    <div class="city-name">Los Angeles</div>
-                    <div class="city-state">California</div>
-                    <span class="city-badge">View Sample</span>
-                </a>
-
-                <a href="cities/kansas-city.html" class="city-card">
-                    <span class="city-icon">🎸</span>
-                    <div class="city-name">Kansas City</div>
-                    <div class="city-state">Missouri</div>
-                    <span class="city-badge">View Sample</span>
-                </a>
-
-                <div class="city-card">
-                    <span class="city-icon">🤠</span>
-                    <div class="city-name">Dallas</div>
-                    <div class="city-state">Texas</div>
-                    <span class="city-badge soon">Coming Soon</span>
-                </div>
-
-                <div class="city-card">
-                    <span class="city-icon">🎵</span>
-                    <div class="city-name">Houston</div>
-                    <div class="city-state">Texas</div>
-                    <span class="city-badge soon">Coming Soon</span>
-                </div>
-
-                <div class="city-card">
-                    <span class="city-icon">🍑</span>
-                    <div class="city-name">Atlanta</div>
-                    <div class="city-state">Georgia</div>
-                    <span class="city-badge soon">Coming Soon</span>
-                </div>
-
-                <a href="cities/miami.html" class="city-card">
-                    <span class="city-icon">🏖️</span>
-                    <div class="city-name">Miami</div>
-                    <div class="city-state">Florida</div>
-                    <span class="city-badge">View Sample</span>
-                </a>
-
-                <div class="city-card">
-                    <span class="city-icon">🔔</span>
-                    <div class="city-name">Philadelphia</div>
-                    <div class="city-state">Pennsylvania</div>
-                    <span class="city-badge soon">Coming Soon</span>
-                </div>
-
-                <a href="cities/boston.html" class="city-card">
-                    <span class="city-icon">⚾</span>
-                    <div class="city-name">Boston</div>
-                    <div class="city-state">Massachusetts</div>
-                    <span class="city-badge">View Sample</span>
-                </a>
-
-                <div class="city-card">
-                    <span class="city-icon">🗽</span>
-                    <div class="city-name">New York/NJ</div>
-                    <div class="city-state">New York & NJ</div>
-                    <span class="city-badge soon">Coming Soon</span>
+                <div class="bento-card">
+                    <div>
+                        <div class="bento-index">04 / ARBITRAGE</div>
+                        <h3 class="bento-title">GEOGRAPHIC ARBITRAGE</h3>
+                    </div>
+                    <p class="bento-description">Stay in San Jose, not SF ($250 vs $500/night = $1,250 saved). Providence, not Boston (22 miles closer, $300 cheaper). These strategies save $1,000-2,500 without sacrificing anything.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Pricing Section -->
-    <section class="pricing" id="pricing">
-        <div class="pricing-container">
-            <span class="section-eyebrow">Pricing</span>
-            <h2 class="section-title">$99 to save $2,465. Do the math.</h2>
+    <section id="pricing" class="pricing">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-meta">PRICING</div>
+                <h2 class="section-title">$99 TO SAVE $2,465. DO THE MATH.</h2>
+            </div>
 
             <div class="pricing-card">
                 <div class="price-amount">$99</div>
-                <div class="price-period">One-time payment · Lifetime access</div>
+                <div class="price-period">ONE-TIME PAYMENT · LIFETIME ACCESS</div>
 
                 <div class="price-features">
                     <div class="price-feature">Complete guides for all 11 US cities</div>
                     <div class="price-feature">World Cup 2026 match schedules</div>
-                    <div class="price-feature">Real hotel costs (updated pricing)</div>
-                    <div class="price-feature">State-by-state legal differences</div>
-                    <div class="price-feature">Transportation strategies</div>
-                    <div class="price-feature">Money-saving tactics</div>
-                    <div class="price-feature">Private Skool community access</div>
-                    <div class="price-feature">All future updates forever</div>
+                    <div class="price-feature">State-by-state legal intelligence</div>
+                    <div class="price-feature">Geographic arbitrage strategies</div>
+                    <div class="price-feature">Real hotel costs + hidden fees exposed</div>
+                    <div class="price-feature">Lifetime updates until tournament ends</div>
                 </div>
 
-                <a href="#" class="price-cta">
-                    Get Instant Access
-                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                        <path d="M7.5 4L13.5 10L7.5 16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </a>
+                <a href="#" class="laser-btn" style="width: 100%; text-align: center;">GET INSTANT ACCESS</a>
 
                 <div class="price-guarantee">Pay once. Own forever. Save at least $500 or full refund.</div>
+            </div>
+
+            <!-- Form Pill -->
+            <div style="margin-top: 4rem;">
+                <div class="section-meta" style="text-align: center; margin-bottom: 1rem;">NOT READY? GET FREE HOTEL REALITY CHECKLIST</div>
+                <form class="form-pill">
+                    <input type="email" placeholder="YOUR EMAIL">
+                    <button type="submit" class="laser-btn">GET FREE GUIDE</button>
+                </form>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
     <footer>
-        <div class="footer-container">
-            <div class="footer-grid">
-                <div>
-                    <div class="footer-brand">CLUTCH</div>
-                    <p class="footer-tagline">The essential survival guide for international visitors to the 2026 FIFA World Cup in the United States.</p>
-                </div>
-
-                <div class="footer-section">
-                    <h4>Product</h4>
-                    <a href="#cities">City Guides</a>
-                    <a href="#solution">Features</a>
-                    <a href="#pricing">Pricing</a>
-                    <a href="community.html">Community</a>
-                </div>
-
-                <div class="footer-section">
-                    <h4>Resources</h4>
-                    <a href="cities/boston.html">Sample: Boston</a>
-                    <a href="cities/los-angeles.html">Sample: Los Angeles</a>
-                    <a href="cities/seattle.html">Sample: Seattle</a>
-                    <a href="cities/miami.html">Sample: Miami</a>
-                </div>
-
-                <div class="footer-section">
-                    <h4>Company</h4>
-                    <a href="#">About</a>
-                    <a href="#">Contact</a>
-                    <a href="#">Privacy Policy</a>
-                    <a href="#">Terms of Service</a>
-                </div>
-            </div>
-
-            <div class="footer-bottom">
-                <div>&copy; 2026 Clutch · Not affiliated with FIFA</div>
-                <div class="footer-legal">
-                    <a href="#">Privacy</a>
-                    <a href="#">Terms</a>
-                    <a href="#">Cookies</a>
-                </div>
+        <div class="container">
+            <div class="footer-content">
+                <p>© 2026 CLUTCH. FINANCIAL SELF-DEFENSE FOR WORLD CUP VISITORS.</p>
             </div>
         </div>
     </footer>
+
+    <!-- Mobile Bottom Nav -->
+    <div class="mobile-nav">
+        <a href="#problem">⚠️</a>
+        <a href="#solution">🛡️</a>
+        <a href="#pricing">💰</a>
+    </div>
+
+    <!-- Countdown Timer Script -->
+    <script>
+        // World Cup kickoff: June 11, 2026, 12:00 PM EST
+        const kickoffDate = new Date('2026-06-11T12:00:00-04:00').getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = kickoffDate - now;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+
+            document.getElementById('days').textContent = String(days).padStart(3, '0');
+            document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+            document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+
+            if (distance < 0) {
+                document.getElementById('countdown').innerHTML = '<div class="countdown-value">KICKOFF!</div>';
+            }
+        }
+
+        updateCountdown();
+        setInterval(updateCountdown, 60000); // Update every minute
+    </script>
 </body>
 </html>
