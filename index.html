@@ -14,21 +14,27 @@
         }
 
         :root {
-            --primary: #667eea;
-            --accent: #FFD700;
-            --dark: #0a0a0a;
-            --gray: #666;
-            --light-gray: #999;
-            --bg-light: #fafafa;
+            --primary: #0066FF;
+            --primary-dark: #0052CC;
+            --accent: #00D4AA;
+            --dark: #0A0F1C;
+            --dark-elevated: #151B2B;
+            --gray-50: #F8F9FA;
+            --gray-100: #E9ECEF;
+            --gray-400: #9CA3AF;
+            --gray-600: #6B7280;
+            --gray-900: #111827;
+            --border: rgba(255, 255, 255, 0.08);
+            --glow: rgba(0, 102, 255, 0.4);
         }
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            line-height: 1.5;
-            color: var(--dark);
+            line-height: 1.6;
+            color: var(--gray-900);
             background: #ffffff;
             -webkit-font-smoothing: antialiased;
-            overflow-x: hidden;
+            -moz-osx-font-smoothing: grayscale;
         }
 
         /* Navigation */
@@ -37,428 +43,659 @@
             top: 0;
             left: 0;
             right: 0;
-            background: rgba(255, 255, 255, 0.8);
+            background: rgba(255, 255, 255, 0.85);
             backdrop-filter: saturate(180%) blur(20px);
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
             z-index: 1000;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
         }
 
         .nav-inner {
-            max-width: 1600px;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 20px 60px;
+            padding: 16px 40px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
         .logo {
-            font-size: 20px;
+            font-size: 18px;
             font-weight: 900;
             letter-spacing: -0.5px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 32px;
         }
 
         .nav-links a {
-            margin-left: 40px;
-            color: var(--dark);
+            color: var(--gray-600);
             text-decoration: none;
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 500;
-            opacity: 0.7;
-            transition: opacity 0.2s;
+            transition: color 0.2s;
         }
 
         .nav-links a:hover {
-            opacity: 1;
+            color: var(--gray-900);
         }
 
         .nav-cta {
-            margin-left: 40px;
-            background: var(--dark);
+            background: var(--primary);
             color: white;
-            padding: 10px 24px;
-            border-radius: 6px;
+            padding: 10px 20px;
+            border-radius: 8px;
             font-weight: 600;
-            opacity: 1 !important;
-            transition: transform 0.2s;
+            transition: all 0.2s;
         }
 
         .nav-cta:hover {
-            transform: scale(1.02);
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+            color: white !important;
         }
 
         /* Hero */
         .hero {
-            padding: 200px 60px 160px;
-            max-width: 1600px;
-            margin: 0 auto;
             position: relative;
+            padding: 160px 40px 120px;
+            background: linear-gradient(180deg, var(--gray-50) 0%, #ffffff 100%);
+            overflow: hidden;
         }
 
-        .hero-kicker {
-            font-size: 15px;
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -30%;
+            width: 1200px;
+            height: 1200px;
+            background: radial-gradient(circle, rgba(0, 212, 170, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .hero-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, rgba(0, 102, 255, 0.1) 0%, rgba(0, 212, 170, 0.1) 100%);
+            border: 1px solid rgba(0, 102, 255, 0.2);
+            padding: 8px 16px;
+            border-radius: 100px;
+            font-size: 13px;
             font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 2px;
             color: var(--primary);
-            margin-bottom: 24px;
+            margin-bottom: 32px;
+        }
+
+        .hero-badge::before {
+            content: '⚽';
+            font-size: 16px;
         }
 
         .hero h1 {
-            font-size: clamp(48px, 7vw, 96px);
+            font-size: clamp(48px, 6vw, 72px);
             font-weight: 900;
-            line-height: 1.05;
-            letter-spacing: -2px;
-            margin-bottom: 32px;
-            max-width: 1100px;
+            line-height: 1.1;
+            letter-spacing: -1.5px;
+            margin-bottom: 24px;
+            max-width: 900px;
+            background: linear-gradient(135deg, var(--dark) 0%, var(--gray-600) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
-        .hero-highlight {
-            color: var(--light-gray);
+        .hero-subtitle {
+            font-size: 20px;
+            line-height: 1.7;
+            color: var(--gray-600);
+            max-width: 650px;
+            margin-bottom: 40px;
         }
 
-        .hero p {
-            font-size: 22px;
-            line-height: 1.6;
-            color: var(--gray);
-            max-width: 700px;
-            margin-bottom: 48px;
-            font-weight: 400;
+        .hero-cta-group {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            flex-wrap: wrap;
         }
 
-        .hero-cta {
+        .btn-primary {
             display: inline-flex;
             align-items: center;
-            gap: 16px;
-            background: var(--dark);
+            gap: 12px;
+            background: var(--primary);
             color: white;
-            padding: 20px 40px;
-            font-size: 17px;
+            padding: 16px 32px;
+            font-size: 16px;
             font-weight: 600;
             text-decoration: none;
-            border-radius: 8px;
-            transition: transform 0.2s, box-shadow 0.2s;
+            border-radius: 12px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 20px rgba(0, 102, 255, 0.3);
         }
 
-        .hero-cta:hover {
+        .btn-primary:hover {
+            background: var(--primary-dark);
             transform: translateY(-2px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 8px 30px rgba(0, 102, 255, 0.4);
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--gray-600);
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .btn-secondary:hover {
+            color: var(--gray-900);
         }
 
         .hero-stats {
-            margin-top: 100px;
-            padding-top: 60px;
-            border-top: 1px solid rgba(0, 0, 0, 0.08);
+            margin-top: 80px;
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 60px;
+            gap: 48px;
             max-width: 900px;
         }
 
-        .stat-item {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
+        .stat {
+            border-left: 3px solid var(--primary);
+            padding-left: 20px;
         }
 
         .stat-value {
-            font-size: 56px;
+            font-size: 48px;
             font-weight: 900;
-            letter-spacing: -2px;
-            line-height: 1;
+            letter-spacing: -1px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 4px;
         }
 
         .stat-label {
             font-size: 14px;
-            color: var(--gray);
+            color: var(--gray-600);
             font-weight: 500;
         }
 
-        /* Cost Breakdown Section */
-        .cost-breakdown {
-            padding: 200px 60px;
-            max-width: 1600px;
-            margin: 0 auto;
-            background: var(--bg-light);
-            border-radius: 40px;
+        /* Problem Section */
+        .problem {
+            padding: 120px 40px;
+            background: white;
+        }
+
+        .section-header {
+            max-width: 1400px;
+            margin: 0 auto 80px;
+        }
+
+        .section-eyebrow {
+            display: inline-block;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--primary);
+            margin-bottom: 16px;
         }
 
         .section-title {
-            font-size: clamp(36px, 5vw, 64px);
+            font-size: clamp(36px, 4.5vw, 56px);
             font-weight: 900;
-            line-height: 1.1;
-            letter-spacing: -1.5px;
-            margin-bottom: 80px;
-            max-width: 800px;
-        }
-
-        .cost-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1px;
-            background: rgba(0, 0, 0, 0.06);
-            border: 1px solid rgba(0, 0, 0, 0.06);
-        }
-
-        .cost-item {
-            background: white;
-            padding: 48px 40px;
-        }
-
-        .cost-emoji {
-            font-size: 32px;
+            line-height: 1.15;
+            letter-spacing: -1px;
             margin-bottom: 20px;
+            color: var(--dark);
         }
 
-        .cost-label {
-            font-size: 15px;
-            font-weight: 600;
+        .section-description {
+            font-size: 18px;
+            line-height: 1.7;
+            color: var(--gray-600);
+            max-width: 700px;
+        }
+
+        .bento-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 24px;
+        }
+
+        .bento-item {
+            background: linear-gradient(135deg, var(--gray-50) 0%, #ffffff 100%);
+            border: 1px solid var(--gray-100);
+            border-radius: 24px;
+            padding: 40px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bento-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 100%);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+
+        .bento-item:hover::before {
+            transform: scaleX(1);
+        }
+
+        .bento-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+            border-color: var(--primary);
+        }
+
+        .bento-large {
+            grid-column: span 6;
+        }
+
+        .bento-medium {
+            grid-column: span 4;
+        }
+
+        .bento-small {
+            grid-column: span 3;
+        }
+
+        .bento-icon {
+            font-size: 40px;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .bento-title {
+            font-size: 18px;
+            font-weight: 700;
             margin-bottom: 12px;
             color: var(--dark);
         }
 
-        .cost-amount {
-            font-size: 42px;
+        .bento-cost {
+            font-size: 36px;
             font-weight: 900;
             letter-spacing: -1px;
-            color: #e74c3c;
-            margin-bottom: 16px;
+            color: #EF4444;
+            margin-bottom: 12px;
         }
 
-        .cost-description {
+        .bento-description {
             font-size: 14px;
             line-height: 1.6;
-            color: var(--gray);
+            color: var(--gray-600);
         }
 
         /* Features Section */
         .features {
-            padding: 200px 60px;
-            max-width: 1600px;
+            padding: 120px 40px;
+            background: var(--dark);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .features::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(circle at 20% 50%, rgba(0, 102, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(0, 212, 170, 0.1) 0%, transparent 50%);
+        }
+
+        .features-container {
+            max-width: 1400px;
             margin: 0 auto;
+            position: relative;
+            z-index: 1;
         }
 
-        .features-split {
+        .features .section-eyebrow {
+            color: var(--accent);
+        }
+
+        .features .section-title {
+            color: white;
+        }
+
+        .features .section-description {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .features-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 120px;
-            align-items: start;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 32px;
+            margin-top: 80px;
         }
 
-        .features-content {
-            position: sticky;
-            top: 140px;
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 48px;
+            backdrop-filter: blur(20px);
+            transition: all 0.3s ease;
         }
 
-        .features-list {
-            display: flex;
-            flex-direction: column;
-            gap: 80px;
+        .feature-card:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(0, 102, 255, 0.3);
+            transform: translateY(-4px);
         }
 
-        .feature {
-            border-left: 3px solid transparent;
-            padding-left: 32px;
-            transition: border-color 0.3s;
+        .feature-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            border-radius: 12px;
+            font-size: 20px;
+            font-weight: 900;
+            margin-bottom: 24px;
         }
 
-        .feature:hover {
-            border-left-color: var(--primary);
-        }
-
-        .feature h3 {
+        .feature-title {
             font-size: 24px;
             font-weight: 700;
             margin-bottom: 12px;
-            letter-spacing: -0.5px;
+            color: white;
         }
 
-        .feature p {
-            font-size: 16px;
+        .feature-description {
+            font-size: 15px;
             line-height: 1.7;
-            color: var(--gray);
-            margin-bottom: 20px;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 24px;
         }
 
-        .feature ul {
+        .feature-list {
             list-style: none;
             padding: 0;
         }
 
-        .feature li {
+        .feature-list li {
             font-size: 14px;
-            color: var(--gray);
-            padding: 8px 0;
-            padding-left: 24px;
+            color: rgba(255, 255, 255, 0.6);
+            padding: 10px 0;
+            padding-left: 28px;
             position: relative;
+            border-bottom: 1px solid var(--border);
         }
 
-        .feature li:before {
-            content: "→";
+        .feature-list li:last-child {
+            border-bottom: none;
+        }
+
+        .feature-list li::before {
+            content: "✓";
             position: absolute;
             left: 0;
-            color: var(--primary);
-            font-weight: 600;
+            color: var(--accent);
+            font-weight: 700;
+            font-size: 16px;
         }
 
-        /* Cities Showcase */
+        /* Cities Section */
         .cities {
-            padding: 200px 60px;
-            max-width: 1600px;
+            padding: 120px 40px;
+            background: white;
+        }
+
+        .cities-container {
+            max-width: 1400px;
             margin: 0 auto;
-            background: var(--dark);
-            color: white;
-            border-radius: 40px;
         }
 
-        .cities .section-title {
-            color: white;
-        }
-
-        .cities-marquee {
+        .cities-scroll {
             display: flex;
-            gap: 32px;
+            gap: 24px;
             overflow-x: auto;
             scrollbar-width: none;
             -ms-overflow-style: none;
-            padding-bottom: 40px;
+            padding-bottom: 24px;
+            margin-top: 60px;
         }
 
-        .cities-marquee::-webkit-scrollbar {
+        .cities-scroll::-webkit-scrollbar {
             display: none;
         }
 
         .city-card {
-            flex: 0 0 320px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 40px;
+            flex: 0 0 300px;
+            background: linear-gradient(135deg, var(--gray-50) 0%, #ffffff 100%);
+            border: 1px solid var(--gray-100);
+            border-radius: 20px;
+            padding: 32px;
             text-decoration: none;
-            color: white;
-            transition: transform 0.3s, background 0.3s;
+            color: inherit;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .city-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 100%);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+
+        .city-card:hover::before {
+            transform: scaleX(1);
         }
 
         .city-card:hover {
             transform: translateY(-8px);
-            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border-color: var(--primary);
         }
 
         .city-icon {
             font-size: 48px;
-            margin-bottom: 24px;
+            margin-bottom: 20px;
             display: block;
         }
 
         .city-name {
-            font-size: 24px;
+            font-size: 20px;
             font-weight: 700;
             margin-bottom: 8px;
+            color: var(--dark);
         }
 
         .city-state {
-            font-size: 14px;
-            color: rgba(255, 255, 255, 0.5);
+            font-size: 13px;
+            color: var(--gray-600);
             margin-bottom: 20px;
         }
 
         .city-badge {
             display: inline-block;
-            font-size: 12px;
-            font-weight: 600;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
             padding: 6px 12px;
-            background: var(--accent);
-            color: var(--dark);
-            border-radius: 4px;
+            background: var(--primary);
+            color: white;
+            border-radius: 6px;
         }
 
         .city-badge.soon {
-            background: rgba(255, 255, 255, 0.1);
-            color: rgba(255, 255, 255, 0.5);
+            background: var(--gray-100);
+            color: var(--gray-600);
         }
 
-        /* Pricing */
+        /* Pricing Section */
         .pricing {
-            padding: 200px 60px;
-            max-width: 1200px;
-            margin: 0 auto;
-            text-align: center;
+            padding: 120px 40px;
+            background: linear-gradient(135deg, var(--dark) 0%, var(--dark-elevated) 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pricing::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, var(--glow) 0%, transparent 70%);
+            border-radius: 50%;
         }
 
         .pricing-container {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 80px 100px;
-            border-radius: 24px;
-            color: white;
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 1;
         }
 
-        .price-display {
-            font-size: 96px;
+        .pricing .section-eyebrow {
+            color: var(--accent);
+        }
+
+        .pricing .section-title {
+            color: white;
+            margin-bottom: 60px;
+        }
+
+        .pricing-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            border-radius: 32px;
+            padding: 64px;
+            backdrop-filter: blur(20px);
+        }
+
+        .price-amount {
+            font-size: 80px;
             font-weight: 900;
-            letter-spacing: -4px;
-            margin: 32px 0;
+            letter-spacing: -3px;
+            background: linear-gradient(135deg, #ffffff 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 16px;
             line-height: 1;
         }
 
-        .price-subtitle {
-            font-size: 18px;
-            opacity: 0.9;
+        .price-period {
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.6);
             margin-bottom: 48px;
         }
 
         .price-features {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 20px;
+            gap: 16px;
             text-align: left;
-            margin: 48px 0;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
+            margin-bottom: 48px;
         }
 
         .price-feature {
-            font-size: 15px;
-            opacity: 0.95;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.9);
             padding-left: 28px;
             position: relative;
         }
 
-        .price-feature:before {
+        .price-feature::before {
             content: "✓";
             position: absolute;
             left: 0;
+            color: var(--accent);
             font-weight: 700;
+            font-size: 16px;
         }
 
-        .pricing-cta {
-            display: inline-block;
+        .price-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
             background: white;
             color: var(--dark);
-            padding: 24px 56px;
+            padding: 20px 48px;
             font-size: 18px;
             font-weight: 700;
             text-decoration: none;
-            border-radius: 8px;
-            margin-top: 32px;
-            transition: transform 0.2s;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 30px rgba(255, 255, 255, 0.2);
         }
 
-        .pricing-cta:hover {
-            transform: scale(1.03);
+        .price-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(255, 255, 255, 0.3);
         }
 
-        .pricing-guarantee {
+        .price-guarantee {
             margin-top: 32px;
-            font-size: 14px;
-            opacity: 0.7;
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.5);
         }
 
         /* Footer */
         footer {
-            padding: 80px 60px 60px;
-            max-width: 1600px;
+            padding: 80px 40px 40px;
+            background: var(--dark);
+            color: rgba(255, 255, 255, 0.6);
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-container {
+            max-width: 1400px;
             margin: 0 auto;
-            border-top: 1px solid rgba(0, 0, 0, 0.08);
         }
 
         .footer-grid {
@@ -469,48 +706,51 @@
         }
 
         .footer-brand {
-            font-size: 24px;
+            font-size: 20px;
             font-weight: 900;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             margin-bottom: 16px;
         }
 
         .footer-tagline {
             font-size: 14px;
-            color: var(--gray);
             line-height: 1.6;
+            color: rgba(255, 255, 255, 0.5);
             max-width: 300px;
         }
 
         .footer-section h4 {
-            font-size: 13px;
-            font-weight: 600;
+            font-size: 12px;
+            font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 1px;
-            margin-bottom: 20px;
-            color: var(--dark);
+            margin-bottom: 16px;
+            color: white;
         }
 
         .footer-section a {
             display: block;
             font-size: 14px;
-            color: var(--gray);
+            color: rgba(255, 255, 255, 0.6);
             text-decoration: none;
             margin-bottom: 12px;
             transition: color 0.2s;
         }
 
         .footer-section a:hover {
-            color: var(--dark);
+            color: white;
         }
 
         .footer-bottom {
             padding-top: 40px;
-            border-top: 1px solid rgba(0, 0, 0, 0.08);
+            border-top: 1px solid var(--border);
             display: flex;
             justify-content: space-between;
             align-items: center;
             font-size: 13px;
-            color: var(--light-gray);
         }
 
         .footer-legal {
@@ -519,23 +759,25 @@
         }
 
         .footer-legal a {
-            color: var(--light-gray);
+            color: rgba(255, 255, 255, 0.4);
             text-decoration: none;
+            transition: color 0.2s;
         }
 
         .footer-legal a:hover {
-            color: var(--dark);
+            color: rgba(255, 255, 255, 0.8);
         }
 
         /* Responsive */
-        @media (max-width: 1200px) {
-            .features-split {
-                grid-template-columns: 1fr;
-                gap: 80px;
+        @media (max-width: 1024px) {
+            .bento-large,
+            .bento-medium,
+            .bento-small {
+                grid-column: span 12;
             }
 
-            .features-content {
-                position: static;
+            .features-grid {
+                grid-template-columns: 1fr;
             }
 
             .footer-grid {
@@ -548,36 +790,20 @@
                 padding: 16px 24px;
             }
 
-            .nav-links a {
-                margin-left: 20px;
-                font-size: 14px;
+            .nav-links {
+                gap: 16px;
             }
 
             .hero,
-            .cost-breakdown,
+            .problem,
             .features,
             .cities,
-            .pricing,
-            footer {
-                padding-left: 24px;
-                padding-right: 24px;
-            }
-
-            .hero {
-                padding-top: 140px;
+            .pricing {
+                padding: 80px 24px;
             }
 
             .hero h1 {
-                font-size: 42px;
-                letter-spacing: -1px;
-            }
-
-            .hero p {
-                font-size: 18px;
-            }
-
-            .cost-grid {
-                grid-template-columns: 1fr;
+                font-size: 40px;
             }
 
             .price-features {
@@ -588,12 +814,12 @@
                 grid-template-columns: 1fr;
             }
 
-            .pricing-container {
-                padding: 60px 32px;
+            .pricing-card {
+                padding: 40px 24px;
             }
 
-            .price-display {
-                font-size: 64px;
+            .price-amount {
+                font-size: 56px;
             }
         }
     </style>
@@ -607,99 +833,111 @@
                 <a href="#problem">Problem</a>
                 <a href="#solution">Solution</a>
                 <a href="#cities">Cities</a>
-                <a href="#pricing" class="nav-cta">Get the Guide</a>
+                <a href="#pricing" class="nav-cta">Get Started</a>
             </div>
         </div>
     </nav>
 
     <!-- Hero -->
     <section class="hero">
-        <div class="hero-kicker">2026 FIFA World Cup</div>
-        <h1>Don't get caught by <span class="hero-highlight">America's hidden costs</span></h1>
-        <p>International visitors budget $7,500 but spend $9,965. Hidden fees, state-by-state legal traps, and preventable mistakes add thousands to your World Cup trip.</p>
-        <a href="#pricing" class="hero-cta">
-            Get the Complete Guide – $99
-            <span>→</span>
-        </a>
+        <div class="hero-content">
+            <div class="hero-badge">2026 FIFA World Cup USA</div>
+            <h1>Don't let hidden costs ruin your World Cup</h1>
+            <p class="hero-subtitle">International visitors budget $7,500 but spend $9,965. Hidden fees, legal traps, and preventable mistakes add thousands. We'll show you exactly what to expect.</p>
 
-        <div class="hero-stats">
-            <div class="stat-item">
-                <div class="stat-value">$2,465</div>
-                <div class="stat-label">Average preventable costs per visitor</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-value">11</div>
-                <div class="stat-label">US cities covered</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-value">50+</div>
-                <div class="stat-label">State laws explained</div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Cost Breakdown -->
-    <section class="cost-breakdown" id="problem">
-        <h2 class="section-title">What catches everyone off guard</h2>
-
-        <div class="cost-grid">
-            <div class="cost-item">
-                <div class="cost-emoji">🏨</div>
-                <div class="cost-label">Hotel Reality</div>
-                <div class="cost-amount">+68%</div>
-                <div class="cost-description">$200/night becomes $337 after resort fees, taxes, parking. Boston World Cup rates: $700+/night.</div>
+            <div class="hero-cta-group">
+                <a href="#pricing" class="btn-primary">
+                    Get the Complete Guide
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                        <path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </a>
+                <a href="#problem" class="btn-secondary">
+                    See what you're missing
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                        <path d="M8 3V13M8 13L3 8M8 13L13 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </a>
             </div>
 
-            <div class="cost-item">
-                <div class="cost-emoji">🚗</div>
-                <div class="cost-label">Transportation</div>
-                <div class="cost-amount">$3,200</div>
-                <div class="cost-description">2-week rental + insurance + gas + $60/night hotel parking. Many stadiums 45+ miles from city centers.</div>
-            </div>
-
-            <div class="cost-item">
-                <div class="cost-emoji">🍔</div>
-                <div class="cost-label">Food & Tipping</div>
-                <div class="cost-amount">+32%</div>
-                <div class="cost-description">$20 burger = $26.65 after tax + mandatory 20% tip. Every meal. For weeks.</div>
-            </div>
-
-            <div class="cost-item">
-                <div class="cost-emoji">⚖️</div>
-                <div class="cost-label">Legal Traps</div>
-                <div class="cost-amount">$1,000+</div>
-                <div class="cost-description">Cannabis legal in LA, banned in Texas. Vapes legal in Seattle, banned in SF. Wrong assumption = criminal record.</div>
-            </div>
-
-            <div class="cost-item">
-                <div class="cost-emoji">🎫</div>
-                <div class="cost-label">Match Day Surge</div>
-                <div class="cost-amount">+296%</div>
-                <div class="cost-description">Kansas City hotels: $121 normally, $654 on World Cup dates. Argentina match? $800+/night.</div>
-            </div>
-
-            <div class="cost-item">
-                <div class="cost-emoji">📍</div>
-                <div class="cost-label">Stadium Lies</div>
-                <div class="cost-amount">90 min</div>
-                <div class="cost-description">"Boston" stadium 28 miles away. "Miami" 15 miles north. "San Francisco" 45 miles south.</div>
+            <div class="hero-stats">
+                <div class="stat">
+                    <div class="stat-value">$2,465</div>
+                    <div class="stat-label">Average preventable costs</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">11</div>
+                    <div class="stat-label">US cities covered</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">50+</div>
+                    <div class="stat-label">State laws explained</div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Features -->
+    <!-- Problem Section -->
+    <section class="problem" id="problem">
+        <div class="section-header">
+            <span class="section-eyebrow">The Hidden Costs</span>
+            <h2 class="section-title">What catches everyone off guard</h2>
+            <p class="section-description">These are the real costs that turn a $7,500 budget into a $10,000 reality.</p>
+        </div>
+
+        <div class="bento-grid">
+            <div class="bento-item bento-large">
+                <span class="bento-icon">🏨</span>
+                <h3 class="bento-title">Hotel Reality Check</h3>
+                <div class="bento-cost">+68%</div>
+                <p class="bento-description">That "$200/night" hotel? Actually $337 after resort fees, taxes, and parking. Boston during World Cup: $700+/night all-in.</p>
+            </div>
+
+            <div class="bento-item bento-medium">
+                <span class="bento-icon">🚗</span>
+                <h3 class="bento-title">Transportation</h3>
+                <div class="bento-cost">$3,200</div>
+                <p class="bento-description">2-week rental + insurance + gas + $60/night parking. Many stadiums are 45+ miles from city centers.</p>
+            </div>
+
+            <div class="bento-item bento-medium">
+                <span class="bento-icon">🍔</span>
+                <h3 class="bento-title">Food & Tipping</h3>
+                <div class="bento-cost">+32%</div>
+                <p class="bento-description">$20 burger = $26.65 after tax + mandatory 20% tip. Every meal. For weeks.</p>
+            </div>
+
+            <div class="bento-item bento-medium">
+                <span class="bento-icon">⚖️</span>
+                <h3 class="bento-title">Legal Traps</h3>
+                <div class="bento-cost">$1,000+</div>
+                <p class="bento-description">Cannabis legal in LA, banned in Texas. Vapes legal in Seattle, banned in SF. Wrong assumption = criminal record.</p>
+            </div>
+
+            <div class="bento-item bento-large">
+                <span class="bento-icon">🎫</span>
+                <h3 class="bento-title">Match Day Surge Pricing</h3>
+                <div class="bento-cost">+296%</div>
+                <p class="bento-description">Kansas City hotels: normally $121/night, World Cup dates $654/night. Argentina match in KC? $800+/night. Book late? Sold out.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
     <section class="features" id="solution">
-        <div class="features-split">
-            <div class="features-content">
-                <h2 class="section-title">Everything you need. Nothing you don't.</h2>
-                <p style="font-size: 18px; color: var(--gray); line-height: 1.7;">Stop guessing. Stop overpaying. Get real numbers, insider strategies, and location-specific guidance you won't find anywhere else.</p>
+        <div class="features-container">
+            <div class="section-header">
+                <span class="section-eyebrow">The Solution</span>
+                <h2 class="section-title">Everything you need to know, nothing you don't</h2>
+                <p class="section-description">Real numbers, insider strategies, and location-specific guidance you won't find anywhere else.</p>
             </div>
 
-            <div class="features-list">
-                <div class="feature">
-                    <h3>Real Cost Breakdowns</h3>
-                    <p>Exact dollar amounts for every hidden fee, tax, surcharge. Know what you'll ACTUALLY pay before booking.</p>
-                    <ul>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-number">01</div>
+                    <h3 class="feature-title">Real Cost Breakdowns</h3>
+                    <p class="feature-description">Exact dollar amounts for every hidden fee, tax, and surcharge. Know what you'll ACTUALLY pay before booking.</p>
+                    <ul class="feature-list">
                         <li>Hotel rates + resort fees + taxes + parking (World Cup pricing)</li>
                         <li>Restaurant costs after tax + mandatory tips</li>
                         <li>Transportation: rental cars, Uber surge, public transit</li>
@@ -707,10 +945,11 @@
                     </ul>
                 </div>
 
-                <div class="feature">
-                    <h3>State Law Survival</h3>
-                    <p>What's legal in one state is a felony in another. State-by-state breakdowns so you don't end up in jail.</p>
-                    <ul>
+                <div class="feature-card">
+                    <div class="feature-number">02</div>
+                    <h3 class="feature-title">State Law Survival</h3>
+                    <p class="feature-description">What's legal in one state is a felony in another. State-by-state breakdowns so you don't end up in jail.</p>
+                    <ul class="feature-list">
                         <li>Cannabis laws (legal/medical/banned by state)</li>
                         <li>Vaping/smoking restrictions</li>
                         <li>Alcohol purchase times and locations</li>
@@ -718,10 +957,11 @@
                     </ul>
                 </div>
 
-                <div class="feature">
-                    <h3>Complete Match Schedules</h3>
-                    <p>Full World Cup 2026 match details, stadium locations, logistics for all 11 US host cities.</p>
-                    <ul>
+                <div class="feature-card">
+                    <div class="feature-number">03</div>
+                    <h3 class="feature-title">Complete Match Schedules</h3>
+                    <p class="feature-description">Full World Cup 2026 match details, stadium locations, and logistics for all 11 US host cities.</p>
+                    <ul class="feature-list">
                         <li>All matches by date, team, and venue</li>
                         <li>Actual stadium locations (not marketing lies)</li>
                         <li>Transportation from hotels to stadiums</li>
@@ -729,10 +969,11 @@
                     </ul>
                 </div>
 
-                <div class="feature">
-                    <h3>Money-Saving Strategies</h3>
-                    <p>Budget optimization that saves $1,000-2,500 per trip without sacrificing experience.</p>
-                    <ul>
+                <div class="feature-card">
+                    <div class="feature-number">04</div>
+                    <h3 class="feature-title">Money-Saving Strategies</h3>
+                    <p class="feature-description">Budget optimization that saves $1,000-2,500 per trip without sacrificing experience.</p>
+                    <ul class="feature-list">
                         <li>Geographic arbitrage (San Jose not SF, save $1,200)</li>
                         <li>Providence vs Boston (closer to stadium, 30% cheaper)</li>
                         <li>When to book, when to wait</li>
@@ -743,152 +984,170 @@
         </div>
     </section>
 
-    <!-- Cities -->
+    <!-- Cities Section -->
     <section class="cities" id="cities">
-        <h2 class="section-title">All 11 US host cities</h2>
-
-        <div class="cities-marquee">
-            <a href="cities/seattle.html" class="city-card">
-                <span class="city-icon">🌊</span>
-                <div class="city-name">Seattle</div>
-                <div class="city-state">Washington</div>
-                <span class="city-badge">View Sample</span>
-            </a>
-
-            <a href="cities/san-francisco.html" class="city-card">
-                <span class="city-icon">🌉</span>
-                <div class="city-name">San Francisco</div>
-                <div class="city-state">California</div>
-                <span class="city-badge">View Sample</span>
-            </a>
-
-            <a href="cities/los-angeles.html" class="city-card">
-                <span class="city-icon">🎬</span>
-                <div class="city-name">Los Angeles</div>
-                <div class="city-state">California</div>
-                <span class="city-badge">View Sample</span>
-            </a>
-
-            <a href="cities/kansas-city.html" class="city-card">
-                <span class="city-icon">🎸</span>
-                <div class="city-name">Kansas City</div>
-                <div class="city-state">Missouri</div>
-                <span class="city-badge">View Sample</span>
-            </a>
-
-            <div class="city-card">
-                <span class="city-icon">🤠</span>
-                <div class="city-name">Dallas</div>
-                <div class="city-state">Texas</div>
-                <span class="city-badge soon">Coming Soon</span>
+        <div class="cities-container">
+            <div class="section-header">
+                <span class="section-eyebrow">City Guides</span>
+                <h2 class="section-title">All 11 US host cities</h2>
+                <p class="section-description">Comprehensive guides with match schedules, real costs, local laws, and insider tips.</p>
             </div>
 
-            <div class="city-card">
-                <span class="city-icon">🎵</span>
-                <div class="city-name">Houston</div>
-                <div class="city-state">Texas</div>
-                <span class="city-badge soon">Coming Soon</span>
-            </div>
+            <div class="cities-scroll">
+                <a href="cities/seattle.html" class="city-card">
+                    <span class="city-icon">🌊</span>
+                    <div class="city-name">Seattle</div>
+                    <div class="city-state">Washington</div>
+                    <span class="city-badge">View Sample</span>
+                </a>
 
-            <div class="city-card">
-                <span class="city-icon">🍑</span>
-                <div class="city-name">Atlanta</div>
-                <div class="city-state">Georgia</div>
-                <span class="city-badge soon">Coming Soon</span>
-            </div>
+                <a href="cities/san-francisco.html" class="city-card">
+                    <span class="city-icon">🌉</span>
+                    <div class="city-name">San Francisco</div>
+                    <div class="city-state">California</div>
+                    <span class="city-badge">View Sample</span>
+                </a>
 
-            <a href="cities/miami.html" class="city-card">
-                <span class="city-icon">🏖️</span>
-                <div class="city-name">Miami</div>
-                <div class="city-state">Florida</div>
-                <span class="city-badge">View Sample</span>
-            </a>
+                <a href="cities/los-angeles.html" class="city-card">
+                    <span class="city-icon">🎬</span>
+                    <div class="city-name">Los Angeles</div>
+                    <div class="city-state">California</div>
+                    <span class="city-badge">View Sample</span>
+                </a>
 
-            <div class="city-card">
-                <span class="city-icon">🔔</span>
-                <div class="city-name">Philadelphia</div>
-                <div class="city-state">Pennsylvania</div>
-                <span class="city-badge soon">Coming Soon</span>
-            </div>
+                <a href="cities/kansas-city.html" class="city-card">
+                    <span class="city-icon">🎸</span>
+                    <div class="city-name">Kansas City</div>
+                    <div class="city-state">Missouri</div>
+                    <span class="city-badge">View Sample</span>
+                </a>
 
-            <a href="cities/boston.html" class="city-card">
-                <span class="city-icon">⚾</span>
-                <div class="city-name">Boston</div>
-                <div class="city-state">Massachusetts</div>
-                <span class="city-badge">View Sample</span>
-            </a>
+                <div class="city-card">
+                    <span class="city-icon">🤠</span>
+                    <div class="city-name">Dallas</div>
+                    <div class="city-state">Texas</div>
+                    <span class="city-badge soon">Coming Soon</span>
+                </div>
 
-            <div class="city-card">
-                <span class="city-icon">🗽</span>
-                <div class="city-name">New York/NJ</div>
-                <div class="city-state">New York & New Jersey</div>
-                <span class="city-badge soon">Coming Soon</span>
+                <div class="city-card">
+                    <span class="city-icon">🎵</span>
+                    <div class="city-name">Houston</div>
+                    <div class="city-state">Texas</div>
+                    <span class="city-badge soon">Coming Soon</span>
+                </div>
+
+                <div class="city-card">
+                    <span class="city-icon">🍑</span>
+                    <div class="city-name">Atlanta</div>
+                    <div class="city-state">Georgia</div>
+                    <span class="city-badge soon">Coming Soon</span>
+                </div>
+
+                <a href="cities/miami.html" class="city-card">
+                    <span class="city-icon">🏖️</span>
+                    <div class="city-name">Miami</div>
+                    <div class="city-state">Florida</div>
+                    <span class="city-badge">View Sample</span>
+                </a>
+
+                <div class="city-card">
+                    <span class="city-icon">🔔</span>
+                    <div class="city-name">Philadelphia</div>
+                    <div class="city-state">Pennsylvania</div>
+                    <span class="city-badge soon">Coming Soon</span>
+                </div>
+
+                <a href="cities/boston.html" class="city-card">
+                    <span class="city-icon">⚾</span>
+                    <div class="city-name">Boston</div>
+                    <div class="city-state">Massachusetts</div>
+                    <span class="city-badge">View Sample</span>
+                </a>
+
+                <div class="city-card">
+                    <span class="city-icon">🗽</span>
+                    <div class="city-name">New York/NJ</div>
+                    <div class="city-state">New York & NJ</div>
+                    <span class="city-badge soon">Coming Soon</span>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Pricing -->
+    <!-- Pricing Section -->
     <section class="pricing" id="pricing">
         <div class="pricing-container">
-            <h2 style="font-size: 32px; font-weight: 700; margin-bottom: 16px;">Get everything. Pay once.</h2>
-            <div class="price-display">$99</div>
-            <div class="price-subtitle">One-time payment. Lifetime access.</div>
+            <span class="section-eyebrow">Pricing</span>
+            <h2 class="section-title">Get everything. Pay once.</h2>
 
-            <div class="price-features">
-                <div class="price-feature">Complete guides for all 11 US cities</div>
-                <div class="price-feature">World Cup 2026 match schedules</div>
-                <div class="price-feature">Real hotel costs (updated pricing)</div>
-                <div class="price-feature">State-by-state legal differences</div>
-                <div class="price-feature">Transportation strategies</div>
-                <div class="price-feature">Money-saving tactics</div>
-                <div class="price-feature">Private Skool community access</div>
-                <div class="price-feature">All future updates forever</div>
+            <div class="pricing-card">
+                <div class="price-amount">$99</div>
+                <div class="price-period">One-time payment · Lifetime access</div>
+
+                <div class="price-features">
+                    <div class="price-feature">Complete guides for all 11 US cities</div>
+                    <div class="price-feature">World Cup 2026 match schedules</div>
+                    <div class="price-feature">Real hotel costs (updated pricing)</div>
+                    <div class="price-feature">State-by-state legal differences</div>
+                    <div class="price-feature">Transportation strategies</div>
+                    <div class="price-feature">Money-saving tactics</div>
+                    <div class="price-feature">Private Skool community access</div>
+                    <div class="price-feature">All future updates forever</div>
+                </div>
+
+                <a href="#" class="price-cta">
+                    Get Instant Access
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M7.5 4L13.5 10L7.5 16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </a>
+
+                <div class="price-guarantee">30-day money-back guarantee · Save at least $500 or full refund</div>
             </div>
-
-            <a href="#" class="pricing-cta">Get Instant Access</a>
-            <div class="pricing-guarantee">30-day money-back guarantee. Save at least $500 or full refund.</div>
         </div>
     </section>
 
     <!-- Footer -->
     <footer>
-        <div class="footer-grid">
-            <div>
-                <div class="footer-brand">CLUTCH</div>
-                <p class="footer-tagline">The essential survival guide for international visitors to the 2026 FIFA World Cup in the United States.</p>
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div>
+                    <div class="footer-brand">CLUTCH</div>
+                    <p class="footer-tagline">The essential survival guide for international visitors to the 2026 FIFA World Cup in the United States.</p>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Product</h4>
+                    <a href="#cities">City Guides</a>
+                    <a href="#solution">Features</a>
+                    <a href="#pricing">Pricing</a>
+                    <a href="community.html">Community</a>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <a href="cities/boston.html">Sample: Boston</a>
+                    <a href="cities/los-angeles.html">Sample: Los Angeles</a>
+                    <a href="cities/seattle.html">Sample: Seattle</a>
+                    <a href="cities/miami.html">Sample: Miami</a>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Company</h4>
+                    <a href="#">About</a>
+                    <a href="#">Contact</a>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                </div>
             </div>
 
-            <div class="footer-section">
-                <h4>Product</h4>
-                <a href="#cities">City Guides</a>
-                <a href="#solution">Features</a>
-                <a href="#pricing">Pricing</a>
-                <a href="community.html">Community</a>
-            </div>
-
-            <div class="footer-section">
-                <h4>Resources</h4>
-                <a href="cities/boston.html">Sample: Boston</a>
-                <a href="cities/los-angeles.html">Sample: Los Angeles</a>
-                <a href="cities/seattle.html">Sample: Seattle</a>
-                <a href="cities/miami.html">Sample: Miami</a>
-            </div>
-
-            <div class="footer-section">
-                <h4>Company</h4>
-                <a href="#">About</a>
-                <a href="#">Contact</a>
-                <a href="#">Privacy Policy</a>
-                <a href="#">Terms of Service</a>
-            </div>
-        </div>
-
-        <div class="footer-bottom">
-            <div>&copy; 2026 Clutch. Not affiliated with FIFA.</div>
-            <div class="footer-legal">
-                <a href="#">Privacy</a>
-                <a href="#">Terms</a>
-                <a href="#">Cookies</a>
+            <div class="footer-bottom">
+                <div>&copy; 2026 Clutch · Not affiliated with FIFA</div>
+                <div class="footer-legal">
+                    <a href="#">Privacy</a>
+                    <a href="#">Terms</a>
+                    <a href="#">Cookies</a>
+                </div>
             </div>
         </div>
     </footer>
